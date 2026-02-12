@@ -170,3 +170,6 @@ backend/uploads/*
 *.rar
 *.tar
 *.zip
+
+.vercel
+.env*.local
