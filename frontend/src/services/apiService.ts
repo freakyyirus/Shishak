@@ -1,9 +1,8 @@
 import { mockApi } from '../mocks/apiMock';
+import { FORCE_MOCK_MODE } from '../constants/apiConfig';
 
 // Determine if we should use mock API
-const USE_MOCK_API = !import.meta.env.VITE_API_URL || 
-                    import.meta.env.VITE_API_URL === 'http://localhost:5001' ||
-                    window.location.hostname !== 'localhost';
+const USE_MOCK_API = FORCE_MOCK_MODE;
 
 // Import actual API services conditionally
 async function getActualApis() {
