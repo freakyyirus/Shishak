@@ -47,7 +47,7 @@ Welcome to **ShikShak** 📚
 ## Setup and Installation  
 1. **Clone this repository:**  
    ```bash
-   git clone
+   git clone https://github.com/freakyyirus/Shishak.git
    ```
 2. **Install frontend dependencies:**  
    ```bash
