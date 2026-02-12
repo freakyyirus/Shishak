@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip, Cell } from 'recharts';
 import { Zap, Wrench, Brain, Database, Building2, Flame, Plus, Minus } from 'lucide-react';
-import Banner from '../../Banner';
+import Banner from '../components/Banner';
 import Navbar from '../components/Navbar';
 
 interface Benchmark {
@@ -189,7 +189,7 @@ const PitchPage = () => {
     <div className="min-h-screen bg-gradient-to-b from-orange-50/40 via-white to-orange-50/40">
       {/* Banner at the top - fades on scroll */}
       <Banner isVisible={bannerVisible} />
-      
+
       {/* Fixed Navbar - always visible on pitch page */}
       <div className="fixed top-[40px] sm:top-[44px] left-0 right-0 z-50">
         <Navbar alwaysVisible={true} />

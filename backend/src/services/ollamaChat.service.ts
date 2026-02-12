@@ -149,7 +149,7 @@ OUTPUT FORMAT (JSON only, no other text):
             reason: parsed.reason || "AI classified",
             estimatedOutputTokens: estimatedTokens,
           };
-        } catch (parseError) {}
+        } catch (parseError) { }
       }
 
       return {
@@ -229,23 +229,22 @@ OUTPUT FORMAT (JSON only, no other text):
     const chatContextString =
       recentHistory.length > 0
         ? recentHistory
-            .map(
-              (msg) =>
-                `${msg.role === "user" ? "Student" : "ShikShak"}: ${
-                  msg.content
-                }`
-            )
-            .join("\n")
+          .map(
+            (msg) =>
+              `${msg.role === "user" ? "Student" : "ShikShak"}: ${msg.content
+              }`
+          )
+          .join("\n")
         : "";
 
     const sourcesString =
       sources.length > 0
         ? sources
-            .map(
-              (s, idx) =>
-                `[Source ${idx + 1}: "${s.pdfName}", Page ${s.pageNo}]`
-            )
-            .join("\n")
+          .map(
+            (s, idx) =>
+              `[Source ${idx + 1}: "${s.pdfName}", Page ${s.pageNo}]`
+          )
+          .join("\n")
         : "";
 
     const prompt = hasDocuments
@@ -588,7 +587,7 @@ Keywords:`;
       /^[qwerty]{5,}$/i, // keyboard row
       /^[asdfgh]{5,}$/i, // keyboard row
       /^[zxcvbn]{5,}$/i, // keyboard row
-      /^[a-z]{2,3}\1+$/i, // repeated pattern like "asdasdasd"
+      /^([a-z]{2,3})\1+$/i, // repeated pattern like "asdasdasd"
     ];
 
     if (gibberishPatterns.some((pattern) => pattern.test(trimmed))) {

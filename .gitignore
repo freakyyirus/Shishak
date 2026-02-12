@@ -50,6 +50,7 @@ backend/proxy/venv/
 # Downloaded models and AI model files (large binary files)
 backend/proxy/models/
 **/models/
+!backend/src/models/
 *.bin
 *.safetensors
 *.pt

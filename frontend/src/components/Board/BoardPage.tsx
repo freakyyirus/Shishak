@@ -6,7 +6,7 @@ import Card from './Card';
 import MinimizedNavbar from './MinimizedNavbar';
 import { generateCards, performCardAction, checkOllamaStatus, CardData, CardAction, OllamaStatus, boardSessionApi } from '../../services/boardApi';
 import { stitchAPI } from '../../services/stitchApi';
-import Banner from '../../../Banner';
+import Banner from '../Banner';
 
 // ============================================================================
 // TYPES
