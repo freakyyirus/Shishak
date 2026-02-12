@@ -15,7 +15,7 @@ import type {
 } from "../../types/poster";
 
 // LocalStorage key for storing posters
-const POSTERS_STORAGE_KEY = "masterji_generated_posters";
+const POSTERS_STORAGE_KEY = "shikshak_generated_posters";
 
 // Extended poster type with metadata for storage
 interface StoredPoster extends GeneratedPoster {

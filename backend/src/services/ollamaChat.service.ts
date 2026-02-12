@@ -231,7 +231,7 @@ OUTPUT FORMAT (JSON only, no other text):
         ? recentHistory
             .map(
               (msg) =>
-                `${msg.role === "user" ? "Student" : "MasterJi"}: ${
+                `${msg.role === "user" ? "Student" : "ShikShak"}: ${
                   msg.content
                 }`
             )
@@ -249,7 +249,7 @@ OUTPUT FORMAT (JSON only, no other text):
         : "";
 
     const prompt = hasDocuments
-      ? `You are MasterJi, an expert educational AI assistant.
+      ? `You are ShikShak, an expert educational AI assistant.
 
 I have already extracted and provided relevant information from the user's uploaded documents below. This context contains the actual content from their files (PDFs, DOCX, images, etc.).
 
@@ -275,7 +275,7 @@ CRITICAL INSTRUCTIONS:
 8. If the context doesn't contain relevant information, say "The uploaded documents don't contain information about [topic]"
 
 YOUR ANSWER (in ${languageName}):`
-      : `You are MasterJi, an educational AI.
+      : `You are ShikShak, an educational AI.
 
 No relevant documents found.
 

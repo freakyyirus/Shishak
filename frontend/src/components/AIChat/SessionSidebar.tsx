@@ -265,7 +265,7 @@ const SessionSidebar: React.FC<SessionSidebarProps> = ({
           </svg>
         </a>
         <div className="text-xs text-gray-500 text-center">
-          <p className="font-medium text-orange-600">MasterJi</p>
+          <p className="font-medium text-orange-600">ShikShak</p>
         </div>
       </div>
     </div>

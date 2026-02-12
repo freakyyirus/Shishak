@@ -55,7 +55,7 @@ Examples:
 User: "hi there"
 {
   "needsRAG": false,
-  "directAnswer": "Hello! I'm MasterJi, your educational AI assistant. I can help you understand your uploaded documents. Upload PDFs or images and ask me questions!",
+  "directAnswer": "Hello! I'm ShikShak, your educational AI assistant. I can help you understand your uploaded documents. Upload PDFs or images and ask me questions!",
   "reasoning": "Simple greeting, no documents needed"
 }
 
@@ -69,7 +69,7 @@ User: "what is photosynthesis?"
 User: "who are you?"
 {
   "needsRAG": false,
-  "directAnswer": "I'm MasterJi, an AI-powered educational assistant. I help students understand their study materials by answering questions based on uploaded documents.",
+  "directAnswer": "I'm ShikShak, an AI-powered educational assistant. I help students understand their study materials by answering questions based on uploaded documents.",
   "reasoning": "Meta question about the assistant itself"
 }
 
@@ -187,7 +187,7 @@ Now analyze this query:`;
       return {
         needsRAG: false,
         directAnswer:
-          "Hello! I'm MasterJi, your educational AI assistant. Upload documents and ask me questions about them!",
+          "Hello! I'm ShikShak, your educational AI assistant. Upload documents and ask me questions about them!",
         reasoning: "Greeting detected",
       };
     }
@@ -197,7 +197,7 @@ Now analyze this query:`;
       return {
         needsRAG: false,
         directAnswer:
-          "I'm MasterJi, an AI-powered educational assistant. I help you understand your study materials by answering questions based on your uploaded documents. Just upload PDFs or images and ask me anything!",
+          "I'm ShikShak, an AI-powered educational assistant. I help you understand your study materials by answering questions based on your uploaded documents. Just upload PDFs or images and ask me anything!",
         reasoning: "Meta question detected",
       };
     }

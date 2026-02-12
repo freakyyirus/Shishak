@@ -6,10 +6,10 @@ import StitchSessionSidebar from "./StitchSessionSidebar";
 
 // User ID and Session ID utilities (same as chat)
 const generateUserId = (): string => {
-  const stored = localStorage.getItem("masterji_userId");
+  const stored = localStorage.getItem("shikshak_userId");
   if (stored) return stored;
   const newUserId = `user_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
-  localStorage.setItem("masterji_userId", newUserId);
+  localStorage.setItem("shikshak_userId", newUserId);
   return newUserId;
 };
 

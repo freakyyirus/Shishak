@@ -1,4 +1,4 @@
-﻿> Task :gradle-plugin:settings-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :gradle-plugin:settings-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
 > Task :gradle-plugin:shared:checkKotlinGradlePluginConfigurationErrors SKIPPED
 > Task :gradle-plugin:settings-plugin:pluginDescriptors UP-TO-DATE
 > Task :expo-gradle-plugin:expo-autolinking-plugin-shared:checkKotlinGradlePluginConfigurationErrors SKIPPED
@@ -80,7 +80,7 @@ FAILURE: Build failed with an exception.
 Build file 'D:\Hackathon\Eduthon\masterji\android\build.gradle' line: 24
 
 * What went wrong:
-A problem occurred evaluating root project 'MasterJi - EduLite AI'.
+A problem occurred evaluating root project 'ShikShak - EduLite AI'.
 > Failed to apply plugin 'com.facebook.react.rootproject'.
    > A problem occurred configuring project ':app'.
       > com.android.builder.errors.EvalIssueException: SDK location not found. 

@@ -232,7 +232,7 @@ export default function HomeScreen() {
       }>
       <Animated.View entering={FadeInDown.delay(100).duration(500)}>
         <ThemedView style={styles.titleContainer}>
-          <ThemedText type="title" style={styles.appTitle}>MasterJi AI</ThemedText>
+          <ThemedText type="title" style={styles.appTitle}>ShikShak AI</ThemedText>
           <HelloWave />
         </ThemedView>
         <ThemedText style={styles.subtitle}>

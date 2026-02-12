@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "MasterJi - EduLite AI",
-    "slug": "masterji",
+  "name": "ShikShak - EduLite AI",
+  "slug": "shikshak",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -10,7 +10,7 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.edulite.masterji",
+      "bundleIdentifier": "com.edulite.shikshak",
       "infoPlist": {
         "NSCameraUsageDescription": "EduLite needs camera access to scan documents",
         "NSPhotoLibraryUsageDescription": "EduLite needs photo library access to select documents",
@@ -18,7 +18,7 @@
       }
     },
     "android": {
-      "package": "com.edulite.masterji",
+      "package": "com.edulite.shikshak",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
@@ -54,15 +54,15 @@
       [
         "expo-camera",
         {
-          "cameraPermission": "Allow MasterJi to access your camera for document scanning"
+          "cameraPermission": "Allow ShikShak to access your camera for document scanning"
         }
       ],
       "llama.rn",
       [
         "expo-media-library",
         {
-          "photosPermission": "Allow MasterJi to access your photos",
-          "savePhotosPermission": "Allow MasterJi to save scanned documents"
+          "photosPermission": "Allow ShikShak to access your photos",
+          "savePhotosPermission": "Allow ShikShak to save scanned documents"
         }
       ],
       [

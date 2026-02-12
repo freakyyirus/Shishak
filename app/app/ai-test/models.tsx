@@ -304,7 +304,7 @@ export default function ModelManagerScreen() {
                 <View style={styles.infoBox}>
                     <Text style={styles.infoTitle}>📥 Download AI Models</Text>
                     <Text style={styles.infoText}>
-                        MasterJi needs models to work offline. Download Gemma for English and Sarvam-1 for multilingual translation (10 Indian languages).
+                        ShikShak needs models to work offline. Download Gemma for English and Sarvam-1 for multilingual translation (10 Indian languages).
                     </Text>
                 </View>
 

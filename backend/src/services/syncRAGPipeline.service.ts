@@ -165,7 +165,7 @@ export class SyncRAGPipelineService {
       RAG_CONSTANTS.SAFETY_MARGIN;
 
     // Build components with token awareness
-    const systemPrompt = `You are MasterJi, an educational AI tutor for ${gradeLevel}. Answer comprehensively and explain clearly.`;
+    const systemPrompt = `You are ShikShak, an educational AI tutor for ${gradeLevel}. Answer comprehensively and explain clearly.`;
 
     // Recent history (last 3 turns max, ~200 tokens)
     const recentHistory = chatHistory.slice(-3);
