@@ -79,12 +79,12 @@ export async function sendQuery(
 
     const data = await response.json();
     return data;
-  } catch (error) {
-    if (error instanceof ChatApiError) throw error;
+  } catch (_error) {
+    if (_error instanceof ChatApiError) throw _error;
     throw new ChatApiError(
-      error instanceof Error ? error.message : "Network error",
+      _error instanceof Error ? _error.message : "Network error",
       undefined,
-      error
+      _error
     );
   }
 }
@@ -152,7 +152,7 @@ export async function sendStreamingQuery(
             try {
               const chunk = JSON.parse(jsonStr) as StreamChunk;
               onChunk(chunk);
-            } catch (e) {
+            } catch (e) { // eslint-disable-line @typescript-eslint/no-unused-vars
               // Ignore parse errors for incomplete JSON
               console.warn("Failed to parse SSE chunk:", jsonStr);
             }
@@ -160,12 +160,12 @@ export async function sendStreamingQuery(
         }
       }
     }
-  } catch (error) {
-    if (error instanceof ChatApiError) throw error;
+  } catch (_error) {
+    if (_error instanceof ChatApiError) throw _error;
     throw new ChatApiError(
-      error instanceof Error ? error.message : "Streaming error",
+      _error instanceof Error ? _error.message : "Streaming error",
       undefined,
-      error
+      _error
     );
   }
 }
@@ -200,7 +200,7 @@ export async function uploadFile(
           try {
             const data = JSON.parse(xhr.responseText);
             resolve(data);
-          } catch (e) {
+          } catch (e) { // eslint-disable-line @typescript-eslint/no-unused-vars
             reject(new ChatApiError("Invalid response format", xhr.status));
           }
         } else {
@@ -213,7 +213,7 @@ export async function uploadFile(
                 errorData
               )
             );
-          } catch (e) {
+          } catch (e) { // eslint-disable-line @typescript-eslint/no-unused-vars
             reject(new ChatApiError("Upload failed", xhr.status));
           }
         }
@@ -226,12 +226,12 @@ export async function uploadFile(
       xhr.open("POST", `${API_BASE_URL}/api/upload`);
       xhr.send(formData);
     });
-  } catch (error) {
-    if (error instanceof ChatApiError) throw error;
+  } catch (_error) {
+    if (_error instanceof ChatApiError) throw _error;
     throw new ChatApiError(
-      error instanceof Error ? error.message : "Upload error",
+      _error instanceof Error ? _error.message : "Upload error",
       undefined,
-      error
+      _error
     );
   }
 }
@@ -263,7 +263,7 @@ export async function getAllSessions(
 
     // Transform to SessionListItem format
     return (
-      data.sessions?.map((session: any) => ({
+      data.sessions?.map((session: { sessionId: string; chatName?: string; messages?: Array<{ content: string; role: string; timestamp: string }>; createdAt: string; updatedAt: string }) => ({
         sessionId: session.sessionId,
         chatName: session.chatName,
         messageCount: session.messages?.length || 0,
@@ -274,12 +274,12 @@ export async function getAllSessions(
         updatedAt: new Date(session.updatedAt),
       })) || []
     );
-  } catch (error) {
-    if (error instanceof ChatApiError) throw error;
+  } catch (_error) {
+    if (_error instanceof ChatApiError) throw _error;
     throw new ChatApiError(
-      error instanceof Error ? error.message : "Network error",
+      _error instanceof Error ? _error.message : "Network error",
       undefined,
-      error
+      _error
     );
   }
 }
@@ -318,7 +318,7 @@ export async function getSessionDetails(
       sessionId: data.session.sessionId,
       chromaCollectionName: data.session.chromaCollectionName,
       messages:
-        data.session.messages?.map((msg: any) => ({
+        data.session.messages?.map((msg: { content: string; role: string; timestamp: string }) => ({
           ...msg,
           timestamp: new Date(msg.timestamp),
         })) || [],
@@ -604,7 +604,7 @@ export async function generateChatName(firstMessage: string): Promise<string> {
       generatedName ||
       firstMessage.substring(0, 30) + (firstMessage.length > 30 ? "..." : "")
     );
-  } catch (error) {
+  } catch (error) { // eslint-disable-line @typescript-eslint/no-unused-vars
     // Fallback to truncated first message
     return (
       firstMessage.substring(0, 30) + (firstMessage.length > 30 ? "..." : "")

@@ -103,8 +103,8 @@ export async function checkOllamaStatus(): Promise<OllamaStatus> {
     }
 
     return response.json();
-  } catch (error: any) {
-    console.error("Board API: Ollama status check error:", error);
+  } catch (_error: any) {
+    console.error("Board API: Ollama status check error:", _error);
     return { connected: false };
   }
 }
@@ -182,7 +182,7 @@ export async function generateCards(
             } else if (parsed.type === "error") {
               throw new Error(parsed.error);
             }
-          } catch (e) {
+          } catch (_e) {
             // Skip invalid JSON
             continue;
           }
@@ -296,7 +296,7 @@ export async function performCardAction(
             } else if (parsed.type === "error") {
               throw new Error(parsed.error);
             }
-          } catch (e) {
+          } catch (_e) {
             // Skip invalid JSON
             continue;
           }
