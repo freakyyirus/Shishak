@@ -21,7 +21,7 @@ const MinimizedNavbar: React.FC<MinimizedNavbarProps> = ({ isExpanded, onToggle 
           className="fixed left-4 top-1/2 -translate-y-1/2 z-40 w-11 h-11 rounded-full bg-white/90 border border-orange-200 shadow-lg transition-all duration-300 flex items-center justify-center hover:-translate-x-0.5 hover:shadow-xl"
           title="Expand Menu"
         >
-          <span className="text-sm font-semibold tracking-tight text-orange-500">MG</span>
+          <span className="text-sm font-semibold tracking-tight text-orange-500">SS</span>
         </button>
       )}
 
