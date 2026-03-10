@@ -1,9 +1,11 @@
 import { ollamaChatService } from "./ollamaChat.service";
 import { ollamaEmbeddingService } from "./ollamaEmbedding.service";
+import { embeddingService } from "./embedding.service";
 import { vectorDBService } from "./vectordb.service";
 import { ChatMessage, SourceCitation } from "../types";
 import { RAG_CONSTANTS } from "../config/ragConstants";
 import { countTokens } from "../utils/tokenCounter";
+import env from "../config/env";
 
 interface PipelineResult {
   answer: string;
@@ -70,9 +72,10 @@ export class SyncRAGPipelineService {
     let sources: SourceCitation[] = [];
 
     if (hasDocuments) {
-      const queryEmbedding = await ollamaEmbeddingService.generateEmbedding(
-        query
-      );
+      const geminiKey = process.env.GEMMA_API_KEY || env.GEMMA_API_KEY;
+      const queryEmbedding = geminiKey
+        ? await embeddingService.generateEmbedding(query)
+        : await ollamaEmbeddingService.generateEmbedding(query);
 
       const searchResults = await vectorDBService.queryChunks(
         queryEmbedding,
@@ -172,14 +175,14 @@ export class SyncRAGPipelineService {
     const historyStr =
       recentHistory.length > 0
         ? recentHistory
-            .map(
-              (m) =>
-                `${m.role === "user" ? "Q" : "A"}: ${m.content.substring(
-                  0,
-                  150
-                )}`
-            )
-            .join("\n")
+          .map(
+            (m) =>
+              `${m.role === "user" ? "Q" : "A"}: ${m.content.substring(
+                0,
+                150
+              )}`
+          )
+          .join("\n")
         : "";
 
     // Context with token limit (~80% of available space)
