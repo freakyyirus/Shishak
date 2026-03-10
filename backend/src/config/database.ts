@@ -3,7 +3,7 @@ import env from './env';
 
 export async function connectDatabase(): Promise<void> {
   try {
-    await mongoose.connect(env.MONGODB_URI);
+    await mongoose.connect(env.MONGODB_URI, { serverSelectionTimeoutMS: 5000 });
     console.log('MongoDB connected');
   } catch (error) {
     // Don't throw - allow app to run without MongoDB for basic RAG functionality
