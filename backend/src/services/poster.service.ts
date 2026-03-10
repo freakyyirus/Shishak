@@ -50,6 +50,7 @@ Category: ${category}
 Language: ${language}
 
 Provide a DETAILED analysis. Think deeply about what students need to learn about this topic.
+DO NOT INCLUDE ANY REASONING OR EXTRA TEXT. JUST THE JSON.
 
 Return ONLY valid JSON in this exact format (no markdown, no code blocks):
 {
@@ -165,6 +166,8 @@ Negative Prompt Requirements:
 - Add: ugly, bad anatomy, blurry, low quality, watermark, signature, distortion, cluttered, messy, confusing
 - Emphasize: "any form of written text or characters"
 
+DO NOT INCLUDE ANY REASONING OR EXTRA TEXT. JUST THE JSON.
+
 Return ONLY valid JSON:
 {
   "positive": "NO TEXT, NO WORDS, NO LABELS, [your detailed visual-only prompt]",
@@ -216,7 +219,7 @@ Return ONLY valid JSON:
     const { prompt, aspectRatio = "1:1" } = params;
 
     try {
-      const comfyUrl = "http://127.0.0.1:8188"; // Local ComfyUI
+      const comfyUrl = env.COMFY_URL; // Using configured URL
 
       // 1. Load Workflow JSON
       const workflowPath = path.join(__dirname, '../workflows/poster.json');
@@ -331,9 +334,19 @@ Return ONLY valid JSON:
       const base64 = Buffer.from(imageRes.data, 'binary').toString('base64');
 
       return base64;
-    } catch (error) {
+    } catch (error: any) {
       console.error("ComfyUI Generation Error:", error);
-      throw error;
+
+      // Provide more helpful error messages for local setup
+      if (error.code === 'ECONNREFUSED') {
+        throw new Error(`Could not connect to ComfyUI at ${env.COMFY_URL}. Please ensure ComfyUI is running and 'comfyui-api' is accessible.`);
+      }
+
+      if (error.response?.status === 404) {
+        throw new Error("ComfyUI API endpoint not found. Check if your ComfyUI version supports the /prompt API.");
+      }
+
+      throw new Error(`Poster generation failed: ${error.message}`);
     }
   }
 
