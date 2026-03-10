@@ -110,11 +110,48 @@ IMPORTANT:
 - If query mentions "explain", "understand", "learn", "study" → RAG
 - If query contains academic/educational content → RAG
 - Only mark as SIMPLE if truly non-educational or invalid
+- DO NOT INCLUDE ANY REASONING OR EXTRA TEXT. JUST THE JSON.
 
 OUTPUT FORMAT (JSON only, no other text):
 {"type": "GREETING|SIMPLE|RAG", "reason": "brief explanation", "outputTokens": number}`;
 
     try {
+      const groqKey = process.env.GROQ_API_KEY || env.GROQ_API_KEY;
+      if (groqKey) {
+        // Use cloud for faster classification
+        const response = await axios.post(
+          "https://api.cerebras.ai/v1/chat/completions",
+          {
+            model: "llama3.1-8b",
+            messages: [{ role: "user", content: prompt }],
+            temperature: RAG_CONSTANTS.TEMP_ROUTER,
+            max_tokens: 150,
+            response_format: { type: "json_object" },
+          },
+          { headers: { Authorization: `Bearer ${groqKey}` }, timeout: 15000 }
+        );
+
+        const rawResponse = response.data.choices[0]?.message?.content || "";
+        const jsonMatch = rawResponse.match(/\{[\s\S]*?\}/);
+
+        if (jsonMatch) {
+          const parsed = JSON.parse(jsonMatch[0]);
+          const validTypes = ["GREETING", "SIMPLE", "RAG"];
+          const type = validTypes.includes(parsed.type?.toUpperCase())
+            ? parsed.type.toUpperCase()
+            : "RAG";
+
+          const estimatedTokens =
+            parsed.outputTokens || this.estimateOutputTokens(queryTokens, type);
+
+          return {
+            type: type as "GREETING" | "SIMPLE" | "RAG",
+            reason: parsed.reason || "Cloud classified",
+            estimatedOutputTokens: estimatedTokens,
+          };
+        }
+      }
+
       const response = await axios.post(
         `${this.baseUrl}/api/generate`,
         {
@@ -288,12 +325,31 @@ Respond in ${languageName} briefly.`;
     const promptTokens = countTokens(prompt);
 
     // DeepSeek R1 recommended settings for descriptive reasoning
-    // num_predict: 8192-16384 for long Chain of Thought explanations
+    // num_predict: 2048-4096 for balanced explanations locally
     // num_ctx: 32768 to hold both input and output
-    const numPredict = 8192; // Allow for detailed reasoning and explanations
+    const groqKey = process.env.GROQ_API_KEY || env.GROQ_API_KEY;
+    const numPredict = groqKey ? 8192 : 4096; // Faster locally
     const numCtx = RAG_CONSTANTS.LLM_CTX; // 32768
 
     try {
+      const groqKey = process.env.GROQ_API_KEY || env.GROQ_API_KEY;
+      if (groqKey) {
+        const response = await axios.post(
+          "https://api.cerebras.ai/v1/chat/completions",
+          {
+            model: "llama3.1-70b",
+            messages: [{ role: "user", content: prompt }],
+            temperature: RAG_CONSTANTS.TEMP_RAG,
+            max_tokens: numPredict,
+            top_p: 0.95,
+          },
+          { headers: { Authorization: `Bearer ${groqKey}` }, timeout: 120000 }
+        );
+        const payloadAnswer = response.data.choices[0]?.message?.content?.trim() || "";
+        const { answer: parsedAnswer, thinking } = this.parseDeepSeekResponse(payloadAnswer);
+        return { answer: parsedAnswer, reasoning: thinking, thinking };
+      }
+
       const response = await axios.post(
         `${this.baseUrl}/api/generate`,
         {
@@ -393,6 +449,24 @@ ${chatContext ? `Context:\n${chatContext}\n\n` : ""}User: ${query}
 Response in ${languageName}:`;
 
     try {
+      const groqKey = process.env.GROQ_API_KEY || env.GROQ_API_KEY;
+      if (groqKey) {
+        const response = await axios.post(
+          "https://api.cerebras.ai/v1/chat/completions",
+          {
+            model: "llama3.1-8b",
+            messages: [{ role: "user", content: prompt }],
+            temperature: 0.7,
+            max_tokens: 150,
+          },
+          { headers: { Authorization: `Bearer ${groqKey}` }, timeout: 15001 }
+        );
+        const { answer: parsedAnswer } = this.parseDeepSeekResponse(
+          response.data.choices[0]?.message?.content || ""
+        );
+        return parsedAnswer;
+      }
+
       const response = await axios.post(
         `${this.baseUrl}/api/generate`,
         {
@@ -436,6 +510,30 @@ Response in ${languageName}:`;
     );
 
     try {
+      const groqKey = process.env.GROQ_API_KEY || env.GROQ_API_KEY;
+      if (groqKey) {
+        const response = await axios.post(
+          "https://api.cerebras.ai/v1/chat/completions",
+          {
+            model: "llama3.1-70b",
+            messages: [{ role: "user", content: prompt }],
+            temperature: RAG_CONSTANTS.TEMP_RAG,
+            max_tokens: numPredict,
+            top_p: 0.95,
+          },
+          { headers: { Authorization: `Bearer ${groqKey}` }, timeout: 180000 }
+        );
+
+        const payloadAnswer = response.data.choices[0]?.message?.content?.trim() || "";
+        const { answer, thinking } = this.parseDeepSeekResponse(payloadAnswer);
+
+        console.log(
+          `✅ Cloud Response (Cerebras): generated ${countTokens(answer)} tokens`
+        );
+
+        return { answer, thinking };
+      }
+
       const response = await axios.post(
         `${this.baseUrl}/api/generate`,
         {
