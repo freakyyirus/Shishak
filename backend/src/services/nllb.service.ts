@@ -62,8 +62,8 @@ export class NLLBService {
       this.pythonExecutable = venvPython;
       console.log(`✅ Using NLLB venv Python: ${venvPython}`);
     } else {
-      this.pythonExecutable = env.PYTHON_EXECUTABLE || "python3";
-      console.warn(`⚠️  NLLB venv not found at ${venvPython}, using ${this.pythonExecutable}`);
+      this.pythonExecutable = "python"; // Explicitly set it to python instead of reading from ENV as the env file had python3.
+      console.warn(`⚠️  NLLB venv not found at ${venvPython}, using system ${this.pythonExecutable}`);
     }
 
     if (env.NLLB_ENABLED) {
