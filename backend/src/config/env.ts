@@ -39,6 +39,9 @@ interface EnvConfig {
   // Groq API (for cloud mode - optional)
   GROQ_API_KEY: string;
 
+  // ComfyUI (Local Image Generation)
+  COMFY_URL: string;
+
   // NLLB-200 Configuration (translation service)
   NLLB_ENABLED: boolean;
 
@@ -54,15 +57,15 @@ interface EnvConfig {
  */
 export const env: EnvConfig = {
   // Server - Port 5001
-  PORT: 5001,
-  NODE_ENV: "development",
+  PORT: parseInt(process.env.PORT || "5001"),
+  NODE_ENV: process.env.NODE_ENV || "development",
 
   // ChromaDB - Local vector database
-  CHROMA_URL: "http://localhost:8000",
-  CHROMA_COLLECTION_NAME: "edu_notes",
+  CHROMA_URL: process.env.CHROMA_URL || "http://localhost:8000",
+  CHROMA_COLLECTION_NAME: process.env.CHROMA_COLLECTION_NAME || "edu_notes",
 
   // MongoDB - Local database
-  MONGODB_URI: "mongodb://localhost:27017/masterg",
+  MONGODB_URI: process.env.MONGODB_URI || "mongodb://localhost:27017/masterg",
 
   // File Storage
   UPLOAD_DIR: "./uploads",
@@ -88,7 +91,10 @@ export const env: EnvConfig = {
   GROQ_API_KEY: process.env.GROQ_API_KEY || "",
 
   // NLLB-200 Configuration (translation)
-  NLLB_ENABLED: true,
+  NLLB_ENABLED: process.env.NLLB_ENABLED === 'true' || true,
+
+  // ComfyUI Configuration
+  COMFY_URL: process.env.COMFY_URL || "http://127.0.0.1:8188",
 
   // Python Executable
   PYTHON_EXECUTABLE: "python3",
