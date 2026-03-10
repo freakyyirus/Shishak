@@ -128,18 +128,22 @@ export class OllamaEmbeddingService {
         //   `  📦 Processing batch ${batchNumber}/${totalBatches} (${batch.length} chunks)...`
         // );
 
-        // Process batch sequentially for local Ollama (to avoid overwhelming it)
-        for (const text of batch) {
+        // Process batch in parallel to speed up local processing
+        // (Ollama handles the internal queueing more efficiently than sequential roundtrips)
+        const batchPromises = batch.map(async (text) => {
           try {
             const embedding = await this.generateEmbedding(text);
-            results.push({ embedding, text });
+            return { embedding, text };
           } catch (error) {
             console.error(
               `Failed to generate embedding for chunk: ${text.substring(0, 50)}...`
             );
             throw error;
           }
-        }
+        });
+
+        const batchResults = await Promise.all(batchPromises);
+        results.push(...batchResults);
 
         // console.log(`  ✅ Batch ${batchNumber}/${totalBatches} complete`);
 
