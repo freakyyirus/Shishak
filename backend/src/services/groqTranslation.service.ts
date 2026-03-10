@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { env } from '../config/env';
 
-const KIMI_K2_MODEL = 'moonshotai/kimi-k2-instruct-0905';
-const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
+const KIMI_K2_MODEL = 'llama3.1-70b';
+const GROQ_API_URL = 'https://api.cerebras.ai/v1/chat/completions';
 
 /**
  * Groq Translation Service - Cloud API for translation
