@@ -97,6 +97,7 @@ export class StitchController {
         mode: generationMode,
       });
 
+
       // If streaming requested, use SSE
       if (stream) {
         // Set CORS headers for streaming (allow all origins)
@@ -556,9 +557,9 @@ Generate the refined content now, maintaining perfect markdown formatting.`;
     const subjectName = subjectNames[params.subject] || params.subject;
 
     // Enhanced prompt for mathematics with battle-tested math handling
-    const isMathematics = params.subject.toLowerCase().includes("math") || 
-                          params.subject.toLowerCase() === "mathematics";
-    
+    const isMathematics = params.subject.toLowerCase().includes("math") ||
+      params.subject.toLowerCase() === "mathematics";
+
     const mathSpecificInstructions = isMathematics ? `
 CRITICAL MATHEMATICAL REQUIREMENTS (OPTIMIZED FOR SMALL MODEL):
 - KEEP MATH SIMPLE AND STRAIGHTFORWARD - Use plain text notation for formulas
