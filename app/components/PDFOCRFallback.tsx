@@ -53,6 +53,7 @@ export function PDFOCRFallback({
         if (totalPages === 0) return;
 
         processCurrentPage();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pageReady, currentPage, totalPages]);
 
     const processCurrentPage = async () => {
