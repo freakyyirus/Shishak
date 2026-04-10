@@ -64,7 +64,7 @@ const MasterPlanView: React.FC<MasterPlanViewProps> = ({ userId, sessionId }) =>
 
     if (!plan && !isLoading) {
         return (
-            <div className="bg-white rounded-xl border border-orange-200 p-6 mb-8 shadow-sm">
+            <div className="bg-white rounded-xl border border-teal-200 p-6 mb-8 shadow-sm">
                 <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                     <div>
                         <h3 className="text-lg font-bold text-gray-800">Master Study Plan</h3>
@@ -74,7 +74,7 @@ const MasterPlanView: React.FC<MasterPlanViewProps> = ({ userId, sessionId }) =>
                     </div>
                     <button
                         onClick={handleGenerate}
-                        className="px-6 py-2 bg-gradient-to-r from-orange-500 to-amber-500 text-white rounded-lg hover:from-orange-600 hover:to-amber-600 font-medium shadow-md transition-all whitespace-nowrap"
+                        className="px-6 py-2 bg-gradient-to-r from-teal-500 to-amber-500 text-white rounded-lg hover:from-teal-600 hover:to-amber-600 font-medium shadow-md transition-all whitespace-nowrap"
                     >
                         Generate Study Plan
                     </button>
@@ -86,8 +86,8 @@ const MasterPlanView: React.FC<MasterPlanViewProps> = ({ userId, sessionId }) =>
 
     if (isLoading && !plan) {
         return (
-            <div className="bg-white rounded-xl border border-orange-200 p-8 mb-8 shadow-sm text-center">
-                <div className="w-8 h-8 mx-auto mb-3 border-4 border-orange-200 border-t-orange-500 rounded-full animate-spin" />
+            <div className="bg-white rounded-xl border border-teal-200 p-8 mb-8 shadow-sm text-center">
+                <div className="w-8 h-8 mx-auto mb-3 border-4 border-teal-200 border-t-teal-500 rounded-full animate-spin" />
                 <p className="text-gray-600 font-medium">Drafting your Master Plan...</p>
                 <p className="text-gray-400 text-sm mt-1">This uses deep reasoning (DeepSeek R1) and may take a moment.</p>
             </div>
@@ -95,15 +95,15 @@ const MasterPlanView: React.FC<MasterPlanViewProps> = ({ userId, sessionId }) =>
     }
 
     return (
-        <div className="bg-white rounded-xl border border-orange-200 overflow-hidden mb-8 shadow-sm">
+        <div className="bg-white rounded-xl border border-teal-200 overflow-hidden mb-8 shadow-sm">
             {/* Header */}
-            <div className="p-4 bg-gradient-to-r from-orange-50 to-amber-50 border-b border-orange-100 flex items-center justify-between flex-wrap gap-4">
+            <div className="p-4 bg-gradient-to-r from-teal-50 to-amber-50 border-b border-teal-100 flex items-center justify-between flex-wrap gap-4">
                 <div
                     className="flex items-center gap-2 cursor-pointer"
                     onClick={() => setIsExpanded(!isExpanded)}
                 >
                     <svg
-                        className={`w-5 h-5 text-orange-500 transition-transform ${isExpanded ? 'rotate-90' : ''}`}
+                        className={`w-5 h-5 text-teal-500 transition-transform ${isExpanded ? 'rotate-90' : ''}`}
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -125,7 +125,7 @@ const MasterPlanView: React.FC<MasterPlanViewProps> = ({ userId, sessionId }) =>
                         <select
                             value={targetLang}
                             onChange={(e) => setTargetLang(e.target.value)}
-                            className="text-sm border border-gray-300 rounded-lg px-2 py-1.5 focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none"
+                            className="text-sm border border-gray-300 rounded-lg px-2 py-1.5 focus:border-teal-500 focus:ring-1 focus:ring-teal-500 outline-none"
                         >
                             {INDIAN_LANGUAGES.map(lang => (
                                 <option key={lang.code} value={lang.code}>
@@ -138,7 +138,7 @@ const MasterPlanView: React.FC<MasterPlanViewProps> = ({ userId, sessionId }) =>
                             disabled={isTranslating || isTranslated}
                             className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 ${isTranslated
                                     ? 'bg-green-100 text-green-700 cursor-default'
-                                    : 'bg-orange-100 text-orange-700 hover:bg-orange-200'
+                                    : 'bg-teal-100 text-teal-700 hover:bg-teal-200'
                                 }`}
                         >
                             {isTranslating ? (
@@ -169,7 +169,7 @@ const MasterPlanView: React.FC<MasterPlanViewProps> = ({ userId, sessionId }) =>
                             {error}
                         </div>
                     )}
-                    <div className="prose prose-orange max-w-none">
+                    <div className="prose prose-teal max-w-none">
                         <MarkdownRenderer content={displayContent || ''} />
                     </div>
                 </div>
@@ -179,3 +179,4 @@ const MasterPlanView: React.FC<MasterPlanViewProps> = ({ userId, sessionId }) =>
 };
 
 export default MasterPlanView;
+
