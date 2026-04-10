@@ -34,6 +34,7 @@ export class VectorDBService {
       this.collections.set(name, collection);
       return collection;
     } catch (error) {
+      console.error("❌ Failed to initialize vector database collection:", error);
       throw new Error("Failed to initialize vector database collection");
     }
   }
@@ -315,6 +316,7 @@ export class VectorDBService {
         count: data.count,
       }));
     } catch (error) {
+      console.error("❌ Failed to get unique files from vector database:", error);
       throw new Error("Failed to get unique files");
     }
   }
