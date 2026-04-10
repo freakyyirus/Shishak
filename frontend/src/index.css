@@ -6,11 +6,11 @@
   letter-spacing: -0.03em;
 
   /* Custom color variables */
-  --color-primary: #f97316; /* orange-500 */
-  --color-primary-light: #fb923c; /* orange-400 */
-  --color-primary-dark: #ea580c; /* orange-600 */
-  --color-secondary: #ffedd5; /* orange-100 */
-  --color-tertiary: #fffbeb; /* orange-50 */
+  --color-primary: #f97316; /* teal-500 */
+  --color-primary-light: #fb923c; /* teal-400 */
+  --color-primary-dark: #ea580c; /* teal-600 */
+  --color-secondary: #ffedd5; /* teal-100 */
+  --color-tertiary: #fffbeb; /* teal-50 */
   --color-text-dark: #1f2937; /* gray-800 */
   --color-text-light: #f3f4f6; /* gray-100 */
   --color-white: #ffffff;
@@ -116,3 +116,4 @@ body {
   margin: 0 !important;
   padding: 0 !important;
 }
+
