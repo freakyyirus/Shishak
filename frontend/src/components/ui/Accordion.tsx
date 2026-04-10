@@ -18,16 +18,16 @@ const Accordion: React.FC<AccordionProps> = ({
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
   return (
-    <div className="border-2 border-orange-100 rounded-lg overflow-hidden bg-white/50 backdrop-blur-sm">
+    <div className="border-2 border-teal-100 rounded-lg overflow-hidden bg-white/50 backdrop-blur-sm">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full px-4 py-3 flex items-center justify-between hover:bg-orange-50 transition-colors"
+        className="w-full px-4 py-3 flex items-center justify-between hover:bg-teal-50 transition-colors"
       >
         <div className="flex items-center gap-2">
-          {icon && <span className="text-orange-600">{icon}</span>}
+          {icon && <span className="text-teal-600">{icon}</span>}
           <span className="font-medium text-gray-800">{title}</span>
           {badge !== undefined && (
-            <span className="px-2 py-0.5 bg-orange-100 text-orange-700 text-xs rounded-full font-medium">
+            <span className="px-2 py-0.5 bg-teal-100 text-teal-700 text-xs rounded-full font-medium">
               {badge}
             </span>
           )}
@@ -54,10 +54,11 @@ const Accordion: React.FC<AccordionProps> = ({
           isOpen ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
         } overflow-hidden`}
       >
-        <div className="p-4 pt-2 border-t border-orange-100">{children}</div>
+        <div className="p-4 pt-2 border-t border-teal-100">{children}</div>
       </div>
     </div>
   );
 };
 
 export default Accordion;
+
