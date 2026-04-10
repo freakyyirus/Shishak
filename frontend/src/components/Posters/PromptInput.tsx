@@ -43,10 +43,10 @@ const PromptInput: React.FC<PromptInputProps> = ({
   };
 
   return (
-    <div className="bg-white/80 backdrop-blur-md rounded-2xl p-5 sm:p-6 shadow-xl border-2 border-orange-200/60">
+    <div className="bg-white/80 backdrop-blur-md rounded-2xl p-5 sm:p-6 shadow-xl border-2 border-teal-200/60">
       <div className="flex items-center gap-2 mb-4">
         <svg
-          className="w-4 h-4 sm:w-5 sm:h-5 text-orange-400"
+          className="w-4 h-4 sm:w-5 sm:h-5 text-teal-400"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -66,7 +66,7 @@ const PromptInput: React.FC<PromptInputProps> = ({
           value={prompt}
           onChange={(e) => onPromptChange(e.target.value)}
           placeholder={`Describe the educational poster you want... (e.g., "${getExamplePrompts()[0]}")`}
-          className="w-full border border-gray-200 rounded-lg p-4 resize-none h-32 focus:ring-2 focus:ring-orange-200 focus:border-orange-300 bg-white text-gray-900 placeholder-gray-400 transition-all"
+          className="w-full border border-gray-200 rounded-lg p-4 resize-none h-32 focus:ring-2 focus:ring-teal-200 focus:border-teal-300 bg-white text-gray-900 placeholder-gray-400 transition-all"
           maxLength={500}
         />
         <div className="flex justify-between items-center mt-2">
@@ -82,7 +82,7 @@ const PromptInput: React.FC<PromptInputProps> = ({
             <button
               key={index}
               onClick={() => handleExampleClick(example)}
-              className="text-xs px-3 py-1.5 bg-orange-50 text-orange-700 rounded-full hover:bg-orange-100 transition-colors border border-orange-200"
+              className="text-xs px-3 py-1.5 bg-teal-50 text-teal-700 rounded-full hover:bg-teal-100 transition-colors border border-teal-200"
             >
               {example.length > 50 ? example.substring(0, 50) + '...' : example}
             </button>
@@ -97,7 +97,7 @@ const PromptInput: React.FC<PromptInputProps> = ({
         className={`w-full px-6 py-3 rounded-xl font-semibold text-base transition-all ${
           (!prompt.trim() || isGenerating)
             ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
-            : 'bg-linear-to-r from-orange-500 to-orange-600 text-white hover:from-orange-600 hover:to-orange-700 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5'
+            : 'bg-linear-to-r from-teal-500 to-teal-600 text-white hover:from-teal-600 hover:to-teal-700 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5'
         }`}
       >
         {isGenerating ? (
