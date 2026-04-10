@@ -44,9 +44,9 @@ const QuizTab: React.FC<QuizTabProps> = ({ quizData, isLoading }) => {
   if (isLoading) {
     return (
       <div className="text-center py-12">
-        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-orange-100 flex items-center justify-center animate-pulse">
+        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-teal-100 flex items-center justify-center animate-pulse">
           <svg
-            className="w-8 h-8 text-orange-400"
+            className="w-8 h-8 text-teal-400"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -68,9 +68,9 @@ const QuizTab: React.FC<QuizTabProps> = ({ quizData, isLoading }) => {
   if (!quizData || quizData.length === 0) {
     return (
       <div className="text-center py-12">
-        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-orange-100 flex items-center justify-center">
+        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-teal-100 flex items-center justify-center">
           <svg
-            className="w-8 h-8 text-orange-400"
+            className="w-8 h-8 text-teal-400"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -95,10 +95,10 @@ const QuizTab: React.FC<QuizTabProps> = ({ quizData, isLoading }) => {
     const percentage = Math.round((score / quizData.length) * 100);
     return (
       <div className="max-w-2xl mx-auto">
-        <div className="bg-white rounded-xl border-2 border-orange-200 p-8 text-center">
+        <div className="bg-white rounded-xl border-2 border-teal-200 p-8 text-center">
           <div className="mb-6">
-            <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-orange-100 flex items-center justify-center">
-              <span className="text-4xl font-bold text-orange-600">
+            <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-teal-100 flex items-center justify-center">
+              <span className="text-4xl font-bold text-teal-600">
                 {percentage}%
               </span>
             </div>
@@ -107,7 +107,7 @@ const QuizTab: React.FC<QuizTabProps> = ({ quizData, isLoading }) => {
             </h3>
             <p className="text-lg text-gray-600">
               You scored{" "}
-              <span className="font-bold text-orange-600">{score}</span> out of{" "}
+              <span className="font-bold text-teal-600">{score}</span> out of{" "}
               <span className="font-bold">{quizData.length}</span>
             </p>
           </div>
@@ -129,7 +129,7 @@ const QuizTab: React.FC<QuizTabProps> = ({ quizData, isLoading }) => {
 
           <button
             onClick={handleReset}
-            className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-8 rounded-lg transition-all"
+            className="bg-teal-500 hover:bg-teal-600 text-white font-semibold py-3 px-8 rounded-lg transition-all"
           >
             Try Again
           </button>
@@ -252,33 +252,33 @@ const QuizTab: React.FC<QuizTabProps> = ({ quizData, isLoading }) => {
           <span className="text-sm font-semibold text-gray-700">
             Question {currentQuiz + 1} of {quizData.length}
           </span>
-          <span className="text-sm font-semibold text-orange-600">
+          <span className="text-sm font-semibold text-teal-600">
             {Math.round(progress)}%
           </span>
         </div>
         <div className="w-full bg-gray-200 rounded-full h-2.5">
           <div
-            className="bg-orange-500 h-full rounded-full transition-all duration-300"
+            className="bg-teal-500 h-full rounded-full transition-all duration-300"
             style={{ width: `${progress}%` }}
           />
         </div>
       </div>
 
       {/* Quiz card */}
-      <div className="bg-white rounded-xl border-2 border-orange-200 p-6 sm:p-8">
+      <div className="bg-white rounded-xl border-2 border-teal-200 p-6 sm:p-8">
         <div className="mb-4 flex items-center gap-3">
           <span
             className={`text-xs px-3 py-1.5 rounded-full font-semibold ${
               quiz.difficulty === "Easy"
                 ? "bg-green-100 text-green-700 border border-green-200"
                 : quiz.difficulty === "Medium"
-                ? "bg-orange-100 text-orange-700 border border-orange-200"
+                ? "bg-teal-100 text-teal-700 border border-teal-200"
                 : "bg-red-100 text-red-700 border border-red-200"
             }`}
           >
             {quiz.difficulty}
           </span>
-          <span className="text-xs bg-orange-50 text-orange-700 px-3 py-1.5 rounded-full border border-orange-200 font-medium">
+          <span className="text-xs bg-teal-50 text-teal-700 px-3 py-1.5 rounded-full border border-teal-200 font-medium">
             {quiz.subject}
           </span>
         </div>
@@ -297,8 +297,8 @@ const QuizTab: React.FC<QuizTabProps> = ({ quizData, isLoading }) => {
                 onClick={() => handleAnswerSelect(quiz.id, index)}
                 className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
                   isSelected
-                    ? "bg-orange-50 border-orange-400 shadow-md"
-                    : "bg-white border-gray-200 hover:border-orange-300 hover:bg-orange-50"
+                    ? "bg-teal-50 border-teal-400 shadow-md"
+                    : "bg-white border-gray-200 hover:border-teal-300 hover:bg-teal-50"
                 }`}
               >
                 <span className="font-semibold text-gray-700">
@@ -315,7 +315,7 @@ const QuizTab: React.FC<QuizTabProps> = ({ quizData, isLoading }) => {
           <button
             onClick={() => setCurrentQuiz(Math.max(0, currentQuiz - 1))}
             disabled={currentQuiz === 0}
-            className="px-6 py-2.5 border-2 border-orange-200 text-orange-600 font-semibold rounded-lg hover:bg-orange-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+            className="px-6 py-2.5 border-2 border-teal-200 text-teal-600 font-semibold rounded-lg hover:bg-teal-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
           >
             ← Previous
           </button>
@@ -324,7 +324,7 @@ const QuizTab: React.FC<QuizTabProps> = ({ quizData, isLoading }) => {
             <button
               onClick={handleSubmit}
               disabled={Object.keys(selectedAnswers).length !== quizData.length}
-              className="px-8 py-2.5 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+              className="px-8 py-2.5 bg-teal-500 hover:bg-teal-600 text-white font-semibold rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
               Submit Quiz
             </button>
@@ -333,7 +333,7 @@ const QuizTab: React.FC<QuizTabProps> = ({ quizData, isLoading }) => {
               onClick={() =>
                 setCurrentQuiz(Math.min(quizData.length - 1, currentQuiz + 1))
               }
-              className="px-6 py-2.5 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg transition-all"
+              className="px-6 py-2.5 bg-teal-500 hover:bg-teal-600 text-white font-semibold rounded-lg transition-all"
             >
               Next →
             </button>
@@ -352,3 +352,4 @@ const QuizTab: React.FC<QuizTabProps> = ({ quizData, isLoading }) => {
 };
 
 export default QuizTab;
+
