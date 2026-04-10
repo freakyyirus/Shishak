@@ -34,6 +34,7 @@ interface EnvConfig {
 
   // Legacy external APIs (kept for type compatibility; not used in fully-local mode)
   OLLAMA_MODEL: string;
+  GEMINI_API_KEY: string;
   GEMMA_API_KEY: string;
 
   // Groq API (for cloud mode - optional)
@@ -85,6 +86,7 @@ export const env: EnvConfig = {
 
   // Legacy external APIs (not actively used in local-only mode)
   OLLAMA_MODEL: "deepseek-r1:1.5b",
+  GEMINI_API_KEY: process.env.GEMINI_API_KEY || "AIzaSyAN62ahatb2TnkpuLTNCXAa-HAFfGMIQR0",
   GEMMA_API_KEY: process.env.GEMMA_API_KEY || "",
 
   // Groq API (for cloud mode - optional)
