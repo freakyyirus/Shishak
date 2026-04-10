@@ -10,9 +10,9 @@ const MaterialsTab: React.FC<MaterialsTabProps> = ({ summary, isLoading }) => {
   if (isLoading) {
     return (
       <div className="text-center py-12">
-        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-orange-100 flex items-center justify-center animate-pulse">
+        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-teal-100 flex items-center justify-center animate-pulse">
           <svg
-            className="w-8 h-8 text-orange-400"
+            className="w-8 h-8 text-teal-400"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -56,9 +56,9 @@ const MaterialsTab: React.FC<MaterialsTabProps> = ({ summary, isLoading }) => {
     <div>
       {!summary ? (
         <div className="text-center py-12">
-          <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-orange-100 flex items-center justify-center">
+          <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-teal-100 flex items-center justify-center">
             <svg
-              className="w-8 h-8 text-orange-400"
+              className="w-8 h-8 text-teal-400"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -78,11 +78,11 @@ const MaterialsTab: React.FC<MaterialsTabProps> = ({ summary, isLoading }) => {
       ) : (
         <div className="space-y-6">
           {/* Structured Summary - Last Minute Revision Format */}
-          <div className="bg-white rounded-xl border-2 border-orange-200 overflow-hidden shadow-md">
-            <div className="bg-gradient-to-r from-orange-50 to-orange-100 border-b-2 border-orange-200 px-6 py-4">
+          <div className="bg-white rounded-xl border-2 border-teal-200 overflow-hidden shadow-md">
+            <div className="bg-gradient-to-r from-teal-50 to-teal-100 border-b-2 border-teal-200 px-6 py-4">
               <h4 className="font-bold text-gray-800 text-xl flex items-center gap-2">
                 <svg
-                  className="w-6 h-6 text-orange-500"
+                  className="w-6 h-6 text-teal-500"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -103,7 +103,7 @@ const MaterialsTab: React.FC<MaterialsTabProps> = ({ summary, isLoading }) => {
             <div className="p-6 space-y-4">
               {/* Introduction */}
               {summary.introduction && (
-                <div className="bg-orange-50 rounded-lg p-4 border-l-4 border-orange-400">
+                <div className="bg-teal-50 rounded-lg p-4 border-l-4 border-teal-400">
                   <p className="text-gray-700 leading-relaxed font-medium">
                     {summary.introduction}
                   </p>
@@ -122,7 +122,7 @@ const MaterialsTab: React.FC<MaterialsTabProps> = ({ summary, isLoading }) => {
                         key={idx}
                         className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg border border-gray-200"
                       >
-                        <span className="text-orange-500 font-bold flex-shrink-0">•</span>
+                        <span className="text-teal-500 font-bold flex-shrink-0">•</span>
                         <span className="text-gray-700">{point}</span>
                       </li>
                     ))}
@@ -150,11 +150,11 @@ const MaterialsTab: React.FC<MaterialsTabProps> = ({ summary, isLoading }) => {
           </div>
 
           {/* Key Topics with Descriptions */}
-          <div className="bg-white rounded-xl border-2 border-orange-200 overflow-hidden shadow-md">
-            <div className="bg-orange-50 border-b-2 border-orange-200 px-6 py-4">
+          <div className="bg-white rounded-xl border-2 border-teal-200 overflow-hidden shadow-md">
+            <div className="bg-teal-50 border-b-2 border-teal-200 px-6 py-4">
               <h4 className="font-bold text-gray-800 text-lg flex items-center gap-2">
                 <svg
-                  className="w-5 h-5 text-orange-500"
+                  className="w-5 h-5 text-teal-500"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -177,9 +177,9 @@ const MaterialsTab: React.FC<MaterialsTabProps> = ({ summary, isLoading }) => {
                 {summary.keyTopics.map((topic, idx) => (
                   <div
                     key={idx}
-                    className="flex items-start gap-4 p-4 bg-orange-50 rounded-lg border border-orange-200 hover:shadow-md transition-shadow"
+                    className="flex items-start gap-4 p-4 bg-teal-50 rounded-lg border border-teal-200 hover:shadow-md transition-shadow"
                   >
-                    <span className="flex-shrink-0 w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center text-sm font-bold">
+                    <span className="flex-shrink-0 w-8 h-8 bg-teal-500 text-white rounded-full flex items-center justify-center text-sm font-bold">
                       {idx + 1}
                     </span>
                     <div className="flex-1">
@@ -199,11 +199,11 @@ const MaterialsTab: React.FC<MaterialsTabProps> = ({ summary, isLoading }) => {
           </div>
 
           {/* Important Concepts with 5 Bullet Points Each */}
-          <div className="bg-white rounded-xl border-2 border-orange-200 overflow-hidden shadow-md">
-            <div className="bg-orange-50 border-b-2 border-orange-200 px-6 py-4">
+          <div className="bg-white rounded-xl border-2 border-teal-200 overflow-hidden shadow-md">
+            <div className="bg-teal-50 border-b-2 border-teal-200 px-6 py-4">
               <h4 className="font-bold text-gray-800 text-lg flex items-center gap-2">
                 <svg
-                  className="w-5 h-5 text-orange-500"
+                  className="w-5 h-5 text-teal-500"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -289,3 +289,4 @@ const MaterialsTab: React.FC<MaterialsTabProps> = ({ summary, isLoading }) => {
 };
 
 export default MaterialsTab;
+
