@@ -60,9 +60,9 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
           />
         </svg>
       ),
-      bgColor: "bg-orange-100",
-      iconColor: "text-orange-600",
-      buttonBg: "bg-orange-600 hover:bg-orange-700",
+      bgColor: "bg-teal-100",
+      iconColor: "text-teal-600",
+      buttonBg: "bg-teal-600 hover:bg-teal-700",
     },
     info: {
       icon: (
@@ -132,3 +132,4 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
 };
 
 export default ConfirmModal;
+
