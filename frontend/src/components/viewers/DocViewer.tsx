@@ -36,6 +36,7 @@ const DocViewer: React.FC<DocViewerProps> = ({ url, fileName }) => {
         } else {
             setIsLoading(false);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [url, ext]);
 
     /**
@@ -68,7 +69,7 @@ const DocViewer: React.FC<DocViewerProps> = ({ url, fileName }) => {
             console.log('⚠️ No PDF preview, falling back to text');
             await fetchTextContent();
 
-        } catch (err: any) {
+        } catch (err: unknown) {
             console.error('Preview check error:', err);
             // Fall back to text content
             await fetchTextContent();
@@ -101,13 +102,13 @@ const DocViewer: React.FC<DocViewerProps> = ({ url, fileName }) => {
                     });
                 }
                 setIsLoading(false);
-            } catch (importError: any) {
+            } catch (importError: unknown) {
                 console.error('docx-preview not available:', importError);
                 await fetchTextContent();
             }
-        } catch (err: any) {
+        } catch (err: unknown) {
             console.error('DOCX render error:', err);
-            setError(err.message || 'Failed to render document');
+            setError(err instanceof Error ? err.message : 'Failed to render document');
             setIsLoading(false);
         }
     };
@@ -137,7 +138,7 @@ const DocViewer: React.FC<DocViewerProps> = ({ url, fileName }) => {
 
             setError('Preview not available for this document type. Please download to view.');
             setIsLoading(false);
-        } catch (err: any) {
+        } catch (err: unknown) {
             console.error('Text content fetch error:', err);
             setError('Could not load document preview');
             setIsLoading(false);
@@ -149,7 +150,7 @@ const DocViewer: React.FC<DocViewerProps> = ({ url, fileName }) => {
         return (
             <div className="h-full flex items-center justify-center bg-gray-50">
                 <div className="text-center">
-                    <div className="w-12 h-12 border-4 border-orange-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                    <div className="w-12 h-12 border-4 border-teal-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
                     <p className="text-gray-600">Loading {ext.toUpperCase()} document...</p>
                     <p className="text-sm text-gray-500 mt-2">This may take a moment</p>
                 </div>
@@ -172,8 +173,8 @@ const DocViewer: React.FC<DocViewerProps> = ({ url, fileName }) => {
         return (
             <div className="h-full flex items-center justify-center bg-gray-50">
                 <div className="text-center p-6 max-w-md">
-                    <div className="w-16 h-16 mx-auto mb-4 bg-orange-100 rounded-full flex items-center justify-center">
-                        <svg className="w-8 h-8 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="w-16 h-16 mx-auto mb-4 bg-teal-100 rounded-full flex items-center justify-center">
+                        <svg className="w-8 h-8 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                         </svg>
                     </div>
@@ -181,7 +182,7 @@ const DocViewer: React.FC<DocViewerProps> = ({ url, fileName }) => {
                     <a
                         href={url}
                         download={fileName}
-                        className="inline-flex items-center gap-2 px-6 py-3 bg-orange-400 text-white rounded-lg hover:bg-orange-500 transition-colors"
+                        className="inline-flex items-center gap-2 px-6 py-3 bg-teal-400 text-white rounded-lg hover:bg-teal-500 transition-colors"
                     >
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
@@ -241,3 +242,4 @@ const DocViewer: React.FC<DocViewerProps> = ({ url, fileName }) => {
 };
 
 export default DocViewer;
+
