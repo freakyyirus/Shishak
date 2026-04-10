@@ -323,83 +323,37 @@ OUTPUT FORMAT (JSON only, no other text):
     language: LanguageCode,
     chatHistory: ChatMessage[]
   ): Promise<string> {
-    const trimmed = query.trim().toLowerCase();
-
-    // Only reject truly invalid queries (not educational ones)
-    if (this.isGibberish(trimmed)) {
-      return "I'm here to help with educational questions. Please ask about a specific topic or subject you'd like to learn about.";
-    }
-
-    // Check if it's an educational query that was misclassified
-    const educationalIndicators = [
-      "explain",
-      "what",
-      "how",
-      "why",
-      "when",
-      "where",
-      "define",
-      "describe",
-      "analyze",
-      "solve",
-      "calculate",
-      "understand",
-      "learn",
-      "study",
-      "concept",
-      "theory",
-      "formula",
-      "equation",
-      "process",
-      "principle",
-    ];
-
-    if (educationalIndicators.some((word) => trimmed.includes(word))) {
-      return "That's a great educational question! However, I need access to relevant documents to provide a detailed answer. Please make sure you've uploaded study materials related to this topic.";
-    }
-
-    const quickResponses: Record<string, string> = {
-      hi: "Hello! Upload documents and ask me questions!",
-      hello: "Hi! I'm ready to help with your documents.",
-      thanks: "You're welcome!",
-      "thank you": "Happy to help!",
-      bye: "Goodbye! Come back anytime you need help with your studies.",
-    };
-
-    if (quickResponses[trimmed]) {
-      return quickResponses[trimmed];
-    }
-
-    const languageName = SUPPORTED_LANGUAGES[language];
-    const chatContext = chatHistory
-      .slice(-3)
-      .map((m) => `${m.role === "user" ? "User" : "Assistant"}: ${m.content}`)
-      .join("\n");
-
-    const prompt = `Brief response (1-2 sentences).
-${chatContext ? `Context:\n${chatContext}\n\n` : ""}User: ${query}
-
-Response in ${languageName}:`;
+    const prompt = `Answer this educational query concisely: "${query}". Context: ${JSON.stringify(chatHistory.slice(-2))}`;
 
     try {
       const cloudKey = process.env.GEMINI_API_KEY || env.GEMINI_API_KEY;
       if (cloudKey) {
-        const response = await axios.post(
-          "https://api.cerebras.ai/v1/chat/completions",
-          {
-            model: "llama3.1-8b",
-            messages: [{ role: "user", content: prompt }],
-            temperature: 0.7,
-            max_tokens: 150,
-          },
-          { headers: { Authorization: `Bearer ${cloudKey}` }, timeout: 15001 }
-        );
-        const { answer: parsedAnswer } = this.parseDeepSeekResponse(
-          response.data.choices[0]?.message?.content || ""
-        );
-        return parsedAnswer;
+        try {
+          console.log("☁️ Attempting Gemini Simple Query...");
+          const response = await axios.post(
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${cloudKey}`,
+            {
+              contents: [{ parts: [{ text: prompt }] }],
+              generationConfig: {
+                temperature: 0.7,
+                maxOutputTokens: 250
+              }
+            },
+            { timeout: 15000 }
+          );
+          const answer = response.data.candidates?.[0]?.content?.parts?.[0]?.text || "";
+          console.log("✅ Gemini Simple Answer Generated.");
+          return answer.trim();
+        } catch (error: any) {
+          if (error.response?.status === 429) {
+            console.warn("⚠️ Gemini Rate Limited (simple). Falling back to local.");
+          } else {
+             console.error("❌ Gemini Simple Error:", error.message);
+          }
+        }
       }
 
+      console.log("🏠 Using Local Ollama Simple Answer...");
       const response = await axios.post(
         `${this.baseUrl}/api/generate`,
         {
@@ -408,18 +362,18 @@ Response in ${languageName}:`;
           stream: false,
           options: {
             temperature: 0.7,
-            num_predict: 150,
+            num_predict: 250,
           },
         },
-        { timeout: 15001 }
+        { timeout: 20000 }
       );
 
-      const { answer } = this.parseDeepSeekResponse(
-        response.data.response || ""
-      );
-      return answer;
-    } catch (error) {
-      return "Hello! I'm here to help with your documents.";
+      const answer = response.data.response || "";
+      console.log("✅ Local Simple Answer Generated.");
+      return answer.trim();
+    } catch (error: any) {
+      console.error("❌ Simple Query Failure:", error.message);
+      return "I'm here to help! Could you please rephrase your question?";
     }
   }
 
