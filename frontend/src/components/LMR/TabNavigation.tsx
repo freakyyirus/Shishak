@@ -33,7 +33,7 @@ const TabNavigation: React.FC<TabNavigationProps> = ({ activeTab, setActiveTab, 
   }, [tooltipTab]);
 
   return (
-    <div className="bg-orange-100 border-b-2 border-orange-200 relative">
+    <div className="bg-teal-100 border-b-2 border-teal-200 relative">
       <nav className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 p-3 sm:p-4 md:p-5">
         {(['upload', 'materials', 'questions'] as const).map((tab) => {
           const labels: Record<typeof tab, string> = {
@@ -59,8 +59,8 @@ const TabNavigation: React.FC<TabNavigationProps> = ({ activeTab, setActiveTab, 
                   isDisabled 
                     ? 'bg-gray-100 text-gray-400 border-2 border-gray-200 cursor-not-allowed'
                     : activeTab === tab
-                    ? 'bg-orange-400 text-white hover:bg-orange-500 shadow-lg hover:scale-105'
-                    : 'bg-white text-orange-600 border-2 border-orange-200 hover:bg-orange-50 hover:border-orange-300 hover:scale-105'
+                    ? 'bg-teal-400 text-white hover:bg-teal-500 shadow-lg hover:scale-105'
+                    : 'bg-white text-teal-600 border-2 border-teal-200 hover:bg-teal-50 hover:border-teal-300 hover:scale-105'
                 }`}
               >
                 {labels[tab]}
