@@ -43,19 +43,19 @@ const TreeNodeComponent: React.FC<TreeNodeProps> = ({
     const diffStyle = difficultyColors[node.difficulty];
 
     return (
-        <div className={`${depth > 0 ? 'ml-6 border-l-2 border-orange-100' : ''}`}>
+        <div className={`${depth > 0 ? 'ml-6 border-l-2 border-teal-100' : ''}`}>
             <div
                 className={`
                     group relative flex items-start gap-3 p-3 rounded-xl transition-all duration-200
-                    bg-white hover:bg-orange-50/50
-                    ${depth === 0 ? 'shadow-sm border-2 border-orange-100 hover:border-orange-200' : ''}
+                    bg-white hover:bg-teal-50/50
+                    ${depth === 0 ? 'shadow-sm border-2 border-teal-100 hover:border-teal-200' : ''}
                 `}
             >
                 {/* Expand/Collapse Toggle */}
                 {hasChildren && (
                     <button
                         onClick={() => setIsExpanded(!isExpanded)}
-                        className="flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-md bg-orange-100 hover:bg-orange-200 text-orange-600 transition-colors"
+                        className="flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-md bg-teal-100 hover:bg-teal-200 text-teal-600 transition-colors"
                     >
                         <svg
                             className={`w-4 h-4 transition-transform ${isExpanded ? 'rotate-90' : ''}`}
@@ -102,7 +102,7 @@ const TreeNodeComponent: React.FC<TreeNodeProps> = ({
                             <span className="text-xs text-gray-400">Weight:</span>
                             <div className="w-16 h-2 bg-gray-200 rounded-full overflow-hidden">
                                 <div
-                                    className="h-full bg-gradient-to-r from-orange-400 to-orange-500 rounded-full transition-all"
+                                    className="h-full bg-gradient-to-r from-teal-400 to-teal-500 rounded-full transition-all"
                                     style={{ width: `${weightPercentage}%` }}
                                 />
                             </div>
@@ -132,8 +132,8 @@ const TreeNodeComponent: React.FC<TreeNodeProps> = ({
                     className={`
                         flex-shrink-0 px-3 py-1.5 rounded-lg text-sm font-medium transition-all shadow-sm hover:shadow
                         ${isOptimizing
-                            ? 'bg-orange-100 text-orange-400 cursor-not-allowed'
-                            : 'bg-orange-500 text-white hover:bg-orange-600'
+                            ? 'bg-teal-100 text-teal-400 cursor-not-allowed'
+                            : 'bg-teal-500 text-white hover:bg-teal-600'
                         }
                     `}
                 >
@@ -162,3 +162,4 @@ const TreeNodeComponent: React.FC<TreeNodeProps> = ({
 };
 
 export default TreeNodeComponent;
+
