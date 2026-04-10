@@ -37,7 +37,7 @@ export const Skeleton: React.FC<SkeletonProps> = ({
 
 export const MessageSkeleton: React.FC = () => (
   <div className="flex justify-start mb-6">
-    <div className="max-w-[85%] rounded-2xl p-4 bg-white border-2 border-orange-100 space-y-3">
+    <div className="max-w-[85%] rounded-2xl p-4 bg-white border-2 border-teal-100 space-y-3">
       <Skeleton variant="text" width="80%" />
       <Skeleton variant="text" width="95%" />
       <Skeleton variant="text" width="70%" />
@@ -62,7 +62,7 @@ export const SessionSkeleton: React.FC = () => (
 );
 
 export const ResourceSkeleton: React.FC = () => (
-  <div className="bg-white/80 backdrop-blur-md rounded-xl p-4 border-2 border-orange-100">
+  <div className="bg-white/80 backdrop-blur-md rounded-xl p-4 border-2 border-teal-100">
     <div className="flex gap-3 mb-3">
       <Skeleton variant="circular" width="48px" height="48px" />
       <div className="flex-1 space-y-2">
@@ -82,3 +82,4 @@ export const ResourceSkeleton: React.FC = () => (
 );
 
 export default Skeleton;
+
