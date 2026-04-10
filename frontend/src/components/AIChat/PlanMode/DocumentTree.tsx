@@ -104,9 +104,9 @@ const DocumentTree: React.FC<DocumentTreeProps> = ({
     // Show loading state while checking for saved tree
     if (isLoadingTree) {
         return (
-            <div className="bg-white rounded-xl border-2 border-orange-100 overflow-hidden p-6">
+            <div className="bg-white rounded-xl border-2 border-teal-100 overflow-hidden p-6">
                 <div className="flex items-center gap-3">
-                    <div className="w-6 h-6 border-2 border-orange-200 border-t-orange-500 rounded-full animate-spin" />
+                    <div className="w-6 h-6 border-2 border-teal-200 border-t-teal-500 rounded-full animate-spin" />
                     <span className="text-gray-500">Loading...</span>
                 </div>
             </div>
@@ -114,9 +114,9 @@ const DocumentTree: React.FC<DocumentTreeProps> = ({
     }
 
     return (
-        <div className="bg-white rounded-xl border-2 border-orange-100 overflow-hidden">
+        <div className="bg-white rounded-xl border-2 border-teal-100 overflow-hidden">
             {/* Document Header */}
-            <div className="p-4 bg-gradient-to-r from-orange-50 to-amber-50 border-b border-orange-100">
+            <div className="p-4 bg-gradient-to-r from-teal-50 to-amber-50 border-b border-teal-100">
                 <div className="flex items-start justify-between gap-4">
                     <div className="flex-1">
                         <h3 className="font-bold text-gray-800 text-lg">{document.title}</h3>
@@ -152,7 +152,7 @@ const DocumentTree: React.FC<DocumentTreeProps> = ({
                                     px-4 py-2 rounded-xl font-medium text-sm transition-all flex items-center gap-2
                                     ${isLoading
                                         ? 'bg-gray-100 text-gray-400'
-                                        : 'bg-gradient-to-r from-orange-500 to-amber-500 text-white hover:from-orange-600 hover:to-amber-600 shadow-md hover:shadow-lg'
+                                        : 'bg-gradient-to-r from-teal-500 to-amber-500 text-white hover:from-teal-600 hover:to-amber-600 shadow-md hover:shadow-lg'
                                     }
                                 `}
                             >
@@ -191,7 +191,7 @@ const DocumentTree: React.FC<DocumentTreeProps> = ({
                                 px-3 py-1.5 rounded-lg text-sm font-medium transition-all flex items-center gap-2
                                 ${isLoading
                                     ? 'bg-gray-100 text-gray-400'
-                                    : 'bg-orange-500 text-white hover:bg-orange-600'
+                                    : 'bg-teal-500 text-white hover:bg-teal-600'
                                 }
                             `}
                         >
@@ -246,3 +246,4 @@ const DocumentTree: React.FC<DocumentTreeProps> = ({
 };
 
 export default DocumentTree;
+
