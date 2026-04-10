@@ -18,10 +18,10 @@ const MinimizedNavbar: React.FC<MinimizedNavbarProps> = ({ isExpanded, onToggle 
       {!isExpanded && (
         <button
           onClick={onToggle}
-          className="fixed left-4 top-1/2 -translate-y-1/2 z-40 w-11 h-11 rounded-full bg-white/90 border border-orange-200 shadow-lg transition-all duration-300 flex items-center justify-center hover:-translate-x-0.5 hover:shadow-xl"
+          className="fixed left-4 top-1/2 -translate-y-1/2 z-40 w-11 h-11 rounded-full bg-white/90 border border-teal-200 shadow-lg transition-all duration-300 flex items-center justify-center hover:-translate-x-0.5 hover:shadow-xl"
           title="Expand Menu"
         >
-          <span className="text-sm font-semibold tracking-tight text-orange-500">SS</span>
+          <span className="text-sm font-semibold tracking-tight text-teal-500">SS</span>
         </button>
       )}
 
@@ -29,12 +29,12 @@ const MinimizedNavbar: React.FC<MinimizedNavbarProps> = ({ isExpanded, onToggle 
       {isExpanded && (
         <>
           {/* Side Panel */}
-          <div className="fixed left-5 top-1/2 -translate-y-1/2 w-64 max-h-[80vh] bg-white/95 backdrop-blur-xl shadow-2xl z-50 transform transition-transform duration-300 flex flex-col rounded-2xl border border-orange-100/80 overflow-hidden">
+          <div className="fixed left-5 top-1/2 -translate-y-1/2 w-64 max-h-[80vh] bg-white/95 backdrop-blur-xl shadow-2xl z-50 transform transition-transform duration-300 flex flex-col rounded-2xl border border-teal-100/80 overflow-hidden">
             {/* Header */}
-            <div className="flex items-center justify-between px-4 py-3 border-b border-orange-100/80 bg-gradient-to-r from-orange-50/80 via-white to-orange-50/40">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-teal-100/80 bg-gradient-to-r from-teal-50/80 via-white to-teal-50/40">
               <a
                 href="/"
-                className="text-xl font-semibold tracking-tight text-orange-500 hover:text-orange-600 transition-colors"
+                className="text-xl font-semibold tracking-tight text-teal-500 hover:text-teal-600 transition-colors"
                 onClick={(e) => {
                   e.preventDefault();
                   navigate('/');
@@ -45,7 +45,7 @@ const MinimizedNavbar: React.FC<MinimizedNavbarProps> = ({ isExpanded, onToggle 
               </a>
               <button
                 onClick={onToggle}
-                className="text-orange-400 hover:text-orange-600 transition-colors p-1.5 hover:bg-orange-50 rounded-lg"
+                className="text-teal-400 hover:text-teal-600 transition-colors p-1.5 hover:bg-teal-50 rounded-lg"
                 title="Collapse Menu"
               >
                 <svg
@@ -65,8 +65,8 @@ const MinimizedNavbar: React.FC<MinimizedNavbarProps> = ({ isExpanded, onToggle 
               <a
                 href="/stitch"
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all ${isActive('/stitch')
-                  ? 'bg-orange-500 text-white shadow-md'
-                  : 'text-orange-600 hover:bg-orange-50/80 hover:text-orange-700'
+                  ? 'bg-teal-500 text-white shadow-md'
+                  : 'text-teal-600 hover:bg-teal-50/80 hover:text-teal-700'
                   }`}
                 onClick={(e) => {
                   e.preventDefault();
@@ -83,8 +83,8 @@ const MinimizedNavbar: React.FC<MinimizedNavbarProps> = ({ isExpanded, onToggle 
               <a
                 href="/chat"
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all ${isActive('/chat')
-                  ? 'bg-orange-500 text-white shadow-md'
-                  : 'text-orange-600 hover:bg-orange-50/80 hover:text-orange-700'
+                  ? 'bg-teal-500 text-white shadow-md'
+                  : 'text-teal-600 hover:bg-teal-50/80 hover:text-teal-700'
                   }`}
                 onClick={(e) => {
                   e.preventDefault();
@@ -105,8 +105,8 @@ const MinimizedNavbar: React.FC<MinimizedNavbarProps> = ({ isExpanded, onToggle 
               <a
                 href="/lmr"
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all ${isActive('/lmr')
-                  ? 'bg-orange-500 text-white shadow-md'
-                  : 'text-orange-600 hover:bg-orange-50/80 hover:text-orange-700'
+                  ? 'bg-teal-500 text-white shadow-md'
+                  : 'text-teal-600 hover:bg-teal-50/80 hover:text-teal-700'
                   }`}
                 onClick={(e) => {
                   e.preventDefault();
@@ -122,8 +122,8 @@ const MinimizedNavbar: React.FC<MinimizedNavbarProps> = ({ isExpanded, onToggle 
               <a
                 href="/board"
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all ${isActive('/board')
-                  ? 'bg-orange-500 text-white shadow-md'
-                  : 'text-orange-600 hover:bg-orange-50/80 hover:text-orange-700'
+                  ? 'bg-teal-500 text-white shadow-md'
+                  : 'text-teal-600 hover:bg-teal-50/80 hover:text-teal-700'
                   }`}
                 onClick={(e) => {
                   e.preventDefault();
@@ -144,8 +144,8 @@ const MinimizedNavbar: React.FC<MinimizedNavbarProps> = ({ isExpanded, onToggle 
               <a
                 href="/posters"
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all ${isActive('/posters')
-                  ? 'bg-orange-500 text-white shadow-md'
-                  : 'text-orange-600 hover:bg-orange-50/80 hover:text-orange-700'
+                  ? 'bg-teal-500 text-white shadow-md'
+                  : 'text-teal-600 hover:bg-teal-50/80 hover:text-teal-700'
                   }`}
                 onClick={(e) => {
                   e.preventDefault();
@@ -161,12 +161,12 @@ const MinimizedNavbar: React.FC<MinimizedNavbarProps> = ({ isExpanded, onToggle 
             </nav>
 
             {/* Footer */}
-            <div className="px-4 py-3 border-t border-orange-100/80 bg-gradient-to-r from-white to-orange-50/60 space-y-2">
+            <div className="px-4 py-3 border-t border-teal-100/80 bg-gradient-to-r from-white to-teal-50/60 space-y-2">
               <a
                 href="#"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center w-full h-10 text-orange-600 hover:text-orange-700 hover:bg-orange-50/80 rounded-xl transition-all"
+                className="flex items-center justify-center w-full h-10 text-teal-600 hover:text-teal-700 hover:bg-teal-50/80 rounded-xl transition-all"
                 onClick={onToggle}
                 title="View on GitHub"
               >
@@ -181,7 +181,7 @@ const MinimizedNavbar: React.FC<MinimizedNavbarProps> = ({ isExpanded, onToggle 
               </a>
               <a
                 href="/chat"
-                className="block w-full bg-orange-500 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-orange-600 transition-all text-center shadow-md hover:shadow-lg"
+                className="block w-full bg-teal-500 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-teal-600 transition-all text-center shadow-md hover:shadow-lg"
                 onClick={(e) => {
                   e.preventDefault();
                   navigate('/chat');
@@ -199,3 +199,4 @@ const MinimizedNavbar: React.FC<MinimizedNavbarProps> = ({ isExpanded, onToggle 
 };
 
 export default MinimizedNavbar;
+
