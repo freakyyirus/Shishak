@@ -6,7 +6,7 @@ export interface StitchGenerateRequest {
   topic: string;
   grade: string;
   subject: string;
-  mode?: "local" | "cloud"; // "local" for Ollama, "cloud" for Groq
+  mode?: "local" | "cloud"; // "local" for Ollama, "cloud" for Gemini
   culturalContext?: boolean;
 }
 
@@ -51,7 +51,7 @@ export interface StitchTranslateRequest {
   text: string;
   sourceLanguage: string;
   targetLanguage: string;
-  mode?: "local" | "cloud"; // "local" for NLLB, "cloud" for Groq
+  mode?: "local" | "cloud"; // "local" for NLLB, "cloud" for Gemini
 }
 
 export interface StitchTranslateResponse {
@@ -321,15 +321,15 @@ class StitchApi {
    * Check NLLB-200 connection status
    */
   /**
-   * Check Groq API connection status
+   * Check Gemini API connection status
    */
-  async checkGroqStatus(): Promise<{
+  async checkGeminiStatus(): Promise<{
     success: boolean;
     connected: boolean;
     message?: string;
   }> {
     try {
-      const response = await fetch(`${API_BASE_URL}/stitch/status/groq`, {
+      const response = await fetch(`${API_BASE_URL}/stitch/status/gemini`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -349,7 +349,7 @@ class StitchApi {
         throw error;
       }
       throw new StitchApiError(
-        error instanceof Error ? error.message : "Failed to check Groq status"
+        error instanceof Error ? error.message : "Failed to check Gemini status"
       );
     }
   }
@@ -533,4 +533,5 @@ class StitchApi {
 }
 
 export const stitchAPI = new StitchApi();
+
 
