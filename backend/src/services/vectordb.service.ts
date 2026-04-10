@@ -17,6 +17,7 @@ export class VectorDBService {
   async initCollection(collectionName?: string): Promise<Collection> {
     try {
       const name = collectionName || env.CHROMA_COLLECTION_NAME;
+      console.log(`🔍 Initializing ChromaDB collection: "${name}"`);
 
       if (this.collections.has(name)) {
         return this.collections.get(name)!;
@@ -31,11 +32,12 @@ export class VectorDBService {
         },
       });
 
+      console.log(`✅ ChromaDB collection ready: "${name}"`);
       this.collections.set(name, collection);
       return collection;
-    } catch (error) {
-      console.error("❌ Failed to initialize vector database collection:", error);
-      throw new Error("Failed to initialize vector database collection");
+    } catch (error: any) {
+      console.error(`❌ Failed to initialize collection "${collectionName || env.CHROMA_COLLECTION_NAME}":`, error.message);
+      throw new Error(`Failed to initialize vector database collection: ${error.message}`);
     }
   }
 
