@@ -10,14 +10,14 @@ interface TopicCardProps {
 const TopicCard: React.FC<TopicCardProps> = ({ topic, documentName, onStudy }) => {
     const difficultyStyles = {
         easy: { bg: 'bg-green-100', text: 'text-green-700' },
-        medium: { bg: 'bg-orange-100', text: 'text-orange-700' },
+        medium: { bg: 'bg-teal-100', text: 'text-teal-700' },
         hard: { bg: 'bg-red-100', text: 'text-red-700' },
     };
 
     const diff = difficultyStyles[topic.difficulty];
 
     return (
-        <div className="bg-white rounded-lg border-2 border-orange-100 p-4 hover:border-orange-300 hover:shadow-md transition-all">
+        <div className="bg-white rounded-lg border-2 border-teal-100 p-4 hover:border-teal-300 hover:shadow-md transition-all">
             <h4 className="font-semibold text-gray-800 mb-1">{topic.title}</h4>
             <p className="text-sm text-gray-600 mb-3 line-clamp-2">{topic.description}</p>
 
@@ -30,7 +30,7 @@ const TopicCard: React.FC<TopicCardProps> = ({ topic, documentName, onStudy }) =
 
             <button
                 onClick={() => onStudy(topic, documentName)}
-                className="w-full py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg text-sm font-medium transition-colors"
+                className="w-full py-2 bg-teal-500 hover:bg-teal-600 text-white rounded-lg text-sm font-medium transition-colors"
             >
                 Study This Topic
             </button>
@@ -39,3 +39,4 @@ const TopicCard: React.FC<TopicCardProps> = ({ topic, documentName, onStudy }) =
 };
 
 export default TopicCard;
+
