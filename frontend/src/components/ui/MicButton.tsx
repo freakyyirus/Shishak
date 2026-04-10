@@ -42,7 +42,7 @@ const MicButton: React.FC<MicButtonProps> = ({
             return `${baseStyles} bg-red-50 text-red-600 border-red-300 hover:bg-red-100`;
         }
 
-        return `${baseStyles} bg-orange-50 text-orange-600 border-orange-200 hover:bg-orange-100 hover:border-orange-300`;
+        return `${baseStyles} bg-teal-50 text-teal-600 border-teal-200 hover:bg-teal-100 hover:border-teal-300`;
     };
 
     const getTooltip = (): string => {
@@ -137,3 +137,4 @@ const MicIcon: React.FC<{ className?: string }> = ({ className = "" }) => (
 );
 
 export default MicButton;
+
