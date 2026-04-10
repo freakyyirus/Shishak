@@ -19,6 +19,7 @@ const Navbar: React.FC<NavbarProps> = ({ alwaysVisible = false }) => {
 
   useEffect(() => {
     if (alwaysVisible) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsVisible(true);
       return;
     }
@@ -44,20 +45,20 @@ const Navbar: React.FC<NavbarProps> = ({ alwaysVisible = false }) => {
   return (
     <>
       <header
-        className={`flex items-center justify-between px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 shadow-lg max-w-5xl rounded-full mx-auto w-full bg-white/80 backdrop-blur-md border border-orange-200/60 transition-transform duration-300 ${isVisible ? "translate-y-0" : "-translate-y-24"
+        className={`flex items-center justify-between px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 shadow-lg max-w-5xl rounded-full mx-auto w-full bg-white/80 backdrop-blur-md border border-teal-200/60 transition-transform duration-300 ${isVisible ? "translate-y-0" : "-translate-y-24"
           }`}
       >
         <a
           href="/"
-          className="text-lg sm:text-xl md:text-2xl font-bold text-orange-500"
+          className="text-lg sm:text-xl md:text-2xl font-bold text-teal-500"
         >
           ShikShak
         </a>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-6 lg:gap-8 text-orange-500 text-sm font-medium">
+        <nav className="hidden md:flex items-center gap-6 lg:gap-8 text-teal-500 text-sm font-medium">
           <a
-            className="hover:text-orange-600 flex items-center gap-2 transition-colors"
+            className="hover:text-teal-600 flex items-center gap-2 transition-colors"
             href="/stitch"
           >
             <svg
@@ -83,7 +84,7 @@ const Navbar: React.FC<NavbarProps> = ({ alwaysVisible = false }) => {
             Stitch
           </a>
           <a
-            className="hover:text-orange-600 flex items-center gap-2 transition-colors"
+            className="hover:text-teal-600 flex items-center gap-2 transition-colors"
             href="/chat"
           >
             <svg
@@ -112,7 +113,7 @@ const Navbar: React.FC<NavbarProps> = ({ alwaysVisible = false }) => {
             Chat
           </a>
           <a
-            className="hover:text-orange-600 flex items-center gap-2 transition-colors"
+            className="hover:text-teal-600 flex items-center gap-2 transition-colors"
             href="/lmr"
           >
             <svg
@@ -132,7 +133,7 @@ const Navbar: React.FC<NavbarProps> = ({ alwaysVisible = false }) => {
             LMR
           </a>
           <a
-            className="hover:text-orange-600 flex items-center gap-2 transition-colors"
+            className="hover:text-teal-600 flex items-center gap-2 transition-colors"
             href="/board"
           >
             <svg
@@ -182,7 +183,7 @@ const Navbar: React.FC<NavbarProps> = ({ alwaysVisible = false }) => {
             Whiteboard
           </a>
           <a
-            className="hover:text-orange-600 flex items-center gap-2 transition-colors"
+            className="hover:text-teal-600 flex items-center gap-2 transition-colors"
             href="/posters"
           >
             <svg
@@ -208,7 +209,7 @@ const Navbar: React.FC<NavbarProps> = ({ alwaysVisible = false }) => {
             href="#"
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden md:flex items-center justify-center w-9 h-9 text-orange-500 hover:text-orange-600 hover:bg-orange-50 rounded-full transition-all"
+            className="hidden md:flex items-center justify-center w-9 h-9 text-teal-500 hover:text-teal-600 hover:bg-teal-50 rounded-full transition-all"
             title="View on GitHub"
           >
             <svg
@@ -221,7 +222,7 @@ const Navbar: React.FC<NavbarProps> = ({ alwaysVisible = false }) => {
             </svg>
           </a>
           <a
-            className="hidden md:flex bg-orange-400 text-white px-4 md:px-5 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-semibold hover:bg-orange-500 transition-all shadow-md"
+            className="hidden md:flex bg-teal-400 text-white px-4 md:px-5 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-semibold hover:bg-teal-500 transition-all shadow-md"
             href="/chat"
           >
             Start Learning
@@ -229,7 +230,7 @@ const Navbar: React.FC<NavbarProps> = ({ alwaysVisible = false }) => {
           <button
             type="button"
             onClick={toggleMenu}
-            className="md:hidden text-orange-500 p-1.5 hover:bg-orange-50 rounded-lg transition-colors"
+            className="md:hidden text-teal-500 p-1.5 hover:bg-teal-50 rounded-lg transition-colors"
             aria-label="Toggle menu"
           >
             <svg
@@ -264,14 +265,14 @@ const Navbar: React.FC<NavbarProps> = ({ alwaysVisible = false }) => {
 
         {/* Mobile Menu Panel */}
         <div
-          className={`fixed top-20 left-1/2 transform -translate-x-1/2 w-[calc(100%-2rem)] max-w-sm bg-white/95 backdrop-blur-md border-2 border-orange-200/60 rounded-xl shadow-xl z-50 md:hidden py-2.5 px-3 transition-all duration-300 ease-out ${isMenuOpen
+          className={`fixed top-20 left-1/2 transform -translate-x-1/2 w-[calc(100%-2rem)] max-w-sm bg-white/95 backdrop-blur-md border-2 border-teal-200/60 rounded-xl shadow-xl z-50 md:hidden py-2.5 px-3 transition-all duration-300 ease-out ${isMenuOpen
               ? "opacity-100 translate-y-0 scale-100 pointer-events-auto"
               : "opacity-0 -translate-y-4 scale-95 pointer-events-none"
             }`}
         >
           <nav className="flex flex-col gap-1">
             <a
-              className="flex items-center gap-2.5 px-3 py-2 text-orange-500 text-sm font-medium rounded-lg hover:bg-orange-50 hover:text-orange-600 transition-all"
+              className="flex items-center gap-2.5 px-3 py-2 text-teal-500 text-sm font-medium rounded-lg hover:bg-teal-50 hover:text-teal-600 transition-all"
               href="/stitch"
               onClick={closeMenu}
             >
@@ -298,7 +299,7 @@ const Navbar: React.FC<NavbarProps> = ({ alwaysVisible = false }) => {
               Stitch
             </a>
             <a
-              className="flex items-center gap-2.5 px-3 py-2 text-orange-500 text-sm font-medium rounded-lg hover:bg-orange-50 hover:text-orange-600 transition-all"
+              className="flex items-center gap-2.5 px-3 py-2 text-teal-500 text-sm font-medium rounded-lg hover:bg-teal-50 hover:text-teal-600 transition-all"
               href="/chat"
               onClick={closeMenu}
             >
@@ -344,7 +345,7 @@ const Navbar: React.FC<NavbarProps> = ({ alwaysVisible = false }) => {
               Chat
             </a>
             <a
-              className="flex items-center gap-2.5 px-3 py-2 text-orange-500 text-sm font-medium rounded-lg hover:bg-orange-50 hover:text-orange-600 transition-all"
+              className="flex items-center gap-2.5 px-3 py-2 text-teal-500 text-sm font-medium rounded-lg hover:bg-teal-50 hover:text-teal-600 transition-all"
               href="/lmr"
               onClick={closeMenu}
             >
@@ -365,7 +366,7 @@ const Navbar: React.FC<NavbarProps> = ({ alwaysVisible = false }) => {
               LMR
             </a>
             <a
-              className="flex items-center gap-2.5 px-3 py-2 text-orange-500 text-sm font-medium rounded-lg hover:bg-orange-50 hover:text-orange-600 transition-all"
+              className="flex items-center gap-2.5 px-3 py-2 text-teal-500 text-sm font-medium rounded-lg hover:bg-teal-50 hover:text-teal-600 transition-all"
               href="/board"
               onClick={closeMenu}
             >
@@ -416,7 +417,7 @@ const Navbar: React.FC<NavbarProps> = ({ alwaysVisible = false }) => {
               Whiteboard
             </a>
             <a
-              className="flex items-center gap-2.5 px-3 py-2 text-orange-500 text-sm font-medium rounded-lg hover:bg-orange-50 hover:text-orange-600 transition-all"
+              className="flex items-center gap-2.5 px-3 py-2 text-teal-500 text-sm font-medium rounded-lg hover:bg-teal-50 hover:text-teal-600 transition-all"
               href="/posters"
               onClick={closeMenu}
             >
@@ -440,7 +441,7 @@ const Navbar: React.FC<NavbarProps> = ({ alwaysVisible = false }) => {
               href="#"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center w-10 h-10 text-orange-500 hover:text-orange-600 hover:bg-orange-50 rounded-lg transition-all"
+              className="flex items-center justify-center w-10 h-10 text-teal-500 hover:text-teal-600 hover:bg-teal-50 rounded-lg transition-all"
               onClick={closeMenu}
               title="View on GitHub"
             >
@@ -454,7 +455,7 @@ const Navbar: React.FC<NavbarProps> = ({ alwaysVisible = false }) => {
               </svg>
             </a>
             <a
-              className="flex items-center justify-center gap-2 mt-1.5 px-3 py-2 bg-orange-400 text-white text-sm font-semibold rounded-lg hover:bg-orange-500 transition-all shadow-md"
+              className="flex items-center justify-center gap-2 mt-1.5 px-3 py-2 bg-teal-400 text-white text-sm font-semibold rounded-lg hover:bg-teal-500 transition-all shadow-md"
               href="/chat"
               onClick={closeMenu}
             >
@@ -468,3 +469,4 @@ const Navbar: React.FC<NavbarProps> = ({ alwaysVisible = false }) => {
 };
 
 export default Navbar;
+
