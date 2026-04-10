@@ -6,7 +6,7 @@ interface BannerProps {
 
 const Banner: React.FC<BannerProps> = ({ isVisible = true }) => (
     <div
-        className={`fixed top-0 left-0 right-0 z-[60] flex flex-wrap items-center justify-center w-full h-[40px] sm:h-[44px] px-3 sm:px-4 font-medium text-xs sm:text-sm text-white text-center bg-gradient-to-b from-orange-500 to-orange-600 gap-2 sm:gap-3 transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        className={`fixed top-0 left-0 right-0 z-[60] flex flex-wrap items-center justify-center w-full h-[40px] sm:h-[44px] px-3 sm:px-4 font-medium text-xs sm:text-sm text-white text-center bg-gradient-to-b from-teal-500 to-teal-600 gap-2 sm:gap-3 transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'
             }`}
     >
         <p className="flex-shrink-0">
@@ -15,7 +15,7 @@ const Banner: React.FC<BannerProps> = ({ isVisible = true }) => (
         </p>
         <a
             href="#"
-            className="flex items-center gap-1.5 px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm rounded-md text-orange-600 bg-white hover:bg-slate-50 transition-all active:scale-95 shadow-sm hover:shadow-md whitespace-nowrap"
+            className="flex items-center gap-1.5 px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm rounded-md text-teal-600 bg-white hover:bg-slate-50 transition-all active:scale-95 shadow-sm hover:shadow-md whitespace-nowrap"
             target="_blank"
             rel="noopener noreferrer"
         >
@@ -48,3 +48,4 @@ const Banner: React.FC<BannerProps> = ({ isVisible = true }) => (
 );
 
 export default Banner;
+
