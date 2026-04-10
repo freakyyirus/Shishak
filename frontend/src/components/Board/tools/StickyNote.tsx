@@ -181,7 +181,7 @@ const StickyNote: React.FC<StickyNoteProps> = ({
   return (
     <div
       ref={noteRef}
-      className={`absolute select-none ${selectionMode ? 'cursor-move' : ''} ${isSelected ? 'ring-2 ring-orange-500 ring-offset-2' : ''}`}
+      className={`absolute select-none ${selectionMode ? 'cursor-move' : ''} ${isSelected ? 'ring-2 ring-teal-500 ring-offset-2' : ''}`}
       style={{ left: x, top: y, width, height, zIndex: 20 }}
       onMouseDown={handleMouseDown}
       onClick={handleNoteClick}
@@ -251,7 +251,7 @@ const StickyNote: React.FC<StickyNoteProps> = ({
               <label className="flex items-center justify-between text-xs text-gray-700 mb-1">
                 <span>Ruled Lines</span>
                 <button
-                  className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${ruled ? 'bg-orange-500' : 'bg-gray-300'
+                  className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${ruled ? 'bg-teal-500' : 'bg-gray-300'
                     }`}
                   onClick={(e) => {
                     e.stopPropagation();
@@ -379,4 +379,5 @@ const StickyNote: React.FC<StickyNoteProps> = ({
 };
 
 export default StickyNote;
+
 
