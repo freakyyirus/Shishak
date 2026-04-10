@@ -45,7 +45,7 @@ export default function HomeScreen() {
   const checkDownloads = useCallback(async () => {
     const status = await downloader.checkDownloadedModels();
     setDownloadStatus(status);
-  }, []);
+  }, [downloader]);
 
   useEffect(() => {
     checkDownloads();
@@ -71,7 +71,7 @@ export default function HomeScreen() {
       } else {
         Alert.alert('Failed', result.error || 'Download failed.');
       }
-    } catch (e) {
+    } catch (_e) {
       Alert.alert('Error', 'Download error');
     } finally {
       setDownloading(prev => ({ ...prev, [type]: false }));
@@ -82,7 +82,7 @@ export default function HomeScreen() {
     try {
       if (type === 'text') await initializeText();
       else await initializeTranslation();
-    } catch (e) {
+    } catch (_e) {
       Alert.alert('Error', `Failed to load ${type} model.`);
     }
   };
@@ -122,7 +122,7 @@ export default function HomeScreen() {
               imported++;
               found = true;
             }
-          } catch (e) { }
+          } catch { }
         }
       }
     } catch (error) {
