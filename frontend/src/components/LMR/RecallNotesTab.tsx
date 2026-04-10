@@ -46,9 +46,9 @@ const RecallNotesTab: React.FC<RecallNotesTabProps> = ({
   if (isLoading) {
     return (
       <div className="text-center py-12">
-        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-orange-100 flex items-center justify-center animate-pulse">
+        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-teal-100 flex items-center justify-center animate-pulse">
           <svg
-            className="w-8 h-8 text-orange-400"
+            className="w-8 h-8 text-teal-400"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -70,9 +70,9 @@ const RecallNotesTab: React.FC<RecallNotesTabProps> = ({
   if (!recallNotes || recallNotes.length === 0) {
     return (
       <div className="text-center py-12">
-        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-orange-100 flex items-center justify-center">
+        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-teal-100 flex items-center justify-center">
           <svg
-            className="w-8 h-8 text-orange-400"
+            className="w-8 h-8 text-teal-400"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -96,10 +96,10 @@ const RecallNotesTab: React.FC<RecallNotesTabProps> = ({
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="bg-gradient-to-r from-orange-50 to-orange-100 border-2 border-orange-200 rounded-xl p-6">
+      <div className="bg-gradient-to-r from-teal-50 to-teal-100 border-2 border-teal-200 rounded-xl p-6">
         <div className="flex items-center gap-3 mb-2">
           <svg
-            className="w-6 h-6 text-orange-500"
+            className="w-6 h-6 text-teal-500"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -131,12 +131,12 @@ const RecallNotesTab: React.FC<RecallNotesTabProps> = ({
         return (
           <div
             key={index}
-            className="bg-white rounded-xl border-2 border-orange-200 overflow-hidden hover:shadow-lg transition-all duration-300"
+            className="bg-white rounded-xl border-2 border-teal-200 overflow-hidden hover:shadow-lg transition-all duration-300"
           >
             {/* Topic header */}
-            <div className="bg-orange-50 border-b-2 border-orange-200 px-6 py-4">
+            <div className="bg-teal-50 border-b-2 border-teal-200 px-6 py-4">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center flex-shrink-0">
+                <div className="w-8 h-8 bg-teal-500 rounded-full flex items-center justify-center flex-shrink-0">
                   <span className="text-white font-bold text-sm">
                     {index + 1}
                   </span>
@@ -151,7 +151,7 @@ const RecallNotesTab: React.FC<RecallNotesTabProps> = ({
                 <div>
                   <div className="flex items-center gap-2 mb-3">
                     <svg
-                      className="w-5 h-5 text-orange-500"
+                      className="w-5 h-5 text-teal-500"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -169,9 +169,9 @@ const RecallNotesTab: React.FC<RecallNotesTabProps> = ({
                     {keyPoints.map((point, idx) => (
                       <li
                         key={idx}
-                        className="flex items-start gap-3 p-3 bg-orange-50 rounded-lg border border-orange-200"
+                        className="flex items-start gap-3 p-3 bg-teal-50 rounded-lg border border-teal-200"
                       >
-                        <span className="flex-shrink-0 w-6 h-6 bg-orange-400 text-white rounded-full flex items-center justify-center text-xs font-bold">
+                        <span className="flex-shrink-0 w-6 h-6 bg-teal-400 text-white rounded-full flex items-center justify-center text-xs font-bold">
                           {idx + 1}
                         </span>
                         <span className="text-gray-700">{point}</span>
@@ -300,3 +300,4 @@ const RecallNotesTab: React.FC<RecallNotesTabProps> = ({
 };
 
 export default RecallNotesTab;
+
