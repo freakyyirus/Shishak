@@ -66,7 +66,7 @@ export default function AITestDashboard() {
                     <Text style={styles.noteTitle}>⚠️ Initial Setup</Text>
                     <Text style={styles.noteText}>
                         1. Go to Model Manager and download the models first.
-                        2. Click "Initialize AI Engine" in the status card above.
+                        2. Click &quot;Initialize AI Engine&quot; in the status card above.
                         3. Then use the tools below.
                     </Text>
                 </View>
