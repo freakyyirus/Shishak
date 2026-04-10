@@ -105,10 +105,11 @@ export class ChatService {
 
       if (!chatHistory) {
         // Create unique ChromaDB collection name for this chat
-        const chromaCollectionName = `chat_${userId}_${sessionId}`.replace(
-          /[^a-zA-Z0-9_-]/g,
-          "_"
-        );
+        const chromaCollectionName = `chat_${userId}_${sessionId}`
+          .toLowerCase()
+          .replace(/[^a-z0-9_-]/g, "_")
+          .replace(/^[^a-z0-9]+/, "")
+          .replace(/[^a-z0-9]+$/, "");
 
         const newHistory = await ChatHistoryModel.create({
           userId,
@@ -156,7 +157,11 @@ export class ChatService {
       // Check if MongoDB is connected
       if (mongoose.connection.readyState !== 1) {
         console.warn("MongoDB not connected. Using default collection name.");
-        return `chat_${userId}_${sessionId}`.replace(/[^a-zA-Z0-9_-]/g, "_");
+        return `chat_${userId}_${sessionId}`
+          .toLowerCase()
+          .replace(/[^a-z0-9_-]/g, "_")
+          .replace(/^[^a-z0-9]+/, "")
+          .replace(/[^a-z0-9]+$/, "");
       }
 
       const chatHistory = await ChatHistoryModel.findOne({ userId, sessionId });
@@ -171,7 +176,11 @@ export class ChatService {
     } catch (error) {
       console.error("Error getting ChromaDB collection name:", error);
       // Fallback to generated name
-      return `chat_${userId}_${sessionId}`.replace(/[^a-zA-Z0-9_-]/g, "_");
+      return `chat_${userId}_${sessionId}`
+        .toLowerCase()
+        .replace(/[^a-z0-9_-]/g, "_")
+        .replace(/^[^a-z0-9]+/, "")
+        .replace(/[^a-z0-9]+$/, "");
     }
   }
 
