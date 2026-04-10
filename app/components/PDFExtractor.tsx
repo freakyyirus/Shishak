@@ -102,6 +102,7 @@ export function PDFExtractor({
         return () => {
             mounted = false;
         };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pdfBase64, forceOnline]);
 
     const handleMessage = (event: WebViewMessageEvent) => {
