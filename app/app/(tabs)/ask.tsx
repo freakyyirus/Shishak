@@ -1,5 +1,5 @@
-import PDFExtractor from "@/components/PDFExtractor"
-import PDFOCRFallback from "@/components/PDFOCRFallback"
+import { PDFExtractor } from "@/components/PDFExtractor"
+import { PDFOCRFallback } from "@/components/PDFOCRFallback"
 import { ThemedText } from "@/components/themed-text"
 import { ThemedView } from "@/components/themed-view"
 import { useAI } from "@/hooks/useAI"
@@ -22,7 +22,6 @@ import {
   Alert,
   FlatList,
   Pressable,
-  ScrollView,
   StyleSheet,
   TextInput,
   View,
@@ -38,7 +37,7 @@ interface Message {
 
 export default function AskScreen() {
   const insets = useSafeAreaInsets()
-  const { askQuestion, isLoading, isTextModelReady } = useAI()
+  const { isLoading, isTextModelReady } = useAI()
 
   const [activeDoc, setActiveDoc] = useState<PDFDocument | null>(null)
   const [messages, setMessages] = useState<Message[]>([])
@@ -189,7 +188,7 @@ export default function AskScreen() {
         setRagProgress(null)
       }
     },
-    [pendingPdfName, pendingPdfUri, handleRAGProgress]
+    [pendingPdfName, handleRAGProgress]
   )
 
   const handlePickDocument = async () => {
