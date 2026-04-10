@@ -72,12 +72,12 @@ router.get(
 );
 
 /**
- * GET /api/stitch/status/groq
- * Check Groq API connection status
+ * GET /api/stitch/status/gemini
+ * Check Gemini API connection status
  */
 router.get(
-  "/status/groq",
-  asyncHandler(stitchController.checkGroqStatus.bind(stitchController))
+  "/status/gemini",
+  asyncHandler(stitchController.checkGeminiStatus.bind(stitchController))
 );
 
 /**
