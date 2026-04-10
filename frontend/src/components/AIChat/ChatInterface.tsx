@@ -354,13 +354,13 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
   return (
     <div className="h-full flex flex-col bg-white/50 overflow-hidden">
       {/* Messages Container */}
-      <div className="flex-1 overflow-y-auto p-4 sm:p-6 bg-gradient-to-b from-white to-orange-50/30 min-h-0">
+      <div className="flex-1 overflow-y-auto p-4 sm:p-6 bg-gradient-to-b from-white to-teal-50/30 min-h-0">
         {messages.length === 0 ? (
           <div className="flex items-center justify-center h-full">
             <div className="text-center px-4">
-              <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-orange-100 to-orange-200 flex items-center justify-center">
+              <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-teal-100 to-teal-200 flex items-center justify-center">
                 <svg
-                  className="w-10 h-10 text-orange-400"
+                  className="w-10 h-10 text-teal-400"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -381,7 +381,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
               </p>
               <button
                 onClick={() => fileInputRef.current?.click()}
-                className="px-6 py-2 bg-orange-400 text-white rounded-lg hover:bg-orange-500 transition-colors font-medium"
+                className="px-6 py-2 bg-teal-400 text-white rounded-lg hover:bg-teal-500 transition-colors font-medium"
               >
                 Upload Document
               </button>
@@ -411,8 +411,8 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
                       <div
                         className={`max-w-[85%] rounded-2xl p-4 shadow-md ${
                           message.role === "user"
-                            ? "bg-gradient-to-br from-orange-400 to-orange-500 text-white rounded-br-sm"
-                            : "bg-white text-gray-800 rounded-bl-sm border-2 border-orange-100"
+                            ? "bg-gradient-to-br from-teal-400 to-teal-500 text-white rounded-br-sm"
+                            : "bg-white text-gray-800 rounded-bl-sm border-2 border-teal-100"
                         }`}
                       >
                         {/* Message Content */}
@@ -430,7 +430,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
                         <div
                           className={`text-xs mt-2 ${
                             message.role === "user"
-                              ? "text-orange-100"
+                              ? "text-teal-100"
                               : "text-gray-500"
                           }`}
                         >
@@ -467,10 +467,10 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
                                     .map((source, idx) => (
                                       <div
                                         key={idx}
-                                        className="bg-orange-50 rounded-lg p-3 border border-orange-200"
+                                        className="bg-teal-50 rounded-lg p-3 border border-teal-200"
                                       >
                                         <div className="flex items-center gap-2 mb-1.5">
-                                          <span className="text-xs font-semibold text-orange-700">
+                                          <span className="text-xs font-semibold text-teal-700">
                                             {source.pdfName}
                                           </span>
                                         </div>
@@ -543,7 +543,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
                                 <div className="space-y-3 p-1">
                                   {/* Translated Content */}
                                   {message.translatedContent ? (
-                                    <div className="p-3 bg-orange-50 rounded-lg border border-orange-100">
+                                    <div className="p-3 bg-teal-50 rounded-lg border border-teal-100">
                                       <p className="text-sm text-gray-800 whitespace-pre-wrap leading-relaxed">
                                         {message.translatedContent}
                                       </p>
@@ -563,7 +563,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
                                       )
                                     }
                                     disabled={message.isTranslating}
-                                    className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-white border border-orange-200 text-orange-600 rounded-lg hover:bg-orange-50 transition-colors text-xs font-semibold"
+                                    className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-white border border-teal-200 text-teal-600 rounded-lg hover:bg-teal-50 transition-colors text-xs font-semibold"
                                   >
                                     {message.isTranslating ? (
                                       <>
@@ -638,11 +638,11 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
 
       {/* Upload Progress Indicators */}
       {uploadProgress.length > 0 && (
-        <div className="px-4 py-2 bg-orange-50 border-t border-orange-200 space-y-2">
+        <div className="px-4 py-2 bg-teal-50 border-t border-teal-200 space-y-2">
           {uploadProgress.map((upload) => (
             <div key={upload.fileId} className="flex items-center gap-3">
               <svg
-                className="w-4 h-4 text-orange-600 flex-shrink-0"
+                className="w-4 h-4 text-teal-600 flex-shrink-0"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -674,7 +674,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
                         ? "bg-green-500"
                         : upload.status === "error"
                         ? "bg-red-500"
-                        : "bg-orange-500"
+                        : "bg-teal-500"
                     }`}
                     style={{ width: `${upload.progress}%` }}
                   />
@@ -689,7 +689,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
       )}
 
       {/* Compact Input Area - All controls on one line */}
-      <div className="flex-shrink-0 border-t-2 border-orange-200 p-3 bg-white">
+      <div className="flex-shrink-0 border-t-2 border-teal-200 p-3 bg-white">
         {/* Hidden file input */}
         <input
           ref={fileInputRef}
@@ -705,7 +705,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
           {/* Upload Button */}
           <button
             onClick={() => fileInputRef.current?.click()}
-            className="p-2.5 text-orange-600 hover:text-orange-700 bg-orange-50 hover:bg-orange-100 rounded-xl transition-all border-2 border-orange-200 hover:border-orange-300 flex-shrink-0"
+            className="p-2.5 text-teal-600 hover:text-teal-700 bg-teal-50 hover:bg-teal-100 rounded-xl transition-all border-2 border-teal-200 hover:border-teal-300 flex-shrink-0"
             title="Upload files (PDF, TXT, DOC, PPT, Images)"
           >
             <svg
@@ -749,7 +749,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
             disabled={!inputValue.trim() || isLoading}
             className={`p-2.5 rounded-xl transition-all flex-shrink-0 border-2 ${
               inputValue.trim() && !isLoading
-                ? "bg-gradient-to-br from-orange-400 to-orange-500 text-white border-orange-400 hover:from-orange-500 hover:to-orange-600 shadow-md hover:shadow-lg"
+                ? "bg-gradient-to-br from-teal-400 to-teal-500 text-white border-teal-400 hover:from-teal-500 hover:to-teal-600 shadow-md hover:shadow-lg"
                 : "bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed"
             }`}
           >
@@ -776,7 +776,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
             {getExamplePrompts().map((prompt, index) => (
               <button
                 key={index}
-                className="text-xs bg-orange-50 text-orange-700 px-2.5 py-1 rounded-full hover:bg-orange-100 hover:text-orange-800 transition-all border border-orange-200 font-medium"
+                className="text-xs bg-teal-50 text-teal-700 px-2.5 py-1 rounded-full hover:bg-teal-100 hover:text-teal-800 transition-all border border-teal-200 font-medium"
                 onClick={() => setInputValue(prompt)}
                 disabled={isLoading}
               >
@@ -791,3 +791,4 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({
 };
 
 export default ChatInterface;
+
