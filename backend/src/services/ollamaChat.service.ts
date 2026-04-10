@@ -253,101 +253,40 @@ OUTPUT FORMAT (JSON only, no other text):
   }
 
   async generateEducationalAnswer(
-    documentContext: string,
-    chatHistory: ChatMessage[],
-    question: string,
-    language: LanguageCode,
-    sources: SourceCitation[]
+    query: string,
+    context: string,
+    history: ChatMessage[],
+    numPredict: number,
+    numCtx: number
   ): Promise<{ answer: string; reasoning?: string; thinking?: string }> {
-    const languageName = SUPPORTED_LANGUAGES[language];
-    const hasDocuments = documentContext && documentContext.trim().length > 0;
-
-    const recentHistory = chatHistory.slice(-RAG_CONSTANTS.HISTORY_TURNS);
-    const chatContextString =
-      recentHistory.length > 0
-        ? recentHistory
-          .map(
-            (msg) =>
-              `${msg.role === "user" ? "Student" : "ShikShak"}: ${msg.content
-              }`
-          )
-          .join("\n")
-        : "";
-
-    const sourcesString =
-      sources.length > 0
-        ? sources
-          .map(
-            (s, idx) =>
-              `[Source ${idx + 1}: "${s.pdfName}", Page ${s.pageNo}]`
-          )
-          .join("\n")
-        : "";
-
-    const prompt = hasDocuments
-      ? `You are ShikShak, an expert educational AI assistant.
-
-I have already extracted and provided relevant information from the user's uploaded documents below. This context contains the actual content from their files (PDFs, DOCX, images, etc.).
-
-EXTRACTED DOCUMENT CONTENT:
-${documentContext}
-
-DOCUMENT SOURCES (already extracted and available):
-${sourcesString}
-
-CONVERSATION HISTORY:
-${chatContextString}
-
-STUDENT'S QUESTION: ${question}
-
-CRITICAL INSTRUCTIONS:
-1. The context above IS the actual content from the user's documents - you have full access to it
-2. Answer the question using ONLY the information provided in the context above
-3. Never say "I cannot access documents" - the documents are already processed and extracted above
-4. Be thorough, educational, and helpful
-5. Use simple, clear language appropriate for students
-6. When referencing information, cite sources as [Source X]
-7. Respond in ${languageName}
-8. If the context doesn't contain relevant information, say "The uploaded documents don't contain information about [topic]"
-
-YOUR ANSWER (in ${languageName}):`
-      : `You are ShikShak, an educational AI.
-
-No relevant documents found.
-
-HISTORY:
-${chatContextString}
-
-QUESTION: ${question}
-
-Respond in ${languageName} briefly.`;
-
-    const promptTokens = countTokens(prompt);
-
-    // DeepSeek R1 recommended settings for descriptive reasoning
-    // num_predict: 2048-4096 for balanced explanations locally
-    // num_ctx: 32768 to hold both input and output
-    const cloudKey = process.env.GEMINI_API_KEY || env.GEMINI_API_KEY;
-    const numPredict = groqKey ? 8192 : 4096; // Faster locally
-    const numCtx = RAG_CONSTANTS.LLM_CTX; // 32768
+    const prompt = `CONTEXT: ${context}\n\nHISTORY: ${JSON.stringify(history.slice(-3))}\n\nUSER: ${query}`;
 
     try {
       const cloudKey = process.env.GEMINI_API_KEY || env.GEMINI_API_KEY;
       if (cloudKey) {
-        const response = await axios.post(
-          "https://api.cerebras.ai/v1/chat/completions",
-          {
-            model: "llama3.1-70b",
-            messages: [{ role: "user", content: prompt }],
-            temperature: RAG_CONSTANTS.TEMP_RAG,
-            max_tokens: numPredict,
-            top_p: 0.95,
-          },
-          { headers: { Authorization: `Bearer ${cloudKey}` }, timeout: 120000 }
-        );
-        const payloadAnswer = response.data.choices[0]?.message?.content?.trim() || "";
-        const { answer: parsedAnswer, thinking } = this.parseDeepSeekResponse(payloadAnswer);
-        return { answer: parsedAnswer, reasoning: thinking, thinking };
+        try {
+          const response = await axios.post(
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${cloudKey}`,
+            {
+              contents: [{ parts: [{ text: prompt }] }],
+              generationConfig: {
+                temperature: RAG_CONSTANTS.TEMP_RAG,
+                maxOutputTokens: numPredict,
+                topP: 0.95
+              }
+            },
+            { timeout: 120000 }
+          );
+          const payloadAnswer = response.data.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || "";
+          const { answer: parsedAnswer, thinking } = this.parseDeepSeekResponse(payloadAnswer);
+          return { answer: parsedAnswer, reasoning: thinking, thinking };
+        } catch (error: any) {
+          if (error.response?.status === 429) {
+             console.warn("⚠️ Gemini rate limited (answer). Falling back to local Ollama.");
+          } else {
+             throw error;
+          }
+        }
       }
 
       const response = await axios.post(
@@ -370,7 +309,7 @@ Respond in ${languageName} briefly.`;
         throw new Error("No response from Ollama");
       }
 
-      const fullResponse = response.data.response.trim();
+      const fullResponse = response.data.response;
       const { answer, thinking } = this.parseDeepSeekResponse(fullResponse);
 
       return { answer, reasoning: thinking, thinking };
@@ -378,10 +317,7 @@ Respond in ${languageName} briefly.`;
       if (error.code === "ECONNREFUSED") {
         throw new Error("Ollama is not running. Please start Ollama service.");
       }
-      if (error.code === "ETIMEDOUT") {
-        throw new Error("Ollama request timed out.");
-      }
-      throw new Error(`Ollama chat failed: ${error.message}`);
+      throw new Error(`Chat failed: ${error.message}`);
     }
   }
 
