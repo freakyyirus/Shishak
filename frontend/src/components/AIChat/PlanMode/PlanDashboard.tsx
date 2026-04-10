@@ -41,7 +41,7 @@ const PlanDashboard: React.FC<PlanDashboardProps> = ({
         return (
             <div className="h-full flex items-center justify-center">
                 <div className="text-center">
-                    <div className="w-12 h-12 mx-auto mb-4 border-4 border-orange-200 border-t-orange-500 rounded-full animate-spin" />
+                    <div className="w-12 h-12 mx-auto mb-4 border-4 border-teal-200 border-t-teal-500 rounded-full animate-spin" />
                     <p className="text-gray-600">Loading documents...</p>
                 </div>
             </div>
@@ -49,7 +49,7 @@ const PlanDashboard: React.FC<PlanDashboardProps> = ({
     }
 
     return (
-        <div className="h-full overflow-y-auto p-6 bg-gradient-to-b from-white to-orange-50/30">
+        <div className="h-full overflow-y-auto p-6 bg-gradient-to-b from-white to-teal-50/30">
             {/* Header */}
             <div className="mb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
                 <div>
@@ -63,7 +63,7 @@ const PlanDashboard: React.FC<PlanDashboardProps> = ({
 
                 <div className="flex items-center gap-4">
                     {/* Grade indicator (read-only) */}
-                    <div className="bg-orange-50 text-orange-700 px-3 py-1.5 rounded-lg border border-orange-200 text-sm font-medium">
+                    <div className="bg-teal-50 text-teal-700 px-3 py-1.5 rounded-lg border border-teal-200 text-sm font-medium">
                         Target: {selectedGrade === 'Undergrad' || selectedGrade === 'Grad' ? selectedGrade : `Class ${selectedGrade}`}
                     </div>
 
@@ -72,7 +72,7 @@ const PlanDashboard: React.FC<PlanDashboardProps> = ({
                             <button
                                 onClick={() => setViewMode('list')}
                                 className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${viewMode === 'list'
-                                    ? 'bg-orange-100 text-orange-700'
+                                    ? 'bg-teal-100 text-teal-700'
                                     : 'text-gray-500 hover:text-gray-700'
                                     }`}
                             >
@@ -81,7 +81,7 @@ const PlanDashboard: React.FC<PlanDashboardProps> = ({
                             <button
                                 onClick={() => setViewMode('grid')}
                                 className={`px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${viewMode === 'grid'
-                                    ? 'bg-orange-100 text-orange-700'
+                                    ? 'bg-teal-100 text-teal-700'
                                     : 'text-gray-500 hover:text-gray-700'
                                     }`}
                             >
@@ -101,7 +101,7 @@ const PlanDashboard: React.FC<PlanDashboardProps> = ({
             {/* Empty State */}
             {documents.length === 0 ? (
                 <div className="text-center py-16">
-                    <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-orange-100 to-amber-100 rounded-full flex items-center justify-center">
+                    <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-teal-100 to-amber-100 rounded-full flex items-center justify-center">
                         <span className="text-4xl">📄</span>
                     </div>
                     <h3 className="text-xl font-semibold text-gray-800 mb-2">No documents yet</h3>
@@ -110,7 +110,7 @@ const PlanDashboard: React.FC<PlanDashboardProps> = ({
                     </p>
                     <button
                         onClick={() => onSwitchToStudy('')}
-                        className="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors"
+                        className="px-4 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600 transition-colors"
                     >
                         Go to Study Mode
                     </button>
@@ -135,3 +135,4 @@ const PlanDashboard: React.FC<PlanDashboardProps> = ({
 };
 
 export default PlanDashboard;
+
