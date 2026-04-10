@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 interface TextViewerProps {
     url: string;
@@ -16,25 +16,25 @@ const TextViewer: React.FC<TextViewerProps> = ({ url, content: initialContent, f
     const [error, setError] = useState<string | null>(null);
     const [showLineNumbers, setShowLineNumbers] = useState(true);
 
-    useEffect(() => {
-        if (!initialContent && url) {
-            fetchContent();
-        }
-    }, [url, initialContent]);
-
-    const fetchContent = async () => {
+    const fetchContent = useCallback(async () => {
         try {
             setIsLoading(true);
             const response = await fetch(url);
             if (!response.ok) throw new Error('Failed to load file');
             const text = await response.text();
             setContent(text);
-        } catch (err: any) {
-            setError(err.message || 'Failed to load content');
+        } catch (err: unknown) {
+            setError(err instanceof Error ? err.message : 'Failed to load content');
         } finally {
             setIsLoading(false);
         }
-    };
+    }, [url]);
+
+    useEffect(() => {
+        if (!initialContent && url) {
+            fetchContent();
+        }
+    }, [url, initialContent, fetchContent]);
 
     const copyToClipboard = () => {
         navigator.clipboard.writeText(content);
@@ -46,7 +46,7 @@ const TextViewer: React.FC<TextViewerProps> = ({ url, content: initialContent, f
         return (
             <div className="h-full flex items-center justify-center bg-gray-50">
                 <div className="text-center">
-                    <div className="w-12 h-12 border-4 border-orange-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                    <div className="w-12 h-12 border-4 border-teal-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
                     <p className="text-gray-600">Loading file...</p>
                 </div>
             </div>
@@ -76,7 +76,7 @@ const TextViewer: React.FC<TextViewerProps> = ({ url, content: initialContent, f
                     <span className="text-gray-500 text-sm">{lines.length} lines</span>
                     <button
                         onClick={() => setShowLineNumbers(!showLineNumbers)}
-                        className={`text-xs px-2 py-1 rounded ${showLineNumbers ? 'bg-orange-400 text-white' : 'bg-gray-200 text-gray-600'}`}
+                        className={`text-xs px-2 py-1 rounded ${showLineNumbers ? 'bg-teal-400 text-white' : 'bg-gray-200 text-gray-600'}`}
                     >
                         Line Numbers
                     </button>
@@ -118,3 +118,4 @@ const TextViewer: React.FC<TextViewerProps> = ({ url, content: initialContent, f
 };
 
 export default TextViewer;
+
