@@ -28,9 +28,9 @@ const GenerationResults: React.FC<GenerationResultsProps> = ({
   // Show loading state
   if (isGenerating) {
     return (
-      <div className="bg-white/80 backdrop-blur-md rounded-2xl p-12 shadow-xl border-2 border-orange-100">
+      <div className="bg-white/80 backdrop-blur-md rounded-2xl p-12 shadow-xl border-2 border-teal-100">
         <div className="flex flex-col items-center justify-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-orange-500 mb-6"></div>
+          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-teal-500 mb-6"></div>
           <h3 className="text-2xl font-bold text-gray-800 mb-2">
             Generating Educational Posters...
           </h3>
@@ -46,10 +46,10 @@ const GenerationResults: React.FC<GenerationResultsProps> = ({
   // Show empty state
   if (posters.length === 0) {
     return (
-      <div className="bg-white/80 backdrop-blur-md rounded-2xl p-12 shadow-xl border-2 border-orange-100">
+      <div className="bg-white/80 backdrop-blur-md rounded-2xl p-12 shadow-xl border-2 border-teal-100">
         <div className="flex flex-col items-center justify-center text-center">
           <svg
-            className="w-24 h-24 text-orange-200 mb-4"
+            className="w-24 h-24 text-teal-200 mb-4"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -74,9 +74,9 @@ const GenerationResults: React.FC<GenerationResultsProps> = ({
   }
 
   return (
-    <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-xl border-2 border-orange-200/60 overflow-hidden">
+    <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-xl border-2 border-teal-200/60 overflow-hidden">
       {/* Header with Download All Button */}
-      <div className="p-4 sm:p-6 border-b-2 border-orange-200/60 flex justify-between items-center">
+      <div className="p-4 sm:p-6 border-b-2 border-teal-200/60 flex justify-between items-center">
         <div>
           <h3 className="text-sm sm:text-base font-semibold text-gray-800">
             Generated Educational Posters
@@ -112,7 +112,7 @@ const GenerationResults: React.FC<GenerationResultsProps> = ({
           {posters.length > 1 && (
             <button
               onClick={onDownloadAll}
-              className="flex items-center gap-2 px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors shadow-md"
+              className="flex items-center gap-2 px-4 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600 transition-colors shadow-md"
             >
               <svg
                 className="w-5 h-5"
@@ -150,7 +150,7 @@ const GenerationResults: React.FC<GenerationResultsProps> = ({
               />
               <button
                 onClick={() => onDownload(poster, index)}
-                className="absolute top-4 right-4 bg-orange-500 text-white rounded-full p-3 shadow-lg hover:bg-orange-600 transition-colors"
+                className="absolute top-4 right-4 bg-teal-500 text-white rounded-full p-3 shadow-lg hover:bg-teal-600 transition-colors"
                 title="Download poster"
               >
                 <svg
@@ -176,3 +176,4 @@ const GenerationResults: React.FC<GenerationResultsProps> = ({
 };
 
 export default GenerationResults;
+
