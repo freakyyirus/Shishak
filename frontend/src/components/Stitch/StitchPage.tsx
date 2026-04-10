@@ -88,7 +88,7 @@ class StitchErrorBoundary extends Component<
   render() {
     if (this.state.hasError) {
       return (
-        <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-orange-50/30 flex items-center justify-center p-4">
+        <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-teal-50/30 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl shadow-xl border-2 border-red-200 p-8 max-w-md w-full">
             <div className="text-center">
               <svg
@@ -110,7 +110,7 @@ class StitchErrorBoundary extends Component<
               </p>
               <button
                 onClick={() => window.location.reload()}
-                className="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors"
+                className="px-4 py-2 bg-teal-500 text-white rounded-lg hover:bg-teal-600 transition-colors"
               >
                 Refresh Page
               </button>
@@ -167,9 +167,9 @@ const SafeMarkdownRenderer: React.FC<{ content: string }> = ({ content }) => {
     return null;
   }
 
-  try {
-    return (
-      <div className="markdown-content prose prose-lg max-w-none">
+  // Error boundary handles rendering errors
+  return (
+    <div className="markdown-content prose prose-lg max-w-none">
         <ReactMarkdown
           remarkPlugins={[remarkGfm]}
           components={{
@@ -228,7 +228,7 @@ const SafeMarkdownRenderer: React.FC<{ content: string }> = ({ content }) => {
               </em>
             ),
             // Code blocks and inline code - SIMPLIFIED
-            code: ({ children, className: codeClassName, ...props }: any) => {
+            code: ({ children, className: codeClassName, ...props }: React.HTMLAttributes<HTMLElement> & { className?: string }) => {
               const isInline = !codeClassName;
 
               if (isInline) {
@@ -267,10 +267,6 @@ const SafeMarkdownRenderer: React.FC<{ content: string }> = ({ content }) => {
         </ReactMarkdown>
       </div>
     );
-  } catch (error) {
-    console.error("Error rendering markdown:", error);
-    throw error; // Let error boundary handle it
-  }
 };
 
 // Toast Notification Component
@@ -387,11 +383,7 @@ const StitchPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<"english" | string>("english"); // Active tab: "english" or language code
   const [thinkingText, setThinkingText] = useState("");
   const [error, setError] = useState<string | null>(null);
-  const [generationTimes, setGenerationTimes] = useState<{
-    thinkingTime?: number;
-    generationTime?: number;
-    translationTime?: number;
-  }>({});
+  // generation times tracking removed since unused
   const [isRefining, setIsRefining] = useState(false);
   const [refineQuery, setRefineQuery] = useState("");
   const [isTranslating, setIsTranslating] = useState<Record<string, boolean>>({}); // Track translation status per language
@@ -407,7 +399,7 @@ const StitchPage: React.FC = () => {
     checking: boolean;
     error?: string;
   }>({ connected: false, enabled: false, checking: true });
-  const [groqStatus, setGroqStatus] = useState<{
+  const [geminiStatus, setGeminiStatus] = useState<{
     connected: boolean;
     checking: boolean;
   }>({ connected: false, checking: false });
@@ -433,7 +425,7 @@ const StitchPage: React.FC = () => {
     try {
       await navigator.clipboard.writeText(content);
       showToast("Copied to clipboard!", "success");
-    } catch (err) {
+    } catch {
       showToast("Failed to copy to clipboard", "error");
     }
   }, [showToast]);
@@ -451,7 +443,7 @@ const StitchPage: React.FC = () => {
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
       showToast("File downloaded successfully!", "success");
-    } catch (err) {
+    } catch (_err) {
       showToast("Failed to download file", "error");
     }
   }, [showToast]);
@@ -534,6 +526,7 @@ const StitchPage: React.FC = () => {
   }, [activeTab, englishContent, translatedContent, handleCopy, handleDownload, getLanguageName]);
 
   // Handle refine content
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleRefine = async () => {
     if (!refineQuery.trim() || !englishContent.trim()) {
       setError("Please enter a refinement request");
@@ -607,7 +600,7 @@ const StitchPage: React.FC = () => {
                   generationStartTime = Date.now();
                   firstResponseChunk = false;
                   if (generationMode === "cloud" && !accumulatedThinking) {
-                    setThinkingText("Processing refinement with Kimi K2 model...");
+                    setThinkingText("Processing refinement with Gemini model...");
                   }
                 }
                 accumulatedResponse += parsed.content;
@@ -620,16 +613,11 @@ const StitchPage: React.FC = () => {
                   setThinkingText(parsed.thinkingText);
                 }
 
-                const thinkingTime = thinkingStartTime ? Date.now() - thinkingStartTime : undefined;
-                const generationTime = generationStartTime ? Date.now() - generationStartTime : undefined;
-                setGenerationTimes({
-                  thinkingTime,
-                  generationTime,
-                });
+                // Skip generation times 
               } else if (parsed.type === "error") {
                 throw new Error(parsed.error);
               }
-            } catch (e) {
+            } catch {
               continue;
             }
           }
@@ -654,7 +642,7 @@ const StitchPage: React.FC = () => {
   };
 
   // Handle translation
-  const handleTranslate = async (targetLang: string) => {
+  const handleTranslate = useCallback(async (targetLang: string) => {
     if (!englishContent.trim()) {
       setError("No content to translate");
       return;
@@ -681,7 +669,7 @@ const StitchPage: React.FC = () => {
 
     // Show thinking text for translation
     if (generationMode === "cloud") {
-      setThinkingText(`Translating to ${getLanguageName(targetLang)} using Kimi K2...`);
+      setThinkingText(`Translating to ${getLanguageName(targetLang)} using Gemini...`);
     } else {
       setThinkingText(`Translating to ${getLanguageName(targetLang)} using NLLB-200...`);
     }
@@ -692,11 +680,11 @@ const StitchPage: React.FC = () => {
         text: englishContent,
         sourceLanguage: "en",
         targetLanguage: targetLang,
-        mode: generationMode, // Pass mode for Groq translation
+        mode: generationMode, // Pass mode for Gemini translation
       });
 
-      const translationTime = Date.now() - translationStartTime;
-      setGenerationTimes(prev => ({ ...prev, translationTime }));
+      // Log translation time
+      console.log(`Translation time: ${Date.now() - translationStartTime}ms`);
 
       // Clear thinking text after translation
       setThinkingText("");
@@ -764,7 +752,8 @@ const StitchPage: React.FC = () => {
         return newPrev;
       });
     }
-  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [englishContent, translatedContent, translatingLanguages, generationMode, getLanguageName, showToast, stitchAPI]);
 
   // Bulk translate to all languages
   const handleBulkTranslate = useCallback(async () => {
@@ -975,10 +964,10 @@ const StitchPage: React.FC = () => {
     return () => clearTimeout(timeoutId);
   }, [englishContent, translatedContent, topic, selectedGrade, selectedSubject, customGrade, customSubject, markdownEnabled, currentSessionId]);
 
-  // Check Ollama, Groq, and NLLB status on mount
+  // Check Ollama, Gemini, and NLLB status on mount
   useEffect(() => {
     checkOllamaStatus();
-    checkGroqStatus();
+    checkGeminiStatus();
     checkNLLBStatus();
 
     // Cleanup: Cancel content generation on unmount
@@ -1068,21 +1057,21 @@ const StitchPage: React.FC = () => {
     }
   };
 
-  const checkGroqStatus = async () => {
-    setGroqStatus({ connected: false, checking: true });
+  const checkGeminiStatus = async () => {
+    setGeminiStatus({ connected: false, checking: true });
     try {
-      const status = await stitchAPI.checkGroqStatus();
-      setGroqStatus({ connected: status.connected, checking: false });
+      const status = await stitchAPI.checkGeminiStatus();
+      setGeminiStatus({ connected: status.connected, checking: false });
     } catch (err) {
-      setGroqStatus({ connected: false, checking: false });
-      console.error("Failed to check Groq status:", err);
+      setGeminiStatus({ connected: false, checking: false });
+      console.error("Failed to check Gemini status:", err);
     }
   };
 
-  // Check Groq status when switching to cloud mode
+  // Check Gemini status when switching to cloud mode
   useEffect(() => {
     if (generationMode === "cloud") {
-      checkGroqStatus();
+      checkGeminiStatus();
     }
   }, [generationMode]);
 
@@ -1179,7 +1168,7 @@ const StitchPage: React.FC = () => {
                   firstResponseChunk = false;
                   // For cloud mode, simulate thinking text if not provided
                   if (generationMode === "cloud" && !accumulatedThinking) {
-                    setThinkingText("Processing request with Kimi K2 model...");
+                    setThinkingText("Processing request with Gemini model...");
                   }
                 }
                 accumulatedResponse += parsed.content || "";
@@ -1203,7 +1192,7 @@ const StitchPage: React.FC = () => {
               } else if (parsed.type === "error") {
                 throw new Error(parsed.error);
               }
-            } catch (e) {
+            } catch {
               // Skip invalid JSON
               continue;
             }
@@ -1243,7 +1232,7 @@ const StitchPage: React.FC = () => {
   }, [translatedContent, translatingLanguages]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-orange-50/30">
+    <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-teal-50/30">
       {/* Toast Notifications */}
       <div className="fixed top-4 right-4 z-50 space-y-2">
         {toasts.map((toast) => (
@@ -1263,7 +1252,7 @@ const StitchPage: React.FC = () => {
             {/* Header */}
             <div className="mb-6 sm:mb-8 text-center">
               <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-800 mb-2 sm:mb-3">
-                <span className="text-orange-400">Stitch</span> Offline Content
+                <span className="text-teal-400">Stitch</span> Offline Content
               </h1>
               <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-2xl mx-auto">
                 Generate comprehensive, curriculum-aligned educational content offline using DeepSeek R1
@@ -1274,10 +1263,10 @@ const StitchPage: React.FC = () => {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {/* Left Panel - Configuration */}
               <div className="lg:col-span-1 space-y-4">
-                <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-xl border-2 border-orange-200/60 p-5 sm:p-6">
+                <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-xl border-2 border-teal-200/60 p-5 sm:p-6">
                   <div className="flex items-center gap-2 mb-4 sm:mb-6">
                     <svg
-                      className="w-4 h-4 sm:w-5 sm:h-5 text-orange-400"
+                      className="w-4 h-4 sm:w-5 sm:h-5 text-teal-400"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -1311,7 +1300,7 @@ const StitchPage: React.FC = () => {
                             generationMode === "local"
                               ? generationMode === "cloud"
                                 ? "border-blue-300 bg-blue-50 text-blue-700"
-                                : "border-orange-300 bg-orange-50 text-orange-700"
+                                : "border-teal-300 bg-teal-50 text-teal-700"
                               : generationMode === "cloud"
                                 ? "border-blue-200 bg-white text-blue-600 hover:bg-blue-50"
                                 : "border-gray-200 bg-white text-gray-700 hover:bg-gray-50"
@@ -1351,7 +1340,7 @@ const StitchPage: React.FC = () => {
                                 selectedGrade === grade.value
                                   ? generationMode === "cloud"
                                     ? "border-blue-300 bg-blue-50 text-blue-700 ring-1 ring-blue-200 ring-opacity-50"
-                                    : "border-orange-300 bg-orange-50 text-orange-700 ring-1 ring-orange-200 ring-opacity-50"
+                                    : "border-teal-300 bg-teal-50 text-teal-700 ring-1 ring-teal-200 ring-opacity-50"
                                   : generationMode === "cloud"
                                     ? "border-blue-200 hover:border-blue-300 text-gray-700 bg-white hover:bg-blue-50"
                                     : "border-gray-200 hover:border-gray-250 text-gray-700 bg-white hover:bg-gray-50"
@@ -1378,14 +1367,14 @@ const StitchPage: React.FC = () => {
                           selectedSubject && selectedSubject !== ""
                             ? generationMode === "cloud"
                               ? "border-blue-300 ring-1 ring-blue-200 ring-opacity-50"
-                              : "border-orange-300 ring-1 ring-orange-200 ring-opacity-50"
+                              : "border-teal-300 ring-1 ring-teal-200 ring-opacity-50"
                             : generationMode === "cloud"
                               ? "border-gray-200 focus:border-blue-300"
-                              : "border-gray-200 focus:border-orange-300"
+                              : "border-gray-200 focus:border-teal-300"
                           } focus:ring-2 ${
                             generationMode === "cloud"
                               ? "focus:ring-blue-200 focus:ring-opacity-50 focus:border-blue-300"
-                              : "focus:ring-orange-200 focus:ring-opacity-50 focus:border-orange-300"
+                              : "focus:ring-teal-200 focus:ring-opacity-50 focus:border-teal-300"
                           }`}
                       >
                         {CORE_SUBJECTS.map((subject) => (
@@ -1409,7 +1398,7 @@ const StitchPage: React.FC = () => {
                         className={`w-full px-4 py-2.5 border rounded-lg bg-white text-gray-900 placeholder-gray-400 transition-all ${
                           generationMode === "cloud"
                             ? "border-gray-200 focus:ring-2 focus:ring-blue-200 focus:border-blue-300"
-                            : "border-gray-200 focus:ring-2 focus:ring-orange-200 focus:border-orange-300"
+                            : "border-gray-200 focus:ring-2 focus:ring-teal-200 focus:border-teal-300"
                         }`}
                       />
                     </div>
@@ -1417,11 +1406,11 @@ const StitchPage: React.FC = () => {
                     {/* Generate Button */}
                     <button
                       onClick={handleGenerate}
-                      disabled={isGenerating || !topic.trim() || (generationMode === "cloud" && !groqStatus.connected)}
+                      disabled={isGenerating || !topic.trim() || (generationMode === "cloud" && !geminiStatus.connected)}
                       className={`w-full px-6 py-3 rounded-lg font-semibold transition-all duration-200 shadow-md hover:shadow-lg disabled:bg-gray-300 disabled:cursor-not-allowed disabled:shadow-none disabled:hover:bg-gray-300 ${
                         generationMode === "cloud"
                           ? "bg-blue-500 text-white hover:bg-blue-600 active:bg-blue-700"
-                          : "bg-orange-500 text-white hover:bg-orange-600 active:bg-orange-700"
+                          : "bg-teal-500 text-white hover:bg-teal-600 active:bg-teal-700"
                       }`}
                     >
                       {isGenerating ? (
@@ -1445,7 +1434,7 @@ const StitchPage: React.FC = () => {
                               d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                             />
                           </svg>
-                          Generating via {generationMode === "cloud" ? "Cloud (Kimi K2)" : "Local (DeepSeek-R1)"}...
+                          Generating via {generationMode === "cloud" ? "Cloud (Gemini)" : "Local (DeepSeek-R1)"}...
                         </span>
                       ) : (
                         <span className="flex items-center justify-center gap-2">
@@ -1456,9 +1445,9 @@ const StitchPage: React.FC = () => {
                         </span>
                       )}
                     </button>
-                    {generationMode === "cloud" && !groqStatus.connected && !groqStatus.checking && (
+                    {generationMode === "cloud" && !geminiStatus.connected && !geminiStatus.checking && (
                       <div className="p-2 bg-yellow-50 border border-yellow-200 rounded text-xs text-yellow-800">
-                        ⚠️ Cloud mode requires Groq API connection. Please check your GROQ_API_KEY or switch to Local mode.
+                        ⚠️ Cloud mode requires Gemini API connection. Please check your GEMINI_API_KEY or switch to Local mode.
                       </div>
                     )}
                     {isGenerating && (
@@ -1518,16 +1507,16 @@ const StitchPage: React.FC = () => {
                 </div>
 
                 {/* Service Status - Combined */}
-                <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-xl border-2 border-orange-200/60 p-4 sm:p-5">
+                <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-xl border-2 border-teal-200/60 p-4 sm:p-5">
                   <div className="flex items-center justify-between mb-4">
                     <h2 className="text-sm sm:text-base font-semibold text-gray-800">Service Status</h2>
                     <button
                       onClick={() => {
                         checkOllamaStatus();
-                        checkGroqStatus();
+                        checkGeminiStatus();
                         checkNLLBStatus();
                       }}
-                      className="text-xs text-orange-600 hover:text-orange-700 font-medium"
+                      className="text-xs text-teal-600 hover:text-teal-700 font-medium"
                     >
                       Refresh All
                     </button>
@@ -1554,16 +1543,16 @@ const StitchPage: React.FC = () => {
                       )}
                     </div>
 
-                    {/* Groq Status */}
+                    {/* Gemini Status */}
                     <div className="flex items-center justify-between p-2.5 bg-gray-50 rounded-lg">
                       <div className="flex items-center gap-2">
-                        <span className="text-xs font-medium text-gray-700">Groq (Kimi K2)</span>
+                        <span className="text-xs font-medium text-gray-700">Gemini (Gemini)</span>
                       </div>
-                      {groqStatus.checking ? (
+                      {geminiStatus.checking ? (
                         <span className="px-2 py-0.5 bg-gray-100 text-gray-600 rounded text-xs">
                           Checking...
                         </span>
-                      ) : groqStatus.connected ? (
+                      ) : geminiStatus.connected ? (
                         <span className="px-2 py-0.5 bg-green-100 text-green-700 rounded text-xs font-medium">
                           Connected
                         </span>
@@ -1607,7 +1596,7 @@ const StitchPage: React.FC = () => {
                 <div className="bg-white rounded-xl shadow-lg border border-gray-200 h-64 flex flex-col">
                   <div className="flex items-center gap-3 px-6 py-4 border-b border-gray-200">
                     <svg
-                      className="w-5 h-5 text-orange-500"
+                      className="w-5 h-5 text-teal-500"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -1631,7 +1620,7 @@ const StitchPage: React.FC = () => {
                         <div className="whitespace-pre-wrap text-sm text-gray-700 leading-relaxed font-mono bg-gray-50 p-4 rounded-lg border border-gray-200">
                           {thinkingText || (isGenerating ? "Thinking..." : "")}
                           {isGenerating && (
-                            <span className="inline-block w-2 h-4 bg-orange-500 ml-1 animate-pulse" />
+                            <span className="inline-block w-2 h-4 bg-teal-500 ml-1 animate-pulse" />
                           )}
                         </div>
                       </div>
@@ -1640,11 +1629,11 @@ const StitchPage: React.FC = () => {
                 </div>
 
                 {/* Content Preview with Tabs */}
-                <div ref={contentPreviewRef} className="bg-white/80 backdrop-blur-md rounded-2xl shadow-xl border-2 border-orange-200/60 h-96 flex flex-col">
-                  <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 border-b-2 border-orange-200/60">
+                <div ref={contentPreviewRef} className="bg-white/80 backdrop-blur-md rounded-2xl shadow-xl border-2 border-teal-200/60 h-96 flex flex-col">
+                  <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 border-b-2 border-teal-200/60">
                     <div className="flex items-center gap-2 sm:gap-3">
                       <svg
-                        className="w-4 h-4 sm:w-5 sm:h-5 text-orange-400"
+                        className="w-4 h-4 sm:w-5 sm:h-5 text-teal-400"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -1665,11 +1654,11 @@ const StitchPage: React.FC = () => {
                       )}
                     </div>
                     <div className="flex items-center gap-2">
-                      {/* Save Button - Simple Orange */}
+                      {/* Save Button - Simple Teal */}
                       <button
                         onClick={handleSaveSession}
                         disabled={!currentSessionId && !englishContent && !topic}
-                        className="px-3 py-1.5 bg-orange-500 text-white rounded-lg font-medium hover:bg-orange-600 active:bg-orange-700 transition-all duration-200 shadow-sm hover:shadow disabled:bg-gray-300 disabled:cursor-not-allowed disabled:shadow-none disabled:hover:bg-gray-300 flex items-center justify-center gap-1.5 text-xs sm:text-sm"
+                        className="px-3 py-1.5 bg-teal-500 text-white rounded-lg font-medium hover:bg-teal-600 active:bg-teal-700 transition-all duration-200 shadow-sm hover:shadow disabled:bg-gray-300 disabled:cursor-not-allowed disabled:shadow-none disabled:hover:bg-gray-300 flex items-center justify-center gap-1.5 text-xs sm:text-sm"
                         title="Save session to database"
                       >
                         <svg
@@ -1689,10 +1678,10 @@ const StitchPage: React.FC = () => {
                       </button>
                       {/* Quick Actions Bar */}
                       {getActiveContent() && (
-                        <div className="flex items-center gap-1 mr-2 border-r border-orange-200 pr-2">
+                        <div className="flex items-center gap-1 mr-2 border-r border-teal-200 pr-2">
                           <button
                             onClick={() => handleCopy(getActiveContent())}
-                            className="p-1.5 text-gray-600 hover:text-orange-600 hover:bg-orange-50 rounded transition-colors"
+                            className="p-1.5 text-gray-600 hover:text-teal-600 hover:bg-teal-50 rounded transition-colors"
                             title="Copy to clipboard (Cmd/Ctrl+C)"
                           >
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1701,7 +1690,7 @@ const StitchPage: React.FC = () => {
                           </button>
                           <button
                             onClick={() => handleDownload(getActiveContent(), activeTab === "english" ? "english" : getLanguageName(activeTab))}
-                            className="p-1.5 text-gray-600 hover:text-orange-600 hover:bg-orange-50 rounded transition-colors"
+                            className="p-1.5 text-gray-600 hover:text-teal-600 hover:bg-teal-50 rounded transition-colors"
                             title="Download as file (Cmd/Ctrl+S)"
                           >
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1751,7 +1740,7 @@ const StitchPage: React.FC = () => {
                         className={`text-xs px-3 py-1.5 rounded-lg font-medium disabled:bg-gray-200 disabled:text-gray-500 disabled:cursor-not-allowed flex items-center gap-2 ${
                           generationMode === "cloud"
                             ? "bg-blue-100 text-blue-700 hover:bg-blue-200"
-                            : "bg-orange-100 text-orange-700 hover:bg-orange-200"
+                            : "bg-teal-100 text-teal-700 hover:bg-teal-200"
                         }`}
                       >
                         {isTranslating[targetLanguageForTranslation] ? (
@@ -1771,23 +1760,23 @@ const StitchPage: React.FC = () => {
 
                   {/* Tabs */}
                   {englishContent && (
-                    <div className="flex border-b-2 border-orange-200/60 px-4 sm:px-6 overflow-x-auto items-center">
+                    <div className="flex border-b-2 border-teal-200/60 px-4 sm:px-6 overflow-x-auto items-center">
                       <button
                         onClick={() => setActiveTab("english")}
                         className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium border-b-2 transition-colors whitespace-nowrap ${activeTab === "english"
-                          ? "border-orange-400 text-orange-600"
-                          : "border-transparent text-gray-500 hover:text-gray-700 hover:border-orange-200"
+                          ? "border-teal-400 text-teal-600"
+                          : "border-transparent text-gray-500 hover:text-gray-700 hover:border-teal-200"
                           }`}
                       >
                         English
                       </button>
                       {/* Markdown Toggle & Refine Button - Only show when English tab is active AND generation is complete */}
                       {activeTab === "english" && !isGenerating && englishContent && (
-                        <div className="ml-4 flex items-center gap-3 border-l border-orange-200 pl-4">
+                        <div className="ml-4 flex items-center gap-3 border-l border-teal-200 pl-4">
                           <span className="text-xs text-gray-600 font-medium">Markdown:</span>
                           <button
                             onClick={() => setMarkdownEnabled(!markdownEnabled)}
-                            className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 ${markdownEnabled ? "bg-orange-500" : "bg-gray-300"
+                            className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 ${markdownEnabled ? "bg-teal-500" : "bg-gray-300"
                               }`}
                             role="switch"
                             aria-checked={markdownEnabled}
@@ -1807,7 +1796,7 @@ const StitchPage: React.FC = () => {
                             className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                               generationMode === "cloud"
                                 ? "bg-blue-100 text-blue-700 hover:bg-blue-200"
-                                : "bg-orange-100 text-orange-700 hover:bg-orange-200"
+                                : "bg-teal-100 text-teal-700 hover:bg-teal-200"
                             }`}
                           >
                             {isRefining ? "Cancel Refine" : "Refine"}
@@ -1820,14 +1809,14 @@ const StitchPage: React.FC = () => {
                           key={langCode}
                           onClick={() => setActiveTab(langCode)}
                           className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium border-b-2 transition-colors whitespace-nowrap flex items-center gap-2 ${activeTab === langCode
-                            ? "border-orange-400 text-orange-600"
-                            : "border-transparent text-gray-500 hover:text-gray-700 hover:border-orange-200"
+                            ? "border-teal-400 text-teal-600"
+                            : "border-transparent text-gray-500 hover:text-gray-700 hover:border-teal-200"
                             }`}
                         >
                           {getLanguageName(langCode)}
                           {translatingLanguages.has(langCode) && (
                             <svg
-                              className="animate-spin h-3 w-3 text-orange-500"
+                              className="animate-spin h-3 w-3 text-teal-500"
                               xmlns="http://www.w3.org/2000/svg"
                               fill="none"
                               viewBox="0 0 24 24"
@@ -1876,7 +1865,7 @@ const StitchPage: React.FC = () => {
                             ))}
                           </div>
                           {/* Loading indicator */}
-                          <div className="flex items-center justify-center gap-2 text-orange-500 mt-4">
+                          <div className="flex items-center justify-center gap-2 text-teal-500 mt-4">
                             <svg
                               className="animate-spin h-5 w-5"
                               xmlns="http://www.w3.org/2000/svg"
@@ -1944,3 +1933,5 @@ const StitchPageWithErrorBoundary: React.FC = () => {
 };
 
 export default StitchPageWithErrorBoundary;
+
+
