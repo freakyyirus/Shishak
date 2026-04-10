@@ -374,7 +374,7 @@ const PlaygroundPage: React.FC = () => {
               <button
                 onClick={testTranslation}
                 disabled={translationLoading || !translationText.trim()}
-                className="w-full px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="w-full px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 {translationLoading ? (
                   <>
@@ -413,4 +413,5 @@ const PlaygroundPage: React.FC = () => {
 };
 
 export default PlaygroundPage;
+
 
