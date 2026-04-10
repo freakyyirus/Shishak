@@ -72,10 +72,10 @@ const LMRHistoryComponent: React.FC<LMRHistoryProps> = ({
 
   if (isLoading) {
     return (
-      <div className="bg-white rounded-xl border-2 border-orange-200 p-4">
+      <div className="bg-white rounded-xl border-2 border-teal-200 p-4">
         <h3 className="text-sm font-semibold text-gray-800 mb-3 flex items-center gap-2">
           <svg
-            className="w-4 h-4 text-orange-500"
+            className="w-4 h-4 text-teal-500"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -103,7 +103,7 @@ const LMRHistoryComponent: React.FC<LMRHistoryProps> = ({
 
   if (error) {
     return (
-      <div className="bg-white rounded-xl border-2 border-orange-200 p-4">
+      <div className="bg-white rounded-xl border-2 border-teal-200 p-4">
         <h3 className="text-sm font-semibold text-gray-800 mb-3">
           Recent PDFs
         </h3>
@@ -114,10 +114,10 @@ const LMRHistoryComponent: React.FC<LMRHistoryProps> = ({
 
   if (history.length === 0) {
     return (
-      <div className="bg-white rounded-xl border-2 border-orange-200 p-4">
+      <div className="bg-white rounded-xl border-2 border-teal-200 p-4">
         <h3 className="text-sm font-semibold text-gray-800 mb-3 flex items-center gap-2">
           <svg
-            className="w-4 h-4 text-orange-500"
+            className="w-4 h-4 text-teal-500"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -140,13 +140,13 @@ const LMRHistoryComponent: React.FC<LMRHistoryProps> = ({
 
   return (
     <div
-      className={`bg-white rounded-xl border-2 border-orange-200 p-4 ${
+      className={`bg-white rounded-xl border-2 border-teal-200 p-4 ${
         disabled ? "opacity-50 pointer-events-none" : ""
       }`}
     >
       <h3 className="text-sm font-semibold text-gray-800 mb-3 flex items-center gap-2">
         <svg
-          className="w-4 h-4 text-orange-500"
+          className="w-4 h-4 text-teal-500"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -166,11 +166,11 @@ const LMRHistoryComponent: React.FC<LMRHistoryProps> = ({
             <button
               onClick={() => onSelectFile?.(item.fileId, item.fileName)}
               disabled={disabled}
-              className="w-full text-left p-3 rounded-lg border border-orange-100 hover:border-orange-300 hover:bg-orange-50 transition-all group-hover:pr-12"
+              className="w-full text-left p-3 rounded-lg border border-teal-100 hover:border-teal-300 hover:bg-teal-50 transition-all group-hover:pr-12"
             >
               <div className="flex items-start justify-between gap-2">
                 <div className="flex-1 min-w-0">
-                  <p className="text-xs font-medium text-gray-800 truncate group-hover:text-orange-600">
+                  <p className="text-xs font-medium text-gray-800 truncate group-hover:text-teal-600">
                     {item.fileName}
                   </p>
                   <p className="text-[10px] text-gray-500 mt-0.5">
@@ -198,7 +198,7 @@ const LMRHistoryComponent: React.FC<LMRHistoryProps> = ({
                   )}
                   {item.hasRecallNotes && (
                     <div
-                      className="w-1.5 h-1.5 bg-orange-500 rounded-full"
+                      className="w-1.5 h-1.5 bg-teal-500 rounded-full"
                       title="Has recall notes"
                     ></div>
                   )}
@@ -255,3 +255,4 @@ const LMRHistoryComponent: React.FC<LMRHistoryProps> = ({
 };
 
 export default LMRHistoryComponent;
+
