@@ -6,7 +6,6 @@ export const ModelStatusCard = () => {
     const {
         textModelStatus,
         translationModelStatus,
-        visionModelStatus,
         initialize,
         shutdown,
         isLoading,
@@ -25,7 +24,7 @@ export const ModelStatusCard = () => {
                 console.log('🚀 Auto-initializing AI models...');
                 try {
                     await initialize();
-                } catch (err) {
+                } catch (_err) {
                     console.warn('⚠️ Auto-initialization failed, user can retry manually');
                 }
             }
@@ -34,6 +33,7 @@ export const ModelStatusCard = () => {
         // Small delay to avoid blocking initial render
         const timer = setTimeout(autoInit, 1000);
         return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []); // Only run on mount
 
     // Calculate total memory usage (mock/estimated)
