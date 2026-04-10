@@ -37,7 +37,7 @@ export default function ScanScreen() {
                 setImageUri(result.assets[0].uri);
                 setResult(null);
             }
-        } catch (error) {
+        } catch (_error) {
             Alert.alert('Error', 'Failed to pick image');
         }
     };
@@ -59,7 +59,7 @@ export default function ScanScreen() {
                 setImageUri(pickerResult.assets[0].uri);
                 setResult(null);
             }
-        } catch (error) {
+        } catch (_error) {
             Alert.alert('Error', 'Failed to take photo');
         }
     };
