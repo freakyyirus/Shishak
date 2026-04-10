@@ -45,12 +45,12 @@ const StitchSessionSidebar: React.FC<StitchSessionSidebarProps> = ({
   };
 
   return (
-    <div className="w-full bg-white/80 backdrop-blur-md rounded-2xl shadow-xl border-2 border-orange-200/60 p-4 sm:p-5">
+    <div className="w-full bg-white/80 backdrop-blur-md rounded-2xl shadow-xl border-2 border-teal-200/60 p-4 sm:p-5">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2 sm:gap-3">
           <svg
-            className="w-4 h-4 sm:w-5 sm:h-5 text-orange-400"
+            className="w-4 h-4 sm:w-5 sm:h-5 text-teal-400"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -64,14 +64,14 @@ const StitchSessionSidebar: React.FC<StitchSessionSidebarProps> = ({
           </svg>
           <h2 className="text-sm sm:text-base font-semibold text-gray-800">Session History</h2>
           {sessions.length > 0 && (
-            <span className="px-2 py-0.5 bg-orange-100 text-orange-700 rounded-full text-xs font-medium">
+            <span className="px-2 py-0.5 bg-teal-100 text-teal-700 rounded-full text-xs font-medium">
               {sessions.length}
             </span>
           )}
         </div>
         <button
           onClick={onNewSession}
-          className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-r from-orange-400 to-orange-500 text-white rounded-lg font-medium hover:from-orange-500 hover:to-orange-600 transition-all duration-200 shadow-md hover:shadow-lg text-xs sm:text-sm"
+          className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-r from-teal-400 to-teal-500 text-white rounded-lg font-medium hover:from-teal-500 hover:to-teal-600 transition-all duration-200 shadow-md hover:shadow-lg text-xs sm:text-sm"
         >
           <svg
             className="w-3.5 h-3.5 sm:w-4 sm:h-4"
@@ -135,15 +135,15 @@ const StitchSessionSidebar: React.FC<StitchSessionSidebarProps> = ({
                 key={session.sessionId}
                 className={`group flex-shrink-0 w-48 sm:w-56 bg-gradient-to-br ${
                   currentSessionId === session.sessionId
-                    ? "from-orange-50 to-orange-100 border-2 border-orange-300 shadow-md"
-                    : "from-white to-gray-50 border-2 border-gray-200 hover:border-orange-200"
+                    ? "from-teal-50 to-teal-100 border-2 border-teal-300 shadow-md"
+                    : "from-white to-gray-50 border-2 border-gray-200 hover:border-teal-200"
                 } rounded-xl p-4 cursor-pointer transition-all duration-200 hover:shadow-lg relative`}
                 onClick={() => onSessionSelect(session.sessionId)}
               >
                 {/* Active indicator */}
                 {currentSessionId === session.sessionId && (
                   <div className="absolute top-2 right-2">
-                    <div className="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></div>
+                    <div className="w-2 h-2 bg-teal-500 rounded-full animate-pulse"></div>
                   </div>
                 )}
 
@@ -215,7 +215,7 @@ const StitchSessionSidebar: React.FC<StitchSessionSidebarProps> = ({
                       </div>
                     )}
                     {session.translationCount > 0 && (
-                      <div className="flex items-center gap-1 text-xs text-orange-600 font-medium">
+                      <div className="flex items-center gap-1 text-xs text-teal-600 font-medium">
                         <svg
                           className="w-3.5 h-3.5"
                           fill="none"
@@ -244,3 +244,4 @@ const StitchSessionSidebar: React.FC<StitchSessionSidebarProps> = ({
 };
 
 export default StitchSessionSidebar;
+
