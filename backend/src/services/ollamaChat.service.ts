@@ -116,8 +116,8 @@ OUTPUT FORMAT (JSON only, no other text):
 {"type": "GREETING|SIMPLE|RAG", "reason": "brief explanation", "outputTokens": number}`;
 
     try {
-      const groqKey = process.env.GROQ_API_KEY || env.GROQ_API_KEY;
-      if (groqKey) {
+      const cloudKey = process.env.GEMINI_API_KEY || env.GEMINI_API_KEY;
+      if (cloudKey) {
         // Use cloud for faster classification
         const response = await axios.post(
           "https://api.cerebras.ai/v1/chat/completions",
@@ -128,7 +128,7 @@ OUTPUT FORMAT (JSON only, no other text):
             max_tokens: 150,
             response_format: { type: "json_object" },
           },
-          { headers: { Authorization: `Bearer ${groqKey}` }, timeout: 15000 }
+          { headers: { Authorization: `Bearer ${cloudKey}` }, timeout: 15000 }
         );
 
         const rawResponse = response.data.choices[0]?.message?.content || "";
@@ -327,13 +327,13 @@ Respond in ${languageName} briefly.`;
     // DeepSeek R1 recommended settings for descriptive reasoning
     // num_predict: 2048-4096 for balanced explanations locally
     // num_ctx: 32768 to hold both input and output
-    const groqKey = process.env.GROQ_API_KEY || env.GROQ_API_KEY;
+    const cloudKey = process.env.GEMINI_API_KEY || env.GEMINI_API_KEY;
     const numPredict = groqKey ? 8192 : 4096; // Faster locally
     const numCtx = RAG_CONSTANTS.LLM_CTX; // 32768
 
     try {
-      const groqKey = process.env.GROQ_API_KEY || env.GROQ_API_KEY;
-      if (groqKey) {
+      const cloudKey = process.env.GEMINI_API_KEY || env.GEMINI_API_KEY;
+      if (cloudKey) {
         const response = await axios.post(
           "https://api.cerebras.ai/v1/chat/completions",
           {
@@ -343,7 +343,7 @@ Respond in ${languageName} briefly.`;
             max_tokens: numPredict,
             top_p: 0.95,
           },
-          { headers: { Authorization: `Bearer ${groqKey}` }, timeout: 120000 }
+          { headers: { Authorization: `Bearer ${cloudKey}` }, timeout: 120000 }
         );
         const payloadAnswer = response.data.choices[0]?.message?.content?.trim() || "";
         const { answer: parsedAnswer, thinking } = this.parseDeepSeekResponse(payloadAnswer);
@@ -449,8 +449,8 @@ ${chatContext ? `Context:\n${chatContext}\n\n` : ""}User: ${query}
 Response in ${languageName}:`;
 
     try {
-      const groqKey = process.env.GROQ_API_KEY || env.GROQ_API_KEY;
-      if (groqKey) {
+      const cloudKey = process.env.GEMINI_API_KEY || env.GEMINI_API_KEY;
+      if (cloudKey) {
         const response = await axios.post(
           "https://api.cerebras.ai/v1/chat/completions",
           {
@@ -459,7 +459,7 @@ Response in ${languageName}:`;
             temperature: 0.7,
             max_tokens: 150,
           },
-          { headers: { Authorization: `Bearer ${groqKey}` }, timeout: 15001 }
+          { headers: { Authorization: `Bearer ${cloudKey}` }, timeout: 15001 }
         );
         const { answer: parsedAnswer } = this.parseDeepSeekResponse(
           response.data.choices[0]?.message?.content || ""
@@ -510,8 +510,8 @@ Response in ${languageName}:`;
     );
 
     try {
-      const groqKey = process.env.GROQ_API_KEY || env.GROQ_API_KEY;
-      if (groqKey) {
+      const cloudKey = process.env.GEMINI_API_KEY || env.GEMINI_API_KEY;
+      if (cloudKey) {
         const response = await axios.post(
           "https://api.cerebras.ai/v1/chat/completions",
           {
@@ -521,7 +521,7 @@ Response in ${languageName}:`;
             max_tokens: numPredict,
             top_p: 0.95,
           },
-          { headers: { Authorization: `Bearer ${groqKey}` }, timeout: 180000 }
+          { headers: { Authorization: `Bearer ${cloudKey}` }, timeout: 180000 }
         );
 
         const payloadAnswer = response.data.choices[0]?.message?.content?.trim() || "";
