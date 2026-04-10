@@ -1073,7 +1073,7 @@ const BoardPage: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative w-full h-screen overflow-hidden bg-gradient-to-br from-orange-50 via-white to-orange-50/30">
+    <div className="relative w-full h-screen overflow-hidden bg-gradient-to-br from-teal-50 via-white to-teal-50/30">
       {/* Banner at the top - fades on interaction */}
       <Banner isVisible={bannerVisible} />
 
@@ -1110,10 +1110,10 @@ const BoardPage: React.FC = () => {
 
           {/* Thinking Modal */}
           {showThinkingModal && (isGenerating || thinkingText) && (
-            <div className="absolute top-full right-0 mt-2 w-96 bg-white rounded-xl shadow-xl border border-orange-200 overflow-hidden">
-              <div className="flex items-center gap-3 px-4 py-3 border-b border-gray-200 bg-gradient-to-r from-orange-50 to-orange-100/50">
+            <div className="absolute top-full right-0 mt-2 w-96 bg-white rounded-xl shadow-xl border border-teal-200 overflow-hidden">
+              <div className="flex items-center gap-3 px-4 py-3 border-b border-gray-200 bg-gradient-to-r from-teal-50 to-teal-100/50">
                 <svg
-                  className="w-5 h-5 text-orange-500"
+                  className="w-5 h-5 text-teal-500"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -1148,7 +1148,7 @@ const BoardPage: React.FC = () => {
                     <div className="whitespace-pre-wrap text-sm text-gray-700 leading-relaxed font-mono bg-gray-50 p-4 rounded-lg border border-gray-200">
                       {thinkingText || (isGenerating ? "Thinking..." : "")}
                       {isGenerating && (
-                        <span className="inline-block w-2 h-4 bg-orange-500 ml-1 animate-pulse" />
+                        <span className="inline-block w-2 h-4 bg-teal-500 ml-1 animate-pulse" />
                       )}
                     </div>
                   </div>
@@ -1162,7 +1162,7 @@ const BoardPage: React.FC = () => {
       {/* Panning indicator */}
       {(isSpacePressed || isPanning) && (
         <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 pointer-events-none">
-          <div className="bg-orange-500/90 text-white px-4 py-2 rounded-full shadow-lg">
+          <div className="bg-teal-500/90 text-white px-4 py-2 rounded-full shadow-lg">
             Panning...
           </div>
         </div>
