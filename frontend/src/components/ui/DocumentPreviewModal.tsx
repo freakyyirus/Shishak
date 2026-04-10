@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { ViewerRouter, getViewerTypeFromExtension, type ViewerType } from "../viewers";
 
 interface DocumentPreviewModalProps {
@@ -37,14 +37,8 @@ const DocumentPreviewModal: React.FC<DocumentPreviewModalProps> = ({
     ? getViewerTypeFromMime(mimeType)
     : getViewerTypeFromExtension(fileName);
 
-  // For text files, fetch content separately
-  useEffect(() => {
-    if (isOpen && viewerType === 'text') {
-      fetchTextContent();
-    }
-  }, [isOpen, viewerType]);
-
-  const fetchTextContent = async () => {
+  // Fetch text content for text files
+  const fetchTextContent = useCallback(async () => {
     try {
       const response = await fetch(`${API_BASE_URL}/api/files/${fileId}/content?userId=${encodeURIComponent(userId)}&sessionId=${encodeURIComponent(sessionId)}`);
       if (response.ok) {
@@ -54,7 +48,15 @@ const DocumentPreviewModal: React.FC<DocumentPreviewModalProps> = ({
     } catch (error) {
       console.error('Failed to fetch text content:', error);
     }
-  };
+  }, [fileId, userId, sessionId]);
+
+  // For text files, fetch content separately
+  useEffect(() => {
+    if (isOpen && viewerType === 'text') {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      fetchTextContent();
+    }
+  }, [isOpen, viewerType, fetchTextContent]);
 
   const getFileIcon = () => {
     const icons: Record<ViewerType, React.ReactNode> = {
@@ -74,7 +76,7 @@ const DocumentPreviewModal: React.FC<DocumentPreviewModalProps> = ({
         </svg>
       ),
       ppt: (
-        <svg className="w-6 h-6 text-orange-600" viewBox="0 0 24 24" fill="currentColor">
+        <svg className="w-6 h-6 text-teal-600" viewBox="0 0 24 24" fill="currentColor">
           <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 2l5 5h-5V4zM9 15v-4h2c1.1 0 2 .9 2 2s-.9 2-2 2H9zm2-2v1h-1v-2h1v1z" />
         </svg>
       ),
@@ -101,9 +103,9 @@ const DocumentPreviewModal: React.FC<DocumentPreviewModalProps> = ({
           }`}
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b-2 border-orange-100">
+        <div className="flex items-center justify-between p-4 border-b-2 border-teal-100">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
+            <div className="w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center">
               {getFileIcon()}
             </div>
             <div>
@@ -168,7 +170,7 @@ const DocumentPreviewModal: React.FC<DocumentPreviewModalProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="p-3 border-t-2 border-orange-100 bg-orange-50/50">
+        <div className="p-3 border-t-2 border-teal-100 bg-teal-50/50">
           <div className="flex items-center justify-between text-xs text-gray-600">
             <span>File ID: {fileId.substring(0, 16)}...</span>
             <span className="flex items-center gap-2">
@@ -201,3 +203,4 @@ function getViewerTypeFromMime(mimeType: string): ViewerType {
 }
 
 export default DocumentPreviewModal;
+
