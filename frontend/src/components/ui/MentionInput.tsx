@@ -23,7 +23,7 @@ const MentionInput: React.FC<MentionInputProps> = ({
     value,
     onChange,
     // selectedMentions is tracked internally via prevMentionsRef
-    selectedMentions: _selectedMentions,
+    selectedMentions: _selectedMentions, // eslint-disable-line @typescript-eslint/no-unused-vars
     onMentionsChange,
     availableFiles,
     placeholder = "Type your message...",
@@ -197,7 +197,7 @@ const MentionInput: React.FC<MentionInputProps> = ({
             parts.push(
                 <span
                     key={`m-${matchStart}`}
-                    className={isValidFile ? "text-orange-600 font-medium" : "text-gray-500"}
+                    className={isValidFile ? "text-teal-600 font-medium" : "text-gray-500"}
                 >
                     {match[0]}
                 </span>
@@ -253,7 +253,7 @@ const MentionInput: React.FC<MentionInputProps> = ({
                     }}
                     placeholder={getPlaceholder()}
                     disabled={disabled}
-                    className={`w-full border-2 border-orange-200 rounded-xl p-3 resize-none min-h-[48px] max-h-[120px] focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent transition-all text-sm bg-white placeholder:text-gray-400 ${className}`}
+                    className={`w-full border-2 border-teal-200 rounded-xl p-3 resize-none min-h-[48px] max-h-[120px] focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-transparent transition-all text-sm bg-white placeholder:text-gray-400 ${className}`}
                     style={{
                         caretColor: '#ea580c',
                         lineHeight: '1.5',
@@ -268,7 +268,7 @@ const MentionInput: React.FC<MentionInputProps> = ({
             {showDropdown && filteredFiles.length > 0 && (
                 <div
                     ref={dropdownRef}
-                    className="absolute bottom-full left-0 mb-1 w-full max-h-48 overflow-y-auto bg-white rounded-lg shadow-lg border-2 border-orange-200 z-50"
+                    className="absolute bottom-full left-0 mb-1 w-full max-h-48 overflow-y-auto bg-white rounded-lg shadow-lg border-2 border-teal-200 z-50"
                 >
                     <div className="p-2 text-xs text-gray-500 border-b border-gray-100">
                         Select a file to mention
@@ -278,9 +278,9 @@ const MentionInput: React.FC<MentionInputProps> = ({
                             key={file.fileId}
                             type="button"
                             onClick={() => selectFile(file)}
-                            className={`w-full flex items-center gap-2 px-3 py-2 text-left text-sm hover:bg-orange-50 transition-colors ${index === dropdownIndex ? "bg-orange-50" : ""}`}
+                            className={`w-full flex items-center gap-2 px-3 py-2 text-left text-sm hover:bg-teal-50 transition-colors ${index === dropdownIndex ? "bg-teal-50" : ""}`}
                         >
-                            <svg className="w-4 h-4 text-orange-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-4 h-4 text-teal-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                             </svg>
                             <div className="flex-1 min-w-0">
@@ -296,7 +296,7 @@ const MentionInput: React.FC<MentionInputProps> = ({
             {showDropdown && filteredFiles.length === 0 && (
                 <div
                     ref={dropdownRef}
-                    className="absolute bottom-full left-0 mb-1 w-full bg-white rounded-lg shadow-lg border-2 border-orange-200 z-50 p-3"
+                    className="absolute bottom-full left-0 mb-1 w-full bg-white rounded-lg shadow-lg border-2 border-teal-200 z-50 p-3"
                 >
                     <p className="text-sm text-gray-500 text-center">
                         {availableFiles.length === 0 ? "No files uploaded yet" : `No files matching "${mentionFilter}"`}
@@ -308,3 +308,4 @@ const MentionInput: React.FC<MentionInputProps> = ({
 };
 
 export default MentionInput;
+
