@@ -149,7 +149,7 @@ const CanvasDock: React.FC<CanvasDockProps> = ({
 
   return (
     <div className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 ${sidebarOpen ? 'ml-20' : 'ml-2.5'}`}>
-      <div className="rounded-2xl bg-white/95 backdrop-blur-xl shadow-xl border border-orange-200/60 px-4 py-3">
+      <div className="rounded-2xl bg-white/95 backdrop-blur-xl shadow-xl border border-teal-200/60 px-4 py-3">
         <div className="flex items-center gap-6">
           {/* Tools */}
           <div className="flex items-center gap-1">
@@ -164,10 +164,10 @@ const CanvasDock: React.FC<CanvasDockProps> = ({
                   className={`flex flex-col items-center gap-1 px-3 py-2 rounded-xl transition-all ${isActive
                     ? isAIFeature
                       ? 'bg-purple-500 text-white shadow-lg'
-                      : 'bg-orange-500 text-white shadow-lg'
+                      : 'bg-teal-500 text-white shadow-lg'
                     : isAIFeature
                       ? 'text-purple-600 hover:bg-purple-50'
-                      : 'text-orange-600 hover:bg-orange-50'
+                      : 'text-teal-600 hover:bg-teal-50'
                     }`}
                   title={tool.label}
                 >
@@ -193,7 +193,7 @@ const CanvasDock: React.FC<CanvasDockProps> = ({
 
               {/* Generate Panel */}
               {isGeneratePanelOpen && (
-                <div className="absolute bottom-14 left-0 w-80 bg-white rounded-xl shadow-xl border border-orange-200 p-4 z-50">
+                <div className="absolute bottom-14 left-0 w-80 bg-white rounded-xl shadow-xl border border-teal-200 p-4 z-50">
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-2">
                       <Bot size={20} className="text-purple-500" />
@@ -212,7 +212,7 @@ const CanvasDock: React.FC<CanvasDockProps> = ({
                       value={generatePrompt}
                       onChange={(e) => setGeneratePrompt(e.target.value)}
                       placeholder="What would you like to learn about?"
-                      className="w-full px-3 py-2 border-2 border-orange-200 rounded-lg resize-none focus:border-orange-400 focus:outline-none"
+                      className="w-full px-3 py-2 border-2 border-teal-200 rounded-lg resize-none focus:border-teal-400 focus:outline-none"
                       rows={3}
                       disabled={isGenerating}
                     />
@@ -254,15 +254,15 @@ const CanvasDock: React.FC<CanvasDockProps> = ({
           </div>
 
           {/* Divider */}
-          <div className="w-px h-8 bg-orange-200" />
+          <div className="w-px h-8 bg-teal-200" />
 
           {/* Color & Size */}
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
-              <LuPalette size={16} className="text-orange-500" />
+              <LuPalette size={16} className="text-teal-500" />
               <button
                 onClick={() => colorInputRef.current?.click()}
-                className="w-6 h-6 rounded-full border-2 border-orange-300 shadow-sm hover:scale-110 transition-transform"
+                className="w-6 h-6 rounded-full border-2 border-teal-300 shadow-sm hover:scale-110 transition-transform"
                 style={{ backgroundColor: currentColor }}
               />
               <input
@@ -280,9 +280,9 @@ const CanvasDock: React.FC<CanvasDockProps> = ({
                 max="20"
                 value={strokeWidth}
                 onChange={(e) => onStrokeWidthChange(Number(e.target.value))}
-                className="w-20 accent-orange-500"
+                className="w-20 accent-teal-500"
               />
-              <span className="text-sm text-orange-600 font-medium w-5">{strokeWidth}</span>
+              <span className="text-sm text-teal-600 font-medium w-5">{strokeWidth}</span>
             </div>
           </div>
 
@@ -290,24 +290,24 @@ const CanvasDock: React.FC<CanvasDockProps> = ({
           <div className="flex items-center gap-1">
             <button
               onClick={() => onZoomChange?.(Math.max(0.25, zoom - 0.1))}
-              className="p-2 text-orange-600 hover:bg-orange-50 rounded-lg transition-colors"
+              className="p-2 text-teal-600 hover:bg-teal-50 rounded-lg transition-colors"
               title="Zoom Out"
             >
               <ZoomOut size={16} />
             </button>
-            <span className="text-sm text-orange-600 font-medium w-12 text-center">
+            <span className="text-sm text-teal-600 font-medium w-12 text-center">
               {Math.round(zoom * 100)}%
             </span>
             <button
               onClick={() => onZoomChange?.(Math.min(3, zoom + 0.1))}
-              className="p-2 text-orange-600 hover:bg-orange-50 rounded-lg transition-colors"
+              className="p-2 text-teal-600 hover:bg-teal-50 rounded-lg transition-colors"
               title="Zoom In"
             >
               <ZoomIn size={16} />
             </button>
             <button
               onClick={onZoomReset}
-              className="p-2 text-orange-600 hover:bg-orange-50 rounded-lg transition-colors"
+              className="p-2 text-teal-600 hover:bg-teal-50 rounded-lg transition-colors"
               title="Reset View"
             >
               <Maximize2 size={16} />
@@ -315,13 +315,13 @@ const CanvasDock: React.FC<CanvasDockProps> = ({
           </div>
 
           {/* Divider */}
-          <div className="w-px h-8 bg-orange-200" />
+          <div className="w-px h-8 bg-teal-200" />
 
           {/* Actions */}
           <div className="flex items-center gap-1">
             <button
               onClick={onUndo}
-              className="p-2 text-orange-600 hover:bg-orange-50 rounded-lg transition-colors"
+              className="p-2 text-teal-600 hover:bg-teal-50 rounded-lg transition-colors"
               title="Undo"
             >
               <LuRotateCcw size={16} />
@@ -336,7 +336,7 @@ const CanvasDock: React.FC<CanvasDockProps> = ({
           </div>
 
           {/* Divider */}
-          <div className="w-px h-8 bg-orange-200" />
+          <div className="w-px h-8 bg-teal-200" />
 
           {/* Save/Load */}
           <div className="flex items-center gap-1 relative" ref={sessionsPanelRef}>
@@ -369,7 +369,7 @@ const CanvasDock: React.FC<CanvasDockProps> = ({
             </button>
             <button
               onClick={onNewBoard}
-              className="flex flex-col items-center gap-1 px-2 py-1 text-orange-600 hover:bg-orange-50 rounded-lg transition-colors"
+              className="flex flex-col items-center gap-1 px-2 py-1 text-teal-600 hover:bg-teal-50 rounded-lg transition-colors"
               title="New Board"
             >
               <LuFolderOpen size={16} />
