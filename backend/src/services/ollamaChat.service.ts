@@ -163,7 +163,7 @@ OUTPUT FORMAT (JSON only, no other text):
             num_predict: 150,
           },
         },
-        { timeout: 15001 }
+        { timeout: 30000 }
       );
 
       const rawResponse = response.data.response || "";
@@ -253,45 +253,20 @@ OUTPUT FORMAT (JSON only, no other text):
   }
 
   async generateEducationalAnswer(
-    query: string,
     context: string,
     history: ChatMessage[],
-    numPredict: number,
-    numCtx: number
+    query: string,
+    language: LanguageCode,
+    sources: SourceCitation[]
   ): Promise<{ answer: string; reasoning?: string; thinking?: string }> {
     const prompt = `CONTEXT: ${context}\n\nHISTORY: ${JSON.stringify(history.slice(-3))}\n\nUSER: ${query}`;
 
-    try {
-      const cloudKey = process.env.GEMINI_API_KEY || env.GEMINI_API_KEY;
-      if (cloudKey) {
-        try {
-          console.log("☁️ Attempting Gemini Cloud Generation...");
-          const response = await axios.post(
-            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${cloudKey}`,
-            {
-              contents: [{ parts: [{ text: prompt }] }],
-              generationConfig: {
-                temperature: RAG_CONSTANTS.TEMP_RAG,
-                maxOutputTokens: numPredict,
-                topP: 0.95
-              }
-            },
-            { timeout: 90000 }
-          );
-          const payloadAnswer = response.data.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || "";
-          const { answer, thinking } = this.parseDeepSeekResponse(payloadAnswer);
-          console.log("✅ Gemini Response Generated.");
-          return { answer, reasoning: thinking, thinking };
-        } catch (error: any) {
-          if (error.response?.status === 429) {
-             console.warn("⚠️ Gemini Rate Limited (429). Falling back to Local Ollama.");
-          } else {
-             console.error("❌ Gemini Generation Error:", error.message);
-          }
-        }
-      }
+    const numPredict = 15000;
+    const numCtx = RAG_CONSTANTS.LLM_CTX;
 
-      console.log("🏠 Using Local Ollama Generation...");
+    // Try local Ollama first
+    try {
+      console.log("🏠 Attempting local Ollama (DeepSeek-R1)...");
       const response = await axios.post(
         `${this.baseUrl}/api/generate`,
         {
@@ -305,16 +280,67 @@ OUTPUT FORMAT (JSON only, no other text):
             top_p: 0.95,
           },
         },
-        { timeout: 120000 }
+        { timeout: 180000 }
       );
 
       const fullResponse = response.data.response || "";
       const { answer, thinking } = this.parseDeepSeekResponse(fullResponse);
-      console.log("✅ Local Response Generated.");
+      console.log("✅ Ollama Response Generated.");
       return { answer, reasoning: thinking, thinking };
-    } catch (error: any) {
-      console.error("❌ Generation Failure:", error.message);
-      throw new Error(`Failed to generate response: ${error.message}`);
+    } catch (ollamaError: any) {
+      console.warn("⚠️ Ollama failed, trying cloud...", ollamaError.message);
+      
+      // Try Gemini as fallback
+      try {
+        const geminiKey = process.env.GEMINI_API_KEY || env.GEMINI_API_KEY;
+        if (geminiKey) {
+          console.log("☁️ Attempting Gemini API...");
+          const response = await axios.post(
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${geminiKey}`,
+            {
+              contents: [{ parts: [{ text: prompt }] }],
+              generationConfig: {
+                temperature: RAG_CONSTANTS.TEMP_RAG,
+                maxOutputTokens: numPredict,
+                topP: 0.95
+              }
+            },
+            { timeout: 90000 }
+          );
+          const answer = response.data.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || "";
+          console.log("✅ Gemini Response Generated.");
+          return { answer };
+        }
+      } catch (geminiError: any) {
+        console.warn("⚠️ Gemini failed:", geminiError.message);
+      }
+
+      // Try Groq as second fallback
+      try {
+        const groqKey = process.env.GROQ_API_KEY || env.GROQ_API_KEY;
+        if (groqKey) {
+          console.log("☁️ Attempting Groq API...");
+          const response = await axios.post(
+            "https://api.groq.com/openai/v1/chat/completions",
+            {
+              model: "llama-3.1-70b-versatile",
+              messages: [{ role: "user", content: prompt }],
+              temperature: RAG_CONSTANTS.TEMP_RAG,
+              max_tokens: numPredict,
+            },
+            { headers: { Authorization: `Bearer ${groqKey}` }, timeout: 120000 }
+          );
+          const answer = response.data.choices?.[0]?.message?.content?.trim() || "";
+          console.log("✅ Groq Response Generated.");
+          return { answer };
+        }
+      } catch (groqError: any) {
+        console.warn("⚠️ Groq failed:", groqError.message);
+      }
+
+      // All failed
+      console.error("❌ All AI providers failed!");
+      throw new Error(`Failed to generate response: ${ollamaError.message}`);
     }
   }
 
@@ -323,15 +349,37 @@ OUTPUT FORMAT (JSON only, no other text):
     language: LanguageCode,
     chatHistory: ChatMessage[]
   ): Promise<string> {
-    const prompt = `Answer this educational query concisely: "${query}". Context: ${JSON.stringify(chatHistory.slice(-2))}`;
+    const prompt = `You are ShikShak, a friendly educational AI tutor. Answer this query concisely: "${query}". Context: ${JSON.stringify(chatHistory.slice(-2))}`;
 
+    // Try local Ollama first
     try {
-      const cloudKey = process.env.GEMINI_API_KEY || env.GEMINI_API_KEY;
-      if (cloudKey) {
-        try {
+      console.log("🏠 Attempting Ollama for simple query...");
+      const response = await axios.post(
+        `${this.baseUrl}/api/generate`,
+        {
+          model: this.model,
+          prompt,
+          stream: false,
+          options: {
+            temperature: 0.7,
+            num_predict: 250,
+          },
+        },
+        { timeout: 30000 }
+      );
+      const answer = response.data.response || response.data.thinking || "";
+      console.log("✅ Ollama Simple Answer Generated.");
+      return answer.trim() || "I'm here to help! How can I assist you with your studies today?";
+    } catch (ollamaError: any) {
+      console.warn("⚠️ Ollama failed for simple query, trying cloud...", ollamaError.message);
+      
+      // Try Gemini as fallback
+      try {
+        const geminiKey = process.env.GEMINI_API_KEY || env.GEMINI_API_KEY;
+        if (geminiKey) {
           console.log("☁️ Attempting Gemini Simple Query...");
           const response = await axios.post(
-            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${cloudKey}`,
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${geminiKey}`,
             {
               contents: [{ parts: [{ text: prompt }] }],
               generationConfig: {
@@ -344,35 +392,13 @@ OUTPUT FORMAT (JSON only, no other text):
           const answer = response.data.candidates?.[0]?.content?.parts?.[0]?.text || "";
           console.log("✅ Gemini Simple Answer Generated.");
           return answer.trim();
-        } catch (error: any) {
-          if (error.response?.status === 429) {
-            console.warn("⚠️ Gemini Rate Limited (simple). Falling back to local.");
-          } else {
-             console.error("❌ Gemini Simple Error:", error.message);
-          }
         }
+      } catch (geminiError: any) {
+        console.warn("⚠️ Gemini failed:", geminiError.message);
       }
 
-      console.log("🏠 Using Local Ollama Simple Answer...");
-      const response = await axios.post(
-        `${this.baseUrl}/api/generate`,
-        {
-          model: this.model,
-          prompt,
-          stream: false,
-          options: {
-            temperature: 0.7,
-            num_predict: 250,
-          },
-        },
-        { timeout: 20000 }
-      );
-
-      const answer = response.data.response || "";
-      console.log("✅ Local Simple Answer Generated.");
-      return answer.trim();
-    } catch (error: any) {
-      console.error("❌ Simple Query Failure:", error.message);
+      // All failed - return a friendly fallback message
+      console.warn("⚠️ All AI providers failed for simple query");
       return "I'm here to help! Could you please rephrase your question?";
     }
   }
@@ -393,34 +419,12 @@ OUTPUT FORMAT (JSON only, no other text):
     );
 
     console.log(
-      `🚀 Ollama Request: num_predict=${numPredict}, prompt_tokens=${promptTokens}, max_requested=${maxOutputTokens}, calculated_max=${calculatedMaxTokens}`
+      `🚀 Generation Request: num_predict=${numPredict}, prompt_tokens=${promptTokens}, max_requested=${maxOutputTokens}, calculated_max=${calculatedMaxTokens}`
     );
 
+    // Try local Ollama first (most reliable for local setup)
     try {
-      const cloudKey = process.env.GEMINI_API_KEY || env.GEMINI_API_KEY;
-      if (cloudKey) {
-        const response = await axios.post(
-          "https://api.cerebras.ai/v1/chat/completions",
-          {
-            model: "llama3.1-70b",
-            messages: [{ role: "user", content: prompt }],
-            temperature: RAG_CONSTANTS.TEMP_RAG,
-            max_tokens: numPredict,
-            top_p: 0.95,
-          },
-          { headers: { Authorization: `Bearer ${cloudKey}` }, timeout: 180000 }
-        );
-
-        const payloadAnswer = response.data.choices[0]?.message?.content?.trim() || "";
-        const { answer, thinking } = this.parseDeepSeekResponse(payloadAnswer);
-
-        console.log(
-          `✅ Cloud Response (Cerebras): generated ${countTokens(answer)} tokens`
-        );
-
-        return { answer, thinking };
-      }
-
+      console.log("🏠 Attempting local Ollama (DeepSeek-R1)...");
       const response = await axios.post(
         `${this.baseUrl}/api/generate`,
         {
@@ -437,54 +441,85 @@ OUTPUT FORMAT (JSON only, no other text):
       );
 
       if (!response.data) {
-        console.error("❌ Ollama returned no data", {
-          status: response.status,
-          statusText: response.statusText,
-        });
+        console.error("❌ Ollama returned no data");
         throw new Error("No data from Ollama");
       }
 
-      // DeepSeek R1 may return content in 'thinking' field instead of 'response'
-      // when the reasoning takes up all the tokens
       const responseText = response.data.response?.trim() || "";
       const thinkingText = response.data.thinking?.trim() || "";
 
       if (!responseText && !thinkingText) {
-        console.error(
-          "❌ Ollama response missing both 'response' and 'thinking' fields",
-          {
-            data: response.data,
-          }
-        );
-        throw new Error(
-          "No content from Ollama - both response and thinking fields are empty"
-        );
+        console.error("❌ Ollama response missing both 'response' and 'thinking' fields");
+        throw new Error("No content from Ollama");
       }
 
-      // If response is empty but we have thinking, use the thinking content
       const fullResponse = responseText || thinkingText;
       const { answer, thinking } = this.parseDeepSeekResponse(fullResponse);
 
-      console.log(
-        `✅ Ollama Response: generated ${countTokens(answer)} tokens`
-      );
-
+      console.log(`✅ Ollama Response: generated ${countTokens(answer)} tokens`);
       return { answer, thinking };
-    } catch (error: any) {
-      console.error("❌ Ollama generateWithMaxOutput error:", {
-        message: error.message,
-        code: error.code,
-        response: error.response?.data,
-        status: error.response?.status,
-      });
-
-      if (error.code === "ECONNREFUSED") {
-        throw new Error("Ollama is not running. Please start Ollama service.");
+    } catch (ollamaError: any) {
+      console.warn("⚠️ Ollama failed, trying Gemini API...", ollamaError.message);
+      
+      // Try Gemini as first fallback
+      try {
+        const geminiKey = process.env.GEMINI_API_KEY || env.GEMINI_API_KEY;
+        if (geminiKey) {
+          console.log("☁️ Attempting Gemini API...");
+          const response = await axios.post(
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${geminiKey}`,
+            {
+              contents: [{ parts: [{ text: prompt }] }],
+              generationConfig: {
+                temperature: RAG_CONSTANTS.TEMP_RAG,
+                maxOutputTokens: numPredict,
+                topP: 0.95
+              }
+            },
+            { timeout: 90000 }
+          );
+          
+          const answer = response.data.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || "";
+          console.log(`✅ Gemini Response: generated ${countTokens(answer)} tokens`);
+          return { answer };
+        }
+      } catch (geminiError: any) {
+        console.warn("⚠️ Gemini failed:", geminiError.message);
       }
-      if (error.code === "ETIMEDOUT") {
+
+      // Try Groq/Cerebras as second fallback
+      try {
+        const groqKey = process.env.GROQ_API_KEY || env.GROQ_API_KEY;
+        if (groqKey) {
+          console.log("☁️ Attempting Groq/Cerebras API...");
+          const response = await axios.post(
+            "https://api.groq.com/openai/v1/chat/completions",
+            {
+              model: "llama-3.1-70b-versatile",
+              messages: [{ role: "user", content: prompt }],
+              temperature: RAG_CONSTANTS.TEMP_RAG,
+              max_tokens: numPredict,
+            },
+            { headers: { Authorization: `Bearer ${groqKey}` }, timeout: 120000 }
+          );
+          
+          const answer = response.data.choices?.[0]?.message?.content?.trim() || "";
+          console.log(`✅ Groq Response: generated ${countTokens(answer)} tokens`);
+          return { answer };
+        }
+      } catch (groqError: any) {
+        console.warn("⚠️ Groq failed:", groqError.message);
+      }
+
+      // All cloud options failed - report the original Ollama error
+      console.error("❌ All AI providers failed!");
+      if (ollamaError.code === "ECONNREFUSED") {
+        throw new Error("Ollama is not running. Please start Ollama service with: ollama serve");
+      }
+      if (ollamaError.code === "ETIMEDOUT") {
         throw new Error("Ollama request timed out.");
       }
-      throw new Error(`Ollama generation failed: ${error.message}`);
+      throw new Error(`AI generation failed: ${ollamaError.message}`);
     }
   }
 
