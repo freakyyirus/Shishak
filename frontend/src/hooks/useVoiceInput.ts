@@ -83,8 +83,8 @@ export function useVoiceInput({
                     } else {
                         throw new Error("No speech detected");
                     }
-                } catch (err: any) {
-                    const errorMessage = err.message || "Transcription failed";
+                } catch (err: unknown) {
+                    const errorMessage = err instanceof Error ? err.message : "Transcription failed";
                     setError(errorMessage);
                     setStatus("error");
                     onError?.(errorMessage);
@@ -92,8 +92,8 @@ export function useVoiceInput({
             };
 
             // Handle errors
-            mediaRecorder.onerror = (event: any) => {
-                const errorMessage = event.error?.message || "Recording failed";
+            mediaRecorder.onerror = (event: Event) => {
+                const errorMessage = (event as ErrorEvent).message || "Recording failed";
                 setError(errorMessage);
                 setStatus("error");
                 onError?.(errorMessage);
@@ -102,14 +102,18 @@ export function useVoiceInput({
             // Start recording
             mediaRecorder.start(100); // Collect data every 100ms
             console.log("[VoiceInput] Recording started");
-        } catch (err: any) {
+        } catch (err: unknown) {
             let errorMessage = "Failed to access microphone";
 
-            if (err.name === "NotAllowedError") {
-                errorMessage = "Microphone access denied. Please allow microphone access.";
-            } else if (err.name === "NotFoundError") {
-                errorMessage = "No microphone found. Please connect a microphone.";
-            } else if (err.message) {
+            if (err instanceof DOMException) {
+                if (err.name === "NotAllowedError") {
+                    errorMessage = "Microphone access denied. Please allow microphone access.";
+                } else if (err.name === "NotFoundError") {
+                    errorMessage = "No microphone found. Please connect a microphone.";
+                } else {
+                    errorMessage = err.message;
+                }
+            } else if (err instanceof Error) {
                 errorMessage = err.message;
             }
 
