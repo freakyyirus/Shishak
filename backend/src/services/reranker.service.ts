@@ -23,15 +23,14 @@ export class RerankerService {
 
     const result = sorted.slice(0, topK);
 
-    // Increased threshold to 0.3 (from 0.1) to filter out irrelevant chunks
-    // Only return chunks with good relevance scores
-    const minAcceptableScore = 0.3;
+    // Relaxed threshold to 0.1 to ensure we always have some chunks to work with
+    const minAcceptableScore = 0.1;
     const filtered = result.filter(
       (chunk) => chunk.score >= minAcceptableScore
     );
 
-    // Don't force low-quality chunks - return empty if none are relevant
-    return filtered;
+    // If no chunks meet the threshold, return top results anyway (to avoid empty results)
+    return filtered.length > 0 ? filtered : result.slice(0, 2);
   }
 
   computeCosineSimilarity(queryEmbed: number[], chunkEmbed: number[]): number {
