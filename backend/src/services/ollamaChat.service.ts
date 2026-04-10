@@ -265,6 +265,7 @@ OUTPUT FORMAT (JSON only, no other text):
       const cloudKey = process.env.GEMINI_API_KEY || env.GEMINI_API_KEY;
       if (cloudKey) {
         try {
+          console.log("☁️ Attempting Gemini Cloud Generation...");
           const response = await axios.post(
             `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${cloudKey}`,
             {
@@ -275,20 +276,22 @@ OUTPUT FORMAT (JSON only, no other text):
                 topP: 0.95
               }
             },
-            { timeout: 120000 }
+            { timeout: 90000 }
           );
           const payloadAnswer = response.data.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || "";
-          const { answer: parsedAnswer, thinking } = this.parseDeepSeekResponse(payloadAnswer);
-          return { answer: parsedAnswer, reasoning: thinking, thinking };
+          const { answer, thinking } = this.parseDeepSeekResponse(payloadAnswer);
+          console.log("✅ Gemini Response Generated.");
+          return { answer, reasoning: thinking, thinking };
         } catch (error: any) {
           if (error.response?.status === 429) {
-             console.warn("⚠️ Gemini rate limited (answer). Falling back to local Ollama.");
+             console.warn("⚠️ Gemini Rate Limited (429). Falling back to Local Ollama.");
           } else {
-             throw error;
+             console.error("❌ Gemini Generation Error:", error.message);
           }
         }
       }
 
+      console.log("🏠 Using Local Ollama Generation...");
       const response = await axios.post(
         `${this.baseUrl}/api/generate`,
         {
@@ -305,19 +308,13 @@ OUTPUT FORMAT (JSON only, no other text):
         { timeout: 120000 }
       );
 
-      if (!response.data.response) {
-        throw new Error("No response from Ollama");
-      }
-
-      const fullResponse = response.data.response;
+      const fullResponse = response.data.response || "";
       const { answer, thinking } = this.parseDeepSeekResponse(fullResponse);
-
+      console.log("✅ Local Response Generated.");
       return { answer, reasoning: thinking, thinking };
     } catch (error: any) {
-      if (error.code === "ECONNREFUSED") {
-        throw new Error("Ollama is not running. Please start Ollama service.");
-      }
-      throw new Error(`Chat failed: ${error.message}`);
+      console.error("❌ Generation Failure:", error.message);
+      throw new Error(`Failed to generate response: ${error.message}`);
     }
   }
 
