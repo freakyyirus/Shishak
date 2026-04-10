@@ -18,8 +18,8 @@ import { CheckCircle2, XCircle, AlertTriangle, Award, ChevronRight } from 'lucid
 const Badge = ({ label, variant = 'default' }: { label: string; variant?: 'default' | 'success' | 'warning' | 'error' }) => {
   const variants = {
     default: 'bg-gray-100 text-gray-700',
-    success: 'bg-orange-50 text-orange-700',
-    warning: 'bg-orange-100 text-orange-800',
+    success: 'bg-teal-50 text-teal-700',
+    warning: 'bg-teal-100 text-teal-800',
     error: 'bg-gray-100 text-gray-600',
   };
 
@@ -91,7 +91,7 @@ const BenchmarksPage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="text-center">
             <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
-              Technical <span className="text-orange-500">Benchmarks</span>
+              Technical <span className="text-teal-500">Benchmarks</span>
             </h1>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
               Comprehensive evaluation metrics for on-device reasoning and multilingual translation models
@@ -131,20 +131,20 @@ const BenchmarksPage: React.FC = () => {
             {/* Section Title */}
             <div>
               <div className="flex items-center gap-3 mb-2">
-                <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-orange-500 text-white text-sm font-bold">1</span>
+                <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-teal-500 text-white text-sm font-bold">1</span>
                 <h2 className="text-2xl font-bold text-gray-900">Small Language Models (SLM) Evaluation</h2>
               </div>
               <p className="text-gray-600 ml-11">Technical Evaluation Report</p>
             </div>
 
             {/* Executive Summary */}
-            <div className="bg-orange-50 border-l-4 border-orange-500 p-4 rounded-r-lg">
+            <div className="bg-teal-50 border-l-4 border-teal-500 p-4 rounded-r-lg">
               <div className="flex items-start gap-3">
-                <Award className="w-6 h-6 text-orange-600 flex-shrink-0 mt-0.5" />
+                <Award className="w-6 h-6 text-teal-600 flex-shrink-0 mt-0.5" />
                 <div>
                   <h3 className="text-lg font-bold text-gray-900 mb-2">Executive Summary</h3>
                   <p className="text-gray-700 leading-relaxed">
-                    <strong className="text-gray-900">Final Recommendation:</strong> <strong className="text-orange-600">DeepSeek-R1 1.5B</strong> is
+                    <strong className="text-gray-900">Final Recommendation:</strong> <strong className="text-teal-600">DeepSeek-R1 1.5B</strong> is
                     selected as the production model. It demonstrates a superior balance of reasoning density and memory efficiency,
                     outperforming larger general-purpose models in logical consistency while maintaining a sub-1.5GB footprint.
                   </p>
@@ -171,12 +171,12 @@ const BenchmarksPage: React.FC = () => {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-100">
-                    <tr className="bg-orange-50/50">
+                    <tr className="bg-teal-50/50">
                       <td className="p-4 font-medium text-gray-900">DeepSeek-R1</td>
                       <td className="p-4 text-gray-700">1.5B</td>
                       <td className="p-4 text-gray-700">~1.1 GB</td>
                       <td className="p-4 text-gray-700">~2.2 GB</td>
-                      <td className="p-4 text-gray-700"><span className="font-semibold text-orange-600">High (~78%)</span></td>
+                      <td className="p-4 text-gray-700"><span className="font-semibold text-teal-600">High (~78%)</span></td>
                       <td className="p-4 text-gray-700">35-45 t/s</td>
                       <td className="p-4 text-gray-700 font-medium">Reasoning (CoT)</td>
                     </tr>
@@ -369,22 +369,22 @@ const BenchmarksPage: React.FC = () => {
                 <li>
                   <span className="font-semibold text-gray-900">Reasoning Quality (SLM):</span>{' '}
                   Target ≥70% GSM8K-style reasoning score on core curriculum tasks.{' '}
-                  <span className="font-semibold text-orange-600">DeepSeek-R1 achieves ~78% (target met).</span>
+                  <span className="font-semibold text-teal-600">DeepSeek-R1 achieves ~78% (target met).</span>
                 </li>
                 <li>
                   <span className="font-semibold text-gray-900">Inference Speed (On-Device):</span>{' '}
                   Target ≥25 t/s on CPU-only 4–8 GB RAM devices.{' '}
-                  <span className="font-semibold text-orange-600">DeepSeek-R1 sustains 35–45 t/s (target met).</span>
+                  <span className="font-semibold text-teal-600">DeepSeek-R1 sustains 35–45 t/s (target met).</span>
                 </li>
                 <li>
                   <span className="font-semibold text-gray-900">Memory Footprint:</span>{' '}
                   Target ≤1.5 GB disk, ≤3 GB RAM for the reasoning model.{' '}
-                  <span className="font-semibold text-orange-600">DeepSeek-R1 runs at ~1.1 GB disk and ~2.2 GB RAM (target met).</span>
+                  <span className="font-semibold text-teal-600">DeepSeek-R1 runs at ~1.1 GB disk and ~2.2 GB RAM (target met).</span>
                 </li>
                 <li>
                   <span className="font-semibold text-gray-900">Hallucination Resistance:</span>{' '}
                   Target: high factual consistency with auditable CoT traces.{' '}
-                  <span className="font-semibold text-orange-600">Benchmarks show R1 has the highest hallucination resistance among tested SLMs.</span>
+                  <span className="font-semibold text-teal-600">Benchmarks show R1 has the highest hallucination resistance among tested SLMs.</span>
                 </li>
               </ul>
             </div>
@@ -408,20 +408,20 @@ const BenchmarksPage: React.FC = () => {
             {/* Section Title */}
             <div>
               <div className="flex items-center gap-3 mb-2">
-                <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-orange-500 text-white text-sm font-bold">2</span>
+                <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-teal-500 text-white text-sm font-bold">2</span>
                 <h2 className="text-2xl font-bold text-gray-900">Translation & Multilingual Model Evaluation</h2>
               </div>
               <p className="text-gray-600 ml-11">Translation Benchmark Report</p>
             </div>
 
             {/* Executive Summary */}
-            <div className="bg-orange-50 border-l-4 border-orange-500 p-4 rounded-r-lg">
+            <div className="bg-teal-50 border-l-4 border-teal-500 p-4 rounded-r-lg">
               <div className="flex items-start gap-3">
-                <Award className="w-6 h-6 text-orange-600 flex-shrink-0 mt-0.5" />
+                <Award className="w-6 h-6 text-teal-600 flex-shrink-0 mt-0.5" />
                 <div>
                   <h3 className="text-lg font-bold text-gray-900 mb-2">Final Recommendation</h3>
                   <p className="text-gray-700 leading-relaxed">
-                    <strong className="text-orange-600">NLLB-200 (distilled 600M)</strong> provides the best balance of translation quality,
+                    <strong className="text-teal-600">NLLB-200 (distilled 600M)</strong> provides the best balance of translation quality,
                     language coverage (200+ languages, 22+ Indic), disk efficiency (~1.2 GB), and offline CPU viability.
                     Preserves technical terms accurately.
                   </p>
@@ -447,11 +447,11 @@ const BenchmarksPage: React.FC = () => {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-100">
-                    <tr className="bg-orange-50/50">
+                    <tr className="bg-teal-50/50">
                       <td className="p-4 font-medium text-gray-900">NLLB-200</td>
                       <td className="p-4 text-gray-700">MT (Global)</td>
-                      <td className="p-4 text-center"><span className="font-semibold text-orange-600">200+</span></td>
-                      <td className="p-4 text-center"><span className="font-semibold text-orange-600">22+</span></td>
+                      <td className="p-4 text-center"><span className="font-semibold text-teal-600">200+</span></td>
+                      <td className="p-4 text-center"><span className="font-semibold text-teal-600">22+</span></td>
                       <td className="p-4 text-center text-gray-700">~600 MB</td>
                       <td className="p-4 text-center text-gray-700">~1.2 GB</td>
                     </tr>
@@ -577,33 +577,33 @@ const BenchmarksPage: React.FC = () => {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-100">
-                    <tr className="bg-orange-50/50">
+                    <tr className="bg-teal-50/50">
                       <td className="p-4 font-medium text-gray-900">NLLB-200 600M</td>
-                      <td className="p-4 text-center"><CheckCircle2 className="w-5 h-5 text-orange-500 mx-auto" /></td>
-                      <td className="p-4 text-center"><CheckCircle2 className="w-5 h-5 text-orange-500 mx-auto" /></td>
+                      <td className="p-4 text-center"><CheckCircle2 className="w-5 h-5 text-teal-500 mx-auto" /></td>
+                      <td className="p-4 text-center"><CheckCircle2 className="w-5 h-5 text-teal-500 mx-auto" /></td>
                       <td className="p-4 text-gray-700">Best quality-to-size ratio</td>
                     </tr>
                     <tr>
                       <td className="p-4 font-medium text-gray-900">IndicTrans2 200M</td>
-                      <td className="p-4 text-center"><CheckCircle2 className="w-5 h-5 text-orange-500 mx-auto" /></td>
-                      <td className="p-4 text-center"><CheckCircle2 className="w-5 h-5 text-orange-500 mx-auto" /></td>
+                      <td className="p-4 text-center"><CheckCircle2 className="w-5 h-5 text-teal-500 mx-auto" /></td>
+                      <td className="p-4 text-center"><CheckCircle2 className="w-5 h-5 text-teal-500 mx-auto" /></td>
                       <td className="p-4 text-gray-700">Lightweight but fragile</td>
                     </tr>
                     <tr>
                       <td className="p-4 font-medium text-gray-900">IndicTrans2 1.1B</td>
-                      <td className="p-4 text-center"><AlertTriangle className="w-5 h-5 text-orange-500 mx-auto" /></td>
-                      <td className="p-4 text-center"><AlertTriangle className="w-5 h-5 text-orange-500 mx-auto" /></td>
+                      <td className="p-4 text-center"><AlertTriangle className="w-5 h-5 text-teal-500 mx-auto" /></td>
+                      <td className="p-4 text-center"><AlertTriangle className="w-5 h-5 text-teal-500 mx-auto" /></td>
                       <td className="p-4 text-gray-700">Quality gain but heavy</td>
                     </tr>
                     <tr>
                       <td className="p-4 font-medium text-gray-900">DeepSeek-R1</td>
-                      <td className="p-4 text-center"><AlertTriangle className="w-5 h-5 text-orange-500 mx-auto" /></td>
+                      <td className="p-4 text-center"><AlertTriangle className="w-5 h-5 text-teal-500 mx-auto" /></td>
                       <td className="p-4 text-center"><XCircle className="w-5 h-5 text-gray-400 mx-auto" /></td>
                       <td className="p-4 text-gray-700">Heavy, not optimized for MT</td>
                     </tr>
                     <tr>
                       <td className="p-4 font-medium text-gray-900">Gemma 270M</td>
-                      <td className="p-4 text-center"><AlertTriangle className="w-5 h-5 text-orange-500 mx-auto" /></td>
+                      <td className="p-4 text-center"><AlertTriangle className="w-5 h-5 text-teal-500 mx-auto" /></td>
                       <td className="p-4 text-center"><XCircle className="w-5 h-5 text-gray-400 mx-auto" /></td>
                       <td className="p-4 text-gray-700">Not translation-focused</td>
                     </tr>
@@ -620,15 +620,15 @@ const BenchmarksPage: React.FC = () => {
               </p>
               <ul className="space-y-2 ml-4">
                 <li className="flex items-start gap-2 text-gray-700">
-                  <ChevronRight className="w-4 h-4 text-orange-500 flex-shrink-0 mt-0.5" />
+                  <ChevronRight className="w-4 h-4 text-teal-500 flex-shrink-0 mt-0.5" />
                   <span>Low-resource languages</span>
                 </li>
                 <li className="flex items-start gap-2 text-gray-700">
-                  <ChevronRight className="w-4 h-4 text-orange-500 flex-shrink-0 mt-0.5" />
+                  <ChevronRight className="w-4 h-4 text-teal-500 flex-shrink-0 mt-0.5" />
                   <span>Indic language coverage</span>
                 </li>
                 <li className="flex items-start gap-2 text-gray-700">
-                  <ChevronRight className="w-4 h-4 text-orange-500 flex-shrink-0 mt-0.5" />
+                  <ChevronRight className="w-4 h-4 text-teal-500 flex-shrink-0 mt-0.5" />
                   <span>Faithful machine translation</span>
                 </li>
               </ul>
@@ -728,28 +728,28 @@ const BenchmarksPage: React.FC = () => {
                           <td className="p-3 font-medium text-gray-900">Phase 2</td>
                           <td className="p-3 text-gray-700">NLLB-200 (600M)</td>
                           <td className="p-3 text-center text-gray-700">~4:00</td>
-                          <td className="p-3 text-center text-orange-600 font-semibold">1.25x</td>
+                          <td className="p-3 text-center text-teal-600 font-semibold">1.25x</td>
                           <td className="p-3 text-gray-700">Better model quality</td>
                         </tr>
                         <tr>
                           <td className="p-3 font-medium text-gray-900">Phase 3</td>
                           <td className="p-3 text-gray-700">NLLB-200 + Batch</td>
                           <td className="p-3 text-center text-gray-700">~2:00</td>
-                          <td className="p-3 text-center text-orange-600 font-semibold">2.5x</td>
+                          <td className="p-3 text-center text-teal-600 font-semibold">2.5x</td>
                           <td className="p-3 text-gray-700">Batch processing (8 sentences)</td>
                         </tr>
                         <tr>
                           <td className="p-3 font-medium text-gray-900">Phase 4</td>
                           <td className="p-3 text-gray-700">NLLB-200 + Threading</td>
                           <td className="p-3 text-center text-gray-700">~1:30</td>
-                          <td className="p-3 text-center text-orange-600 font-semibold">3.3x</td>
+                          <td className="p-3 text-center text-teal-600 font-semibold">3.3x</td>
                           <td className="p-3 text-gray-700">CPU multi-threading, larger batches</td>
                         </tr>
-                        <tr className="bg-orange-50/50">
+                        <tr className="bg-teal-50/50">
                           <td className="p-3 font-medium text-gray-900">Phase 5</td>
                           <td className="p-3 text-gray-900 font-semibold">NLLB-200 + Full Opt</td>
-                          <td className="p-3 text-center text-orange-600 font-bold">~0:30</td>
-                          <td className="p-3 text-center text-orange-600 font-bold">10x</td>
+                          <td className="p-3 text-center text-teal-600 font-bold">~0:30</td>
+                          <td className="p-3 text-center text-teal-600 font-bold">10x</td>
                           <td className="p-3 text-gray-900 font-semibold">Parallel batches, caching, auto-tuning</td>
                         </tr>
                       </tbody>
@@ -763,31 +763,31 @@ const BenchmarksPage: React.FC = () => {
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
                       <h5 className="font-semibold text-gray-900 mb-2">1. Batch Processing</h5>
-                      <p className="text-sm text-gray-700">Process 6-12 sentences simultaneously instead of one-by-one. <span className="font-semibold text-orange-600">8-10x speedup</span>.</p>
+                      <p className="text-sm text-gray-700">Process 6-12 sentences simultaneously instead of one-by-one. <span className="font-semibold text-teal-600">8-10x speedup</span>.</p>
                     </div>
                     <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
                       <h5 className="font-semibold text-gray-900 mb-2">2. Parallel Batch Processing</h5>
-                      <p className="text-sm text-gray-700">ThreadPoolExecutor with 4 workers processes multiple batches in parallel. <span className="font-semibold text-orange-600">2-3x additional speedup</span>.</p>
+                      <p className="text-sm text-gray-700">ThreadPoolExecutor with 4 workers processes multiple batches in parallel. <span className="font-semibold text-teal-600">2-3x additional speedup</span>.</p>
                     </div>
                     <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
                       <h5 className="font-semibold text-gray-900 mb-2">3. Translation Caching</h5>
-                      <p className="text-sm text-gray-700">LRU cache with 1000 entries for instant retrieval of repeated translations. <span className="font-semibold text-orange-600">Near-instant for cached content</span>.</p>
+                      <p className="text-sm text-gray-700">LRU cache with 1000 entries for instant retrieval of repeated translations. <span className="font-semibold text-teal-600">Near-instant for cached content</span>.</p>
                     </div>
                     <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
                       <h5 className="font-semibold text-gray-900 mb-2">4. Multi-threading Configuration</h5>
-                      <p className="text-sm text-gray-700">Optimized OMP, MKL, NUMEXPR, PyTorch threads for maximum CPU utilization. <span className="font-semibold text-orange-600">All CPU cores utilized</span>.</p>
+                      <p className="text-sm text-gray-700">Optimized OMP, MKL, NUMEXPR, PyTorch threads for maximum CPU utilization. <span className="font-semibold text-teal-600">All CPU cores utilized</span>.</p>
                     </div>
                     <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
                       <h5 className="font-semibold text-gray-900 mb-2">5. CPU-Optimized Parameters</h5>
-                      <p className="text-sm text-gray-700">Greedy decoding (num_beams=1), lower penalties for faster inference. <span className="font-semibold text-orange-600">Faster with maintained quality</span>.</p>
+                      <p className="text-sm text-gray-700">Greedy decoding (num_beams=1), lower penalties for faster inference. <span className="font-semibold text-teal-600">Faster with maintained quality</span>.</p>
                     </div>
                     <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
                       <h5 className="font-semibold text-gray-900 mb-2">6. Auto-Detected Batch Sizing</h5>
-                      <p className="text-sm text-gray-700">Optimal batch size per device (CPU: 6-10, GPU: 12). <span className="font-semibold text-orange-600">Optimal for each hardware</span>.</p>
+                      <p className="text-sm text-gray-700">Optimal batch size per device (CPU: 6-10, GPU: 12). <span className="font-semibold text-teal-600">Optimal for each hardware</span>.</p>
                     </div>
                     <div className="bg-gray-50 rounded-lg p-4 border border-gray-200 md:col-span-2">
                       <h5 className="font-semibold text-gray-900 mb-2">7. Model Caching</h5>
-                      <p className="text-sm text-gray-700">Persistent Python server keeps model loaded in memory. <span className="font-semibold text-orange-600">Zero startup overhead</span>.</p>
+                      <p className="text-sm text-gray-700">Persistent Python server keeps model loaded in memory. <span className="font-semibold text-teal-600">Zero startup overhead</span>.</p>
                     </div>
                   </div>
                 </div>
@@ -801,22 +801,22 @@ const BenchmarksPage: React.FC = () => {
                 <li>
                   <span className="font-semibold text-gray-900">Machine Translation Quality:</span>{' '}
                   Target: BLEU, METEOR, chrF/chrF++ ≥95% accuracy across 15+ languages.{' '}
-                  <span className="font-semibold text-orange-600">NLLB-200 achieves high human-rated adequacy/fluency across 15+ evaluated languages (target band reached).</span>
+                  <span className="font-semibold text-teal-600">NLLB-200 achieves high human-rated adequacy/fluency across 15+ evaluated languages (target band reached).</span>
                 </li>
                 <li>
                   <span className="font-semibold text-gray-900">Language Coverage:</span>{' '}
                   Target: 200+ total languages with 22+ Indic at high quality.{' '}
-                  <span className="font-semibold text-orange-600">NLLB-200 covers 200+ languages and 22+ Indic languages (target met).</span>
+                  <span className="font-semibold text-teal-600">NLLB-200 covers 200+ languages and 22+ Indic languages (target met).</span>
                 </li>
                 <li>
                   <span className="font-semibold text-gray-900">Script Fidelity & Symbols:</span>{' '}
                   Target: low CER/WER and ≥98% symbol accuracy for math and science content.{' '}
-                  <span className="font-semibold text-orange-600">Benchmarks show NLLB-200 preserves technical terms and notation with near-perfect symbol accuracy.</span>
+                  <span className="font-semibold text-teal-600">Benchmarks show NLLB-200 preserves technical terms and notation with near-perfect symbol accuracy.</span>
                 </li>
                 <li>
                   <span className="font-semibold text-gray-900">Offline & CPU Viability:</span>{' '}
                   Target: fully offline CPU deployment within RAM and latency constraints.{' '}
-                  <span className="font-semibold text-orange-600">NLLB-200 (600M) runs on CPU-only systems with ~600 MB model size and ~1.2 GB disk usage (target met).</span>
+                  <span className="font-semibold text-teal-600">NLLB-200 (600M) runs on CPU-only systems with ~600 MB model size and ~1.2 GB disk usage (target met).</span>
                 </li>
               </ul>
             </div>
@@ -828,3 +828,4 @@ const BenchmarksPage: React.FC = () => {
 };
 
 export default BenchmarksPage;
+
