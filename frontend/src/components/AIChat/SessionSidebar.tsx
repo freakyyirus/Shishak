@@ -89,12 +89,12 @@ const SessionSidebar: React.FC<SessionSidebarProps> = ({
   };
 
   return (
-    <div className="w-56 bg-white/80 backdrop-blur-md border-r-2 border-orange-100 h-full flex flex-col">
+    <div className="w-56 bg-white/80 backdrop-blur-md border-r-2 border-teal-100 h-full flex flex-col">
       {/* Header */}
-      <div className="p-3 border-b-2 border-orange-100">
+      <div className="p-3 border-b-2 border-teal-100">
         <button
           onClick={onNewSession}
-          className="w-full bg-gradient-to-r from-orange-400 to-orange-500 text-white px-3 py-2 rounded-lg font-medium hover:from-orange-500 hover:to-orange-600 transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-2 text-sm"
+          className="w-full bg-gradient-to-r from-teal-400 to-teal-500 text-white px-3 py-2 rounded-lg font-medium hover:from-teal-500 hover:to-teal-600 transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-2 text-sm"
         >
           <svg
             className="w-4 h-4"
@@ -145,7 +145,7 @@ const SessionSidebar: React.FC<SessionSidebarProps> = ({
               <div
                 key={session.sessionId}
                 className={`group relative p-2.5 rounded-lg cursor-pointer transition-all duration-200 ${currentSessionId === session.sessionId
-                  ? "bg-orange-50 border-2 border-orange-300"
+                  ? "bg-teal-50 border-2 border-teal-300"
                   : "hover:bg-gray-50 border-2 border-transparent"
                   }`}
                 onClick={() => onSessionSelect(session.sessionId)}
@@ -170,7 +170,7 @@ const SessionSidebar: React.FC<SessionSidebarProps> = ({
                           }
                         }}
                         onClick={(e) => e.stopPropagation()}
-                        className="w-full text-xs font-semibold text-gray-900 bg-white border-2 border-orange-400 rounded px-1.5 py-0.5 focus:outline-none"
+                        className="w-full text-xs font-semibold text-gray-900 bg-white border-2 border-teal-400 rounded px-1.5 py-0.5 focus:outline-none"
                       />
                     ) : (
                       <p className="text-xs font-semibold text-gray-900 truncate">
@@ -194,7 +194,7 @@ const SessionSidebar: React.FC<SessionSidebarProps> = ({
                             getSessionName(session)
                           )
                         }
-                        className="p-1 hover:bg-orange-100 rounded transition-colors flex-shrink-0"
+                        className="p-1 hover:bg-teal-100 rounded transition-colors flex-shrink-0"
                         title="Rename chat"
                       >
                         <svg
@@ -248,11 +248,11 @@ const SessionSidebar: React.FC<SessionSidebarProps> = ({
       </div>
 
       {/* Footer - Compact */}
-      <div className="p-2 border-t-2 border-orange-100 bg-orange-50/50 space-y-2">
+      <div className="p-2 border-t-2 border-teal-100 bg-teal-50/50 space-y-2">
         <a
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center w-full h-8 text-orange-600 hover:text-orange-700 hover:bg-orange-100 rounded-lg transition-all"
+          className="flex items-center justify-center w-full h-8 text-teal-600 hover:text-teal-700 hover:bg-teal-100 rounded-lg transition-all"
           title="View on GitHub"
         >
           <svg
@@ -265,7 +265,7 @@ const SessionSidebar: React.FC<SessionSidebarProps> = ({
           </svg>
         </a>
         <div className="text-xs text-gray-500 text-center">
-          <p className="font-medium text-orange-600">ShikShak</p>
+          <p className="font-medium text-teal-600">ShikShak</p>
         </div>
       </div>
     </div>
@@ -273,3 +273,4 @@ const SessionSidebar: React.FC<SessionSidebarProps> = ({
 };
 
 export default SessionSidebar;
+
