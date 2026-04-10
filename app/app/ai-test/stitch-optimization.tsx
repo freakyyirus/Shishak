@@ -42,7 +42,7 @@ interface TestResult {
 }
 
 export default function StitchOptimizationTest() {
-    const { generate, isTextModelReady, isLoading } = useAI();
+    const { generate, isTextModelReady } = useAI();
     const [results, setResults] = useState<TestResult[]>([]);
     const [testing, setTesting] = useState(false);
     const [currentTest, setCurrentTest] = useState<string | null>(null);
