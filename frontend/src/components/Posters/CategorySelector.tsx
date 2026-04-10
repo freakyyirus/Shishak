@@ -35,10 +35,10 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
   };
 
   return (
-    <div className="bg-white/80 backdrop-blur-md rounded-2xl p-5 sm:p-6 shadow-xl border-2 border-orange-200/60">
+    <div className="bg-white/80 backdrop-blur-md rounded-2xl p-5 sm:p-6 shadow-xl border-2 border-teal-200/60">
       <div className="flex items-center gap-2 mb-4">
         <svg
-          className="w-4 h-4 sm:w-5 sm:h-5 text-orange-400"
+          className="w-4 h-4 sm:w-5 sm:h-5 text-teal-400"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -58,7 +58,7 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
             key={category.id}
             onClick={() => onSelectCategory(category.id)}
             className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${selectedCategory === category.id
-                ? 'bg-orange-500 text-white shadow-md'
+                ? 'bg-teal-500 text-white shadow-md'
                 : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
           >
@@ -68,7 +68,7 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
         <button
           onClick={() => setShowInput(!showInput)}
           className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${selectedCategory === 'custom'
-              ? 'bg-orange-500 text-white shadow-md'
+              ? 'bg-teal-500 text-white shadow-md'
               : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
             }`}
         >
@@ -84,7 +84,7 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
               value={newCategoryName}
               onChange={(e) => setNewCategoryName(e.target.value)}
               placeholder="New category"
-              className="border border-gray-300 rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+              className="border border-gray-300 rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
                   addCustomCategory();
@@ -95,7 +95,7 @@ const CategorySelector: React.FC<CategorySelectorProps> = ({
             />
             <button
               onClick={addCustomCategory}
-              className="bg-orange-500 text-white rounded-full p-2 hover:bg-orange-600"
+              className="bg-teal-500 text-white rounded-full p-2 hover:bg-teal-600"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
