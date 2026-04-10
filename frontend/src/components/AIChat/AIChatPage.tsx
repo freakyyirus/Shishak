@@ -221,7 +221,7 @@ const AIChatPage: React.FC = () => {
 
 
   return (
-    <div className="flex flex-col overflow-hidden bg-gradient-to-br from-orange-50 via-white to-orange-50/30" style={{ height: '100dvh' }}>
+    <div className="flex flex-col overflow-hidden bg-gradient-to-br from-teal-50 via-white to-teal-50/30" style={{ height: '100dvh' }}>
       {/* Banner at the top - fades on scroll */}
       <Banner isVisible={bannerVisible} />
       {/* Fixed Navbar - Renders the fixed navbar */}
@@ -230,11 +230,11 @@ const AIChatPage: React.FC = () => {
       </div>
 
       {/* Header Section */}
-      <div className="flex-shrink-0 px-4 sm:px-6 md:px-8 py-2 sm:py-3 border-b-2 border-orange-100 bg-white/50 backdrop-blur-sm max-w-[1920px] w-full mx-auto mt-[100px] sm:mt-[104px]">
+      <div className="flex-shrink-0 px-4 sm:px-6 md:px-8 py-2 sm:py-3 border-b-2 border-teal-100 bg-white/50 backdrop-blur-sm max-w-[1920px] w-full mx-auto mt-[100px] sm:mt-[104px]">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold text-gray-800">
-              <span className="text-orange-400">RAG-Powered</span> AI Chat
+              <span className="text-teal-400">RAG-Powered</span> AI Chat
             </h1>
             <p className="text-xs sm:text-sm text-gray-600 mt-0.5">
               Multilingual support • Multi-document RAG • 3-Layer Intelligence
@@ -243,12 +243,12 @@ const AIChatPage: React.FC = () => {
 
           {/* Tabs */}
           <div className="flex items-center gap-3">
-            <div className="flex gap-2 bg-white/80 backdrop-blur-md rounded-lg p-1 border-2 border-orange-100">
+            <div className="flex gap-2 bg-white/80 backdrop-blur-md rounded-lg p-1 border-2 border-teal-100">
               <button
                 onClick={() => setActiveTab("chat")}
                 className={`px-3 sm:px-4 md:px-5 py-1 sm:py-1.5 rounded-md text-xs sm:text-sm font-medium transition-all ${activeTab === "chat"
-                  ? "bg-orange-400 text-white shadow-md"
-                  : "text-gray-600 hover:bg-orange-50"
+                  ? "bg-teal-400 text-white shadow-md"
+                  : "text-gray-600 hover:bg-teal-50"
                   }`}
               >
                 Chat
@@ -256,8 +256,8 @@ const AIChatPage: React.FC = () => {
               <button
                 onClick={() => setActiveTab("resources")}
                 className={`px-3 sm:px-4 md:px-5 py-1 sm:py-1.5 rounded-md text-xs sm:text-sm font-medium transition-all ${activeTab === "resources"
-                  ? "bg-orange-400 text-white shadow-md"
-                  : "text-gray-600 hover:bg-orange-50"
+                  ? "bg-teal-400 text-white shadow-md"
+                  : "text-gray-600 hover:bg-teal-50"
                   }`}
               >
                 Resources
@@ -268,8 +268,8 @@ const AIChatPage: React.FC = () => {
             <button
               onClick={() => setActiveTab("plan")}
               className={`px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all flex items-center gap-1.5 ${activeTab === "plan"
-                ? "bg-orange-500 text-white shadow-md"
-                : "bg-white/80 text-gray-700 border-2 border-orange-200 hover:bg-orange-50 hover:border-orange-300"
+                ? "bg-teal-500 text-white shadow-md"
+                : "bg-white/80 text-gray-700 border-2 border-teal-200 hover:bg-teal-50 hover:border-teal-300"
                 }`}
             >
               <span>📋</span>
@@ -280,7 +280,7 @@ const AIChatPage: React.FC = () => {
           {/* Global Settings Dropdowns (Right Side) */}
           <div className="flex items-center gap-3 ml-4">
             {/* Language Selector */}
-            <div className="flex items-center gap-2 bg-white/80 backdrop-blur-md rounded-lg p-1 border border-orange-200 shadow-sm">
+            <div className="flex items-center gap-2 bg-white/80 backdrop-blur-md rounded-lg p-1 border border-teal-200 shadow-sm">
               <span className="text-xs font-semibold text-gray-500 pl-2">Lang:</span>
               <select
                 value={selectedLanguage}
@@ -295,7 +295,7 @@ const AIChatPage: React.FC = () => {
                     }
                   }
                 }}
-                className="bg-transparent text-xs sm:text-sm font-bold text-orange-600 focus:outline-none cursor-pointer py-1 pr-1 max-w-[100px]"
+                className="bg-transparent text-xs sm:text-sm font-bold text-teal-600 focus:outline-none cursor-pointer py-1 pr-1 max-w-[100px]"
               >
                 {INDIAN_LANGUAGES.map(lang => (
                   <option key={lang.code} value={lang.code}>{lang.name}</option>
@@ -304,7 +304,7 @@ const AIChatPage: React.FC = () => {
             </div>
 
             {/* Grade Selector */}
-            <div className="flex items-center gap-2 bg-white/80 backdrop-blur-md rounded-lg p-1 border border-orange-200 shadow-sm">
+            <div className="flex items-center gap-2 bg-white/80 backdrop-blur-md rounded-lg p-1 border border-teal-200 shadow-sm">
               <span className="text-xs font-semibold text-gray-500 pl-2">Grade:</span>
               <select
                 value={selectedGrade}
@@ -319,7 +319,7 @@ const AIChatPage: React.FC = () => {
                     }
                   }
                 }}
-                className="bg-transparent text-xs sm:text-sm font-bold text-orange-600 focus:outline-none cursor-pointer py-1 pr-1"
+                className="bg-transparent text-xs sm:text-sm font-bold text-teal-600 focus:outline-none cursor-pointer py-1 pr-1"
               >
                 {GRADE_LEVELS.map(g => (
                   <option key={g.value} value={g.value}>{g.label}</option>
@@ -348,7 +348,7 @@ const AIChatPage: React.FC = () => {
         {/* Sidebar Toggle Button */}
         <button
           onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-          className="w-6 bg-white/80 hover:bg-orange-50 border-r-2 border-orange-100 flex items-center justify-center transition-colors"
+          className="w-6 bg-white/80 hover:bg-teal-50 border-r-2 border-teal-100 flex items-center justify-center transition-colors"
           title={sidebarCollapsed ? "Show sidebar" : "Hide sidebar"}
         >
           <svg
@@ -411,7 +411,7 @@ const AIChatPage: React.FC = () => {
                 <p>No active session</p>
                 <button
                   onClick={handleNewSession}
-                  className="mt-4 px-6 py-2 bg-orange-400 text-white rounded-lg hover:bg-orange-500 transition-colors"
+                  className="mt-4 px-6 py-2 bg-teal-400 text-white rounded-lg hover:bg-teal-500 transition-colors"
                 >
                   Start New Chat
                 </button>
@@ -439,3 +439,4 @@ const AIChatPage: React.FC = () => {
 };
 
 export default AIChatPage;
+
