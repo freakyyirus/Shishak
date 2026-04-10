@@ -16,6 +16,7 @@ interface ViewerRouterProps {
 /**
  * Get viewer type from MIME type
  */
+// eslint-disable-next-line react-refresh/only-export-components
 export const getViewerType = (mimeType: string): ViewerType => {
     const mimeMap: Record<string, ViewerType> = {
         'application/pdf': 'pdf',
@@ -44,6 +45,7 @@ export const getViewerType = (mimeType: string): ViewerType => {
 /**
  * Get viewer type from file extension
  */
+// eslint-disable-next-line react-refresh/only-export-components
 export const getViewerTypeFromExtension = (fileName: string): ViewerType => {
     const ext = fileName.split('.').pop()?.toLowerCase();
     const extMap: Record<string, ViewerType> = {
@@ -113,7 +115,7 @@ const ViewerRouter: React.FC<ViewerRouterProps> = ({ url, fileName, fileType, te
                         <a
                             href={url}
                             download={fileName}
-                            className="inline-flex items-center gap-2 px-6 py-2 bg-orange-400 text-white rounded-lg hover:bg-orange-500 transition-colors"
+                            className="inline-flex items-center gap-2 px-6 py-2 bg-teal-400 text-white rounded-lg hover:bg-teal-500 transition-colors"
                         >
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
@@ -127,3 +129,4 @@ const ViewerRouter: React.FC<ViewerRouterProps> = ({ url, fileName, fileType, te
 };
 
 export default ViewerRouter;
+
