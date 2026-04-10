@@ -207,12 +207,12 @@ const PostersPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-orange-50/30">
+    <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-teal-50/30">
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 md:px-8 py-6 sm:py-8">
         {/* Header */}
         <div className="mb-6 sm:mb-8 text-center">
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-800 mb-2 sm:mb-3">
-            <span className="text-orange-400">Posters</span> that Standout
+            <span className="text-teal-400">Posters</span> that Standout
           </h1>
           <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-2xl mx-auto">
             Generate culturally relevant, multilingual educational posters for
@@ -232,10 +232,10 @@ const PostersPage: React.FC = () => {
             />
 
             {/* Language Selector */}
-            <div className="bg-white/80 backdrop-blur-md rounded-2xl p-5 sm:p-6 shadow-xl border-2 border-orange-200/60">
+            <div className="bg-white/80 backdrop-blur-md rounded-2xl p-5 sm:p-6 shadow-xl border-2 border-teal-200/60">
               <div className="flex items-center gap-2 mb-4">
                 <svg
-                  className="w-4 h-4 sm:w-5 sm:h-5 text-orange-400"
+                  className="w-4 h-4 sm:w-5 sm:h-5 text-teal-400"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -254,7 +254,7 @@ const PostersPage: React.FC = () => {
               <select
                 value={selectedLanguage}
                 onChange={(e) => setSelectedLanguage(e.target.value)}
-                className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-200 focus:border-orange-300 bg-white text-gray-900 transition-all"
+                className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-teal-200 focus:border-teal-300 bg-white text-gray-900 transition-all"
               >
                 {languages.map((lang) => (
                   <option key={lang.code} value={lang.name}>
@@ -265,10 +265,10 @@ const PostersPage: React.FC = () => {
             </div>
 
             {/* Settings */}
-            <div className="bg-white/80 backdrop-blur-md rounded-2xl p-5 sm:p-6 shadow-xl border-2 border-orange-200/60">
+            <div className="bg-white/80 backdrop-blur-md rounded-2xl p-5 sm:p-6 shadow-xl border-2 border-teal-200/60">
               <div className="flex items-center gap-2 mb-4">
                 <svg
-                  className="w-4 h-4 sm:w-5 sm:h-5 text-orange-400"
+                  className="w-4 h-4 sm:w-5 sm:h-5 text-teal-400"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -320,7 +320,7 @@ const PostersPage: React.FC = () => {
                 <select
                   value={aspectRatio}
                   onChange={(e) => setAspectRatio(e.target.value as any)}
-                  className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-200 focus:border-orange-300 bg-white text-gray-900 transition-all"
+                  className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-teal-200 focus:border-teal-300 bg-white text-gray-900 transition-all"
                 >
                   <option value="1:1">Square (1:1)</option>
                   <option value="16:9">Landscape (16:9)</option>
@@ -401,3 +401,4 @@ const PostersPage: React.FC = () => {
 };
 
 export default PostersPage;
+
