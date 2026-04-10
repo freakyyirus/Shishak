@@ -3,8 +3,8 @@ import { ollamaService } from "../services/ollama.service";
 import { languageService } from "../services/language.service";
 import { nllbService } from "../services/nllb.service";
 import { stitchService } from "../services/stitch.service";
-import { groqStitchService } from "../services/groqStitch.service";
-import { groqTranslationService } from "../services/groqTranslation.service";
+import { geminiStitchService } from "../services/geminiStitch.service";
+import { geminiTranslationService } from "../services/geminiTranslation.service";
 import { env } from "../config/env";
 
 export class StitchController {
@@ -115,8 +115,8 @@ export class StitchController {
 
         try {
           // Route to appropriate service based on mode
-          const streamGenerator = generationMode === "cloud"
-            ? groqStitchService.generateStream(prompt, { temperature: 0.7, maxTokens: 4096 })
+            const streamGenerator = generationMode === "cloud"
+              ? geminiStitchService.generateStream(prompt, { temperature: 0.7, maxTokens: 4096 })
             : ollamaService.generateStream(prompt, { temperature: 0.7 });
 
           for await (const chunk of streamGenerator) {
@@ -146,7 +146,7 @@ export class StitchController {
 
       // Non-streaming: Generate plain text content
       const content = generationMode === "cloud"
-        ? await groqStitchService.generateTextContent(prompt, { temperature: 0.7, maxTokens: 4096 })
+        ? await geminiStitchService.generateTextContent(prompt, { temperature: 0.7, maxTokens: 4096 })
         : await ollamaService.generateTextContent(prompt, { temperature: 0.7, maxTokens: 4096 });
 
       res.json({
@@ -331,7 +331,7 @@ export class StitchController {
       // Non-streaming: route to appropriate service
       let translated: string;
       if (translationMode === "cloud") {
-        translated = await groqTranslationService.translate(
+        translated = await geminiTranslationService.translate(
           text,
           sourceLanguage || "en",
           targetLanguage || "hi"
@@ -426,7 +426,7 @@ Generate the refined content now, maintaining perfect markdown formatting.`;
 
         try {
           const streamGenerator = generationMode === "cloud"
-            ? groqStitchService.generateStream(prompt, { temperature: 0.7, maxTokens: 4096 })
+            ? geminiStitchService.generateStream(prompt, { temperature: 0.7, maxTokens: 4096 })
             : ollamaService.generateStream(prompt, { temperature: 0.7 });
 
           for await (const chunk of streamGenerator) {
@@ -453,7 +453,7 @@ Generate the refined content now, maintaining perfect markdown formatting.`;
 
       // Non-streaming
       const refinedContent = generationMode === "cloud"
-        ? await groqStitchService.generateTextContent(prompt, { temperature: 0.7, maxTokens: 4096 })
+        ? await geminiStitchService.generateTextContent(prompt, { temperature: 0.7, maxTokens: 4096 })
         : await ollamaService.generateTextContent(prompt, { temperature: 0.7, maxTokens: 4096 });
 
       res.json({
@@ -474,24 +474,28 @@ Generate the refined content now, maintaining perfect markdown formatting.`;
   }
 
   /**
-   * Check Groq API connection status
+   * Check Gemini API connection status
    */
-  async checkGroqStatus(req: Request, res: Response): Promise<void> {
+  async checkGeminiStatus(req: Request, res: Response): Promise<void> {
     try {
-      const isConnected = await groqStitchService.checkConnection();
+      const isConnected = await geminiStitchService.checkConnection();
       res.json({
         success: true,
         connected: isConnected,
         message: isConnected
-          ? "Groq API (Kimi K2) is connected and ready"
-          : "Groq API is not available. Check GROQ_API_KEY environment variable.",
+          ? "Gemini API (2.5 Flash) is connected and ready"
+          : "Gemini API is currently rate limited or unavailable. System will fall back to offline mode automatically.",
       });
-    } catch (error) {
-      console.error("Groq status check error:", error);
+    } catch (error: any) {
+      console.error("Gemini status check error:", error);
+      const isRateLimited = error.message?.includes("429") || error.status === 429;
       res.json({
-        success: false,
+        success: isRateLimited, // Partial success if just rate limited
         connected: false,
-        message: error instanceof Error ? error.message : "Groq service unavailable",
+        limited: isRateLimited,
+        message: isRateLimited 
+          ? "Gemini Rate Limit Exceeded (Free Tier). Using Offline Fallback."
+          : (error instanceof Error ? error.message : "Gemini service unavailable"),
       });
     }
   }
@@ -619,7 +623,7 @@ CRITICAL LENGTH REQUIREMENT: OPTIMAL CONTENT (400-500 words)
 
     // Mode-specific instructions
     const modeSpecificInstructions = params.mode === "cloud" ? `
-CRITICAL: KIMI K2 MODEL CAPABILITIES (CLOUD MODE)
+CRITICAL: GEMINI 2.5 FLASH MODEL CAPABILITIES (CLOUD MODE)
 - You have FULL CAPABILITY to include complex mathematical equations, expressions, and scientific notation
 - FREELY use mathematical symbols, operators, and expressions when appropriate:
   * Powers: x², x³, xⁿ (or x^2, x^3, x^n)
@@ -632,7 +636,7 @@ CRITICAL: KIMI K2 MODEL CAPABILITIES (CLOUD MODE)
 - For complex equations, you can use LaTeX-style notation if needed: $E = mc^2$, $\\frac{a}{b}$, $\\sqrt{x}$
 - Include chemical formulas with proper subscripts: H₂SO₄, NaCl, C₆H₁₂O₆
 - Use proper mathematical notation for formulas: F = ma, E = mc², PV = nRT
-- Don't hesitate to include equations, formulas, and mathematical expressions - Kimi handles them excellently
+- Don't hesitate to include equations, formulas, and mathematical expressions - Gemini handles them excellently
 - For science topics, include proper chemical equations and balanced reactions
 - Use proper units and scientific notation: 6.022 × 10²³, 3.0 × 10⁸ m/s
 - Include diagrams descriptions with mathematical relationships
