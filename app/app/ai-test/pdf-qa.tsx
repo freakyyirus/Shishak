@@ -1,4 +1,4 @@
-import PDFExtractor from '@/components/PDFExtractor';
+import { PDFExtractor } from '@/components/PDFExtractor';
 import { useAI } from '@/hooks/useAI';
 import CameraOCRService from '@/services/ai/CameraOCRService';
 import { PDFJSExtractionResult, readPDFAsBase64 } from '@/services/ai/PDFJSExtractorService';
@@ -19,7 +19,7 @@ interface Message {
 }
 
 export default function PDFQAScreen() {
-    const { processDocument, askQuestion, isLoading, isTextModelReady } = useAI();
+    const { askQuestion, isLoading, isTextModelReady } = useAI();
     const [activeDoc, setActiveDoc] = useState<PDFDocument | null>(null);
     const [messages, setMessages] = useState<Message[]>([]);
     const [inputText, setInputText] = useState('');
