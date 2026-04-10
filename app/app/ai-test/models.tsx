@@ -8,8 +8,8 @@ import { Stack } from 'expo-router';
 import React, { useCallback, useEffect, useState } from 'react';
 import { ActivityIndicator, Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-// Direct download URL
-const MODEL_URL = 'https://huggingface.co/google/gemma-3-1b-it-qat-q4_0-gguf/resolve/main/gemma-3-1b-it-q4_0.gguf';
+// Direct download URL - used for reference
+// const MODEL_URL = 'https://huggingface.co/google/gemma-3-1b-it-qat-q4_0-gguf/resolve/main/gemma-3-1b-it-q4_0.gguf';
 
 export default function ModelManagerScreen() {
     const [downloader] = useState(() => ModelDownloader.getInstance());
@@ -135,7 +135,7 @@ export default function ModelManagerScreen() {
                             found = true;
                             importedCount++;
                         }
-                    } catch (e) { }
+                    } catch { }
                 }
             }
 
@@ -343,7 +343,7 @@ export default function ModelManagerScreen() {
                 <View style={styles.storageInfo}>
                     <Ionicons name="information-circle-outline" size={18} color="#6b7280" />
                     <Text style={styles.storageText}>
-                        Models are stored in app's private storage. Safe to clean "Downloads" folder after import.
+                        Models are stored in app&apos;s private storage. Safe to clean &quot;Downloads&quot; folder after import.
                     </Text>
                 </View>
 
