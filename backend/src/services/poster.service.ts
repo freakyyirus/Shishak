@@ -323,7 +323,9 @@ Return ONLY valid JSON:
           if (isPending || isRunning) {
             throw new Error(`ComfyUI generation is still ${isRunning ? 'running' : 'pending'} after ${MAX_ATTEMPTS} seconds. Increase timeout.`);
           }
-        } catch (e) { }
+        } catch (queueError) {
+          console.warn("Failed to check queue status:", queueError);
+        }
 
         throw new Error("ComfyUI generation timed out or failed to produce output. No history found.");
       }
