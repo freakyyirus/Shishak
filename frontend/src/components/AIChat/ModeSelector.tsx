@@ -27,11 +27,11 @@ const ModeSelector: React.FC<ModeSelectorProps> = ({ currentMode, setCurrentMode
   ];
 
   return (
-    <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 mb-6 border border-orange-200 shadow-sm relative overflow-hidden">
+    <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 mb-6 border border-teal-200 shadow-sm relative overflow-hidden">
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCI+CiAgPHBhdGggZD0iTTEgMUg1VjVINFYxWk0xIDEwSDNWMTJIMVoiIGZpbGw9InJnYmEoMjU1LCAxMDIsIDUzLCAwLjA1KS8+CiAgPHBhdGggZD0iTTEwIDFIODJWMkgxMFoiIGZpbGw9InJnYmEoMjU1LCAxMDIsIDUzLCAwLjA1KS8+CiAgPHBhdGggZD0iTTEwIDEwSDgyVjEySDEwWiIgZmlsbD0icmdiYSgyNTUsIDEwMiwgNTMsIDAuMDUpLy4KPC9zdmc+')] opacity-30 -rotate-12"></div>
       <div className="relative z-10">
-        <h2 className="text-lg font-bold text-orange-800 mb-4 flex items-center gap-2">
-          <svg className="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <h2 className="text-lg font-bold text-teal-800 mb-4 flex items-center gap-2">
+          <svg className="w-5 h-5 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
           </svg>
           Learning Mode
@@ -43,15 +43,15 @@ const ModeSelector: React.FC<ModeSelectorProps> = ({ currentMode, setCurrentMode
               onClick={() => setCurrentMode(mode.id)}
               className={`px-5 py-2.5 rounded-full capitalize transition-all transform hover:scale-105 ${
                 currentMode === mode.id
-                  ? 'bg-gradient-to-r from-orange-400 to-orange-500 text-white shadow-lg'
-                  : 'bg-white text-orange-700 border border-orange-200 hover:bg-orange-50'
+                  ? 'bg-gradient-to-r from-teal-400 to-teal-500 text-white shadow-lg'
+                  : 'bg-white text-teal-700 border border-teal-200 hover:bg-teal-50'
               }`}
             >
               <div className="flex items-center gap-2">
                 <div className={`w-6 h-6 rounded-full flex items-center justify-center ${
                   currentMode === mode.id
                     ? 'bg-white/20'
-                    : 'bg-orange-100'
+                    : 'bg-teal-100'
                 }`}>
                   {mode.id === 'study' && (
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -75,8 +75,8 @@ const ModeSelector: React.FC<ModeSelectorProps> = ({ currentMode, setCurrentMode
           ))}
         </div>
         
-        <div className="mt-4 p-3 bg-orange-50 rounded-lg border border-orange-200">
-          <p className="text-orange-700 text-sm">
+        <div className="mt-4 p-3 bg-teal-50 rounded-lg border border-teal-200">
+          <p className="text-teal-700 text-sm">
             {modes.find(m => m.id === currentMode)?.description}
           </p>
         </div>
