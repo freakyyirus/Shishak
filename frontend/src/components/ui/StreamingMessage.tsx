@@ -31,7 +31,7 @@ const StreamingMessage: React.FC<StreamingMessageProps> = ({
 
   return (
     <div className="flex justify-start">
-      <div className="max-w-[85%] rounded-2xl p-4 shadow-md bg-white text-gray-800 rounded-bl-sm border-2 border-orange-100">
+      <div className="max-w-[85%] rounded-2xl p-4 shadow-md bg-white text-gray-800 rounded-bl-sm border-2 border-teal-100">
         {/* Message Content */}
         <div className="max-w-none">
           {content ? (
@@ -39,22 +39,22 @@ const StreamingMessage: React.FC<StreamingMessageProps> = ({
               <MarkdownRenderer content={content} />
               {/* Typing cursor animation */}
               {isStreaming && (
-                <span className="inline-block w-2 h-4 bg-orange-400 ml-0.5 animate-pulse rounded-sm" />
+                <span className="inline-block w-2 h-4 bg-teal-400 ml-0.5 animate-pulse rounded-sm" />
               )}
             </div>
           ) : isStreaming ? (
             <div className="flex items-center gap-2 text-gray-500">
               <div className="flex gap-1">
                 <div
-                  className="w-2 h-2 bg-orange-400 rounded-full animate-bounce"
+                  className="w-2 h-2 bg-teal-400 rounded-full animate-bounce"
                   style={{ animationDelay: "0ms" }}
                 />
                 <div
-                  className="w-2 h-2 bg-orange-400 rounded-full animate-bounce"
+                  className="w-2 h-2 bg-teal-400 rounded-full animate-bounce"
                   style={{ animationDelay: "150ms" }}
                 />
                 <div
-                  className="w-2 h-2 bg-orange-400 rounded-full animate-bounce"
+                  className="w-2 h-2 bg-teal-400 rounded-full animate-bounce"
                   style={{ animationDelay: "300ms" }}
                 />
               </div>
@@ -94,13 +94,13 @@ const StreamingMessage: React.FC<StreamingMessageProps> = ({
                 {[...sources].reverse().map((source, idx) => (
                   <div
                     key={idx}
-                    className="bg-orange-50 rounded-lg p-3 border border-orange-200"
+                    className="bg-teal-50 rounded-lg p-3 border border-teal-200"
                   >
                     <div className="flex items-center gap-2 mb-1.5">
-                      <span className="text-xs font-semibold text-orange-700">
+                      <span className="text-xs font-semibold text-teal-700">
                         {source.pdfName}
                       </span>
-                      <span className="text-xs text-orange-500">
+                      <span className="text-xs text-teal-500">
                         • Page {source.pageNo}
                       </span>
                     </div>
@@ -119,3 +119,4 @@ const StreamingMessage: React.FC<StreamingMessageProps> = ({
 };
 
 export default StreamingMessage;
+
