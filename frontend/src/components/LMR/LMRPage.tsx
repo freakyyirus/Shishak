@@ -402,12 +402,12 @@ const LMRPage: React.FC = () => {
   const hasContent = uploadedFile && !isProcessing;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-orange-50/30">
+    <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-teal-50/30">
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 md:px-8 py-6 sm:py-8">
         {/* Header */}
         <div className="mb-6 sm:mb-8 text-center">
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-800 mb-2 sm:mb-3">
-            <span className="text-orange-400">LMR</span> for Revisions
+            <span className="text-teal-400">LMR</span> for Revisions
           </h1>
           <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-2xl mx-auto">
             AI-powered quick revision notes and questions for last-minute exam
@@ -459,7 +459,7 @@ const LMRPage: React.FC = () => {
         <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 items-stretch">
           {/* Sidebar */}
           <aside className="lg:w-80 xl:w-96 flex-shrink-0">
-            <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-xl border-2 border-orange-200/60 p-5 sm:p-6 sticky top-24 space-y-6">
+            <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-xl border-2 border-teal-200/60 p-5 sm:p-6 sticky top-24 space-y-6">
               {/* History */}
               <LMRHistoryComponent
                 key={historyRefreshKey}
@@ -474,7 +474,7 @@ const LMRPage: React.FC = () => {
               >
                 <div className="flex items-center gap-2 mb-3">
                   <svg
-                    className="w-4 h-4 text-orange-400"
+                    className="w-4 h-4 text-teal-400"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -493,8 +493,8 @@ const LMRPage: React.FC = () => {
                 <div
                   className={`border-2 border-dashed rounded-xl p-5 sm:p-6 text-center transition-all ${
                     uploadedFile
-                      ? "border-orange-400 bg-orange-50"
-                      : "border-orange-200 hover:border-orange-400 hover:bg-orange-50"
+                      ? "border-teal-400 bg-teal-50"
+                      : "border-teal-200 hover:border-teal-400 hover:bg-teal-50"
                   } ${
                     hasContent
                       ? "opacity-50 cursor-not-allowed"
@@ -508,7 +508,7 @@ const LMRPage: React.FC = () => {
                   {!uploadedFile ? (
                     <>
                       <svg
-                        className="w-12 h-12 sm:w-14 sm:h-14 text-orange-400 mx-auto mb-3"
+                        className="w-12 h-12 sm:w-14 sm:h-14 text-teal-400 mx-auto mb-3"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -530,7 +530,7 @@ const LMRPage: React.FC = () => {
                   ) : (
                     <>
                       <svg
-                        className="w-12 h-12 sm:w-14 sm:h-14 text-orange-500 mx-auto mb-3"
+                        className="w-12 h-12 sm:w-14 sm:h-14 text-teal-500 mx-auto mb-3"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -545,7 +545,7 @@ const LMRPage: React.FC = () => {
                       <p className="text-sm text-gray-800 font-medium break-words mb-1">
                         {uploadedFile.name}
                       </p>
-                      <p className="text-xs text-orange-600 font-medium">
+                      <p className="text-xs text-teal-600 font-medium">
                         Uploaded successfully
                       </p>
                     </>
@@ -553,10 +553,10 @@ const LMRPage: React.FC = () => {
 
                   {isProcessing && (
                     <div className="mt-4">
-                      <div className="w-full bg-orange-200 rounded-full h-2.5">
-                        <div className="bg-orange-500 h-full rounded-full animate-pulse w-3/4 transition-all"></div>
+                      <div className="w-full bg-teal-200 rounded-full h-2.5">
+                        <div className="bg-teal-500 h-full rounded-full animate-pulse w-3/4 transition-all"></div>
                       </div>
-                      <p className="text-xs text-orange-600 mt-2 font-medium">
+                      <p className="text-xs text-teal-600 mt-2 font-medium">
                         Processing document...
                       </p>
                     </div>
@@ -576,7 +576,7 @@ const LMRPage: React.FC = () => {
               <div>
                 <label className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-gray-800 mb-2.5">
                   <svg
-                    className="w-4 h-4 text-orange-400"
+                    className="w-4 h-4 text-teal-400"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -590,13 +590,13 @@ const LMRPage: React.FC = () => {
                   </svg>
                   Language{" "}
                   {hasContent && (
-                    <span className="text-xs text-orange-500">(Translate)</span>
+                    <span className="text-xs text-teal-500">(Translate)</span>
                   )}
                 </label>
                 <select
                   value={selectedLanguage}
                   onChange={(e) => setSelectedLanguage(e.target.value)}
-                  className="w-full px-3 py-2.5 bg-white border-2 border-orange-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent text-gray-700 transition-all"
+                  className="w-full px-3 py-2.5 bg-white border-2 border-teal-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-transparent text-gray-700 transition-all"
                 >
                   {languages.map((lang) => (
                     <option key={lang.value} value={lang.value}>
@@ -609,7 +609,7 @@ const LMRPage: React.FC = () => {
                   <button
                     onClick={handleTranslate}
                     disabled={isTranslating}
-                    className="mt-2 w-full px-3 py-2 bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium rounded-lg transition-all disabled:opacity-50 disabled:cursor-wait flex items-center justify-center gap-2"
+                    className="mt-2 w-full px-3 py-2 bg-teal-500 hover:bg-teal-600 text-white text-sm font-medium rounded-lg transition-all disabled:opacity-50 disabled:cursor-wait flex items-center justify-center gap-2"
                   >
                     {isTranslating ? (
                       <>
@@ -674,7 +674,7 @@ const LMRPage: React.FC = () => {
               <div>
                 <label className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-gray-800 mb-2.5">
                   <svg
-                    className="w-4 h-4 text-orange-400"
+                    className="w-4 h-4 text-teal-400"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -692,7 +692,7 @@ const LMRPage: React.FC = () => {
                   value={selectedTone}
                   onChange={(e) => setSelectedTone(e.target.value)}
                   disabled={hasContent}
-                  className="w-full px-3 py-2.5 bg-white border-2 border-orange-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent text-gray-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full px-3 py-2.5 bg-white border-2 border-teal-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-transparent text-gray-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {tones.map((tone) => (
                     <option key={tone.value} value={tone.value}>
@@ -707,7 +707,7 @@ const LMRPage: React.FC = () => {
 
               {/* Status */}
               {hasContent && (
-                <div className="bg-orange-50 border-2 border-orange-200 rounded-lg p-3.5">
+                <div className="bg-teal-50 border-2 border-teal-200 rounded-lg p-3.5">
                   <div className="flex items-center gap-2.5">
                     <div className="w-2.5 h-2.5 bg-green-500 rounded-full animate-pulse"></div>
                     <div className="flex-1">
@@ -730,9 +730,9 @@ const LMRPage: React.FC = () => {
 
           {/* Main Content */}
           <main className="flex-1 min-w-0 flex flex-col">
-            <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-xl border-2 border-orange-200/60 overflow-hidden flex-1 flex flex-col">
+            <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-xl border-2 border-teal-200/60 overflow-hidden flex-1 flex flex-col">
               {/* Navigation */}
-              <div className="bg-orange-100 border-b-2 border-orange-200 p-3 sm:p-4 md:p-5">
+              <div className="bg-teal-100 border-b-2 border-teal-200 p-3 sm:p-4 md:p-5">
                 <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 md:gap-3">
                   {views.map((view) => {
                     const isDisabled = !hasContent;
@@ -747,8 +747,8 @@ const LMRPage: React.FC = () => {
                           isDisabled
                             ? "bg-gray-100 text-gray-400 border-2 border-gray-200 cursor-not-allowed"
                             : activeView === view.id
-                            ? "bg-orange-400 text-white hover:bg-orange-500 shadow-lg hover:scale-105"
-                            : "bg-white text-orange-600 border-2 border-orange-200 hover:bg-orange-50 hover:border-orange-300 hover:scale-105"
+                            ? "bg-teal-400 text-white hover:bg-teal-500 shadow-lg hover:scale-105"
+                            : "bg-white text-teal-600 border-2 border-teal-200 hover:bg-teal-50 hover:border-teal-300 hover:scale-105"
                         }`}
                       >
                         {view.icon}
@@ -763,9 +763,9 @@ const LMRPage: React.FC = () => {
               <div className="p-6 sm:p-8 md:p-10 min-h-[500px]">
                 {!hasContent ? (
                   <div className="text-center py-16 sm:py-20">
-                    <div className="w-20 h-20 sm:w-24 sm:h-24 mx-auto mb-6 rounded-full bg-orange-100 flex items-center justify-center">
+                    <div className="w-20 h-20 sm:w-24 sm:h-24 mx-auto mb-6 rounded-full bg-teal-100 flex items-center justify-center">
                       <svg
-                        className="w-10 h-10 sm:w-12 sm:h-12 text-orange-400"
+                        className="w-10 h-10 sm:w-12 sm:h-12 text-teal-400"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -779,7 +779,7 @@ const LMRPage: React.FC = () => {
                       </svg>
                     </div>
                     <h3 className="text-xl sm:text-2xl md:text-3xl font-semibold text-gray-800 mb-3">
-                      <span className="text-orange-400">Upload Document</span>{" "}
+                      <span className="text-teal-400">Upload Document</span>{" "}
                       to Get Started
                     </h3>
                     <p className="text-sm sm:text-base text-gray-600 max-w-md mx-auto">
@@ -814,7 +814,7 @@ const LMRPage: React.FC = () => {
                       <div className="text-center py-12">
                         <div className="mb-6">
                           <svg
-                            className="w-20 h-20 mx-auto text-orange-400 mb-4"
+                            className="w-20 h-20 mx-auto text-teal-400 mb-4"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -837,7 +837,7 @@ const LMRPage: React.FC = () => {
                         <button
                           onClick={handleDownloadPDF}
                           disabled={downloadingPDF}
-                          className="px-8 py-4 bg-orange-500 hover:bg-orange-600 text-white rounded-xl transition-all shadow-lg hover:shadow-xl transform hover:scale-105 font-semibold text-lg flex items-center gap-3 mx-auto disabled:opacity-50 disabled:cursor-not-allowed"
+                          className="px-8 py-4 bg-teal-500 hover:bg-teal-600 text-white rounded-xl transition-all shadow-lg hover:shadow-xl transform hover:scale-105 font-semibold text-lg flex items-center gap-3 mx-auto disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                           {downloadingPDF ? (
                             <>
@@ -895,3 +895,4 @@ const LMRPage: React.FC = () => {
 };
 
 export default LMRPage;
+
