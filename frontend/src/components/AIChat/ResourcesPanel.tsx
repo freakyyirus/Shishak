@@ -94,8 +94,8 @@ const ResourcesPanel: React.FC<ResourcesPanelProps> = ({
 
   if (isLoading) {
     return (
-      <div className="h-full flex flex-col bg-gradient-to-b from-white to-orange-50/30">
-        <div className="p-6 border-b-2 border-orange-100 bg-white/50">
+      <div className="h-full flex flex-col bg-gradient-to-b from-white to-teal-50/30">
+        <div className="p-6 border-b-2 border-teal-100 bg-white/50">
           <h2 className="text-2xl font-semibold text-gray-800 mb-2">
             Session Resources
           </h2>
@@ -116,7 +116,7 @@ const ResourcesPanel: React.FC<ResourcesPanelProps> = ({
 
   if (error) {
     return (
-      <div className="h-full flex items-center justify-center bg-gradient-to-b from-white to-orange-50/30">
+      <div className="h-full flex items-center justify-center bg-gradient-to-b from-white to-teal-50/30">
         <div className="text-center">
           <svg
             className="w-16 h-16 mx-auto mb-4 text-red-400"
@@ -134,7 +134,7 @@ const ResourcesPanel: React.FC<ResourcesPanelProps> = ({
           <p className="text-red-600 font-medium">{error}</p>
           <button
             onClick={loadFiles}
-            className="mt-4 px-4 py-2 bg-orange-400 text-white rounded-lg hover:bg-orange-500 transition-colors"
+            className="mt-4 px-4 py-2 bg-teal-400 text-white rounded-lg hover:bg-teal-500 transition-colors"
           >
             Retry
           </button>
@@ -144,9 +144,9 @@ const ResourcesPanel: React.FC<ResourcesPanelProps> = ({
   }
 
   return (
-    <div className="h-full flex flex-col bg-gradient-to-b from-white to-orange-50/30 overflow-hidden">
+    <div className="h-full flex flex-col bg-gradient-to-b from-white to-teal-50/30 overflow-hidden">
       {/* Header */}
-      <div className="p-6 border-b-2 border-orange-100 bg-white/50">
+      <div className="p-6 border-b-2 border-teal-100 bg-white/50">
         <h2 className="text-2xl font-semibold text-gray-800 mb-2">
           Session Resources
         </h2>
@@ -182,7 +182,7 @@ const ResourcesPanel: React.FC<ResourcesPanelProps> = ({
             {files.map((file) => (
               <div
                 key={file.fileId}
-                className="bg-white/80 backdrop-blur-md rounded-xl p-4 border-2 border-orange-100 hover:border-orange-300 hover:shadow-lg transition-all duration-200"
+                className="bg-white/80 backdrop-blur-md rounded-xl p-4 border-2 border-teal-100 hover:border-teal-300 hover:shadow-lg transition-all duration-200"
               >
                 {/* File Icon & Name */}
                 <div className="flex items-start gap-3 mb-3">
@@ -251,7 +251,7 @@ const ResourcesPanel: React.FC<ResourcesPanelProps> = ({
                 <div className="flex gap-2">
                   {/* View Button */}
                   <button
-                    className="flex-1 px-3 py-2 rounded-lg transition-colors text-sm font-medium border flex items-center justify-center bg-orange-50 text-orange-600 hover:bg-orange-100 border-orange-200"
+                    className="flex-1 px-3 py-2 rounded-lg transition-colors text-sm font-medium border flex items-center justify-center bg-teal-50 text-teal-600 hover:bg-teal-100 border-teal-200"
                     onClick={() => handlePreviewClick(file)}
                     title="Preview file"
                   >
@@ -316,7 +316,7 @@ const ResourcesPanel: React.FC<ResourcesPanelProps> = ({
 
       {/* Footer Stats */}
       {files.length > 0 && (
-        <div className="p-4 border-t-2 border-orange-100 bg-orange-50/50">
+        <div className="p-4 border-t-2 border-teal-100 bg-teal-50/50">
           <div className="flex items-center justify-between text-sm">
             <span className="text-gray-600">
               {files.length} {files.length === 1 ? "document" : "documents"}{" "}
@@ -359,3 +359,4 @@ const ResourcesPanel: React.FC<ResourcesPanelProps> = ({
 };
 
 export default ResourcesPanel;
+
